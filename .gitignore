@@ -1,3 +1,4 @@
+.DS_Store
 *.fdb_latexmk
 *.aux
 *.bbl
@@ -6,5 +7,6 @@
 *.log
 *.pdf
 *.out
+*.sw?
 *.toc
 literature
