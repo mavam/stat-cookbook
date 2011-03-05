@@ -111,6 +111,22 @@ plot.lognormal = function()
   dev.print(pdf, "figs/lognormal.pdf")
 }
 
+plot.student = function()
+{
+  nu = c(1,2,5,Inf)
+  xseq = seq(-5,5, by=0.01)
+  f = function(x) dt(xseq, x)
+  matplot(xseq, sapply(nu, f), type="l", 
+      main=expression("Student\'s" ~ italic(t)), xlab="x", ylab="PDF")
+
+  n = length(nu)
+  s = function(k) substitute(nu==i, list(i=nu[k]))
+  s.last = substitute(nu==infinity)
+  legend.labels = do.call("expression", c(lapply(1:(n-1), s), s.last))
+  legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
+  dev.print(pdf, "figs/student.pdf")
+}
+
 plot.chisquare = function()
 {
   k = 1:5
@@ -124,6 +140,21 @@ plot.chisquare = function()
   legend.labels = do.call("expression", lapply(1:n, s))
   legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
   dev.print(pdf, "figs/chisquare.pdf")
+}
+
+plot.f = function()
+{
+  d1 = c(1,2,5,100,100)
+  d2 = c(1,1,2,1,100)
+  xseq = seq(0,5, by=0.01)
+  f = function(x,y) df(xseq, x, y)
+  matplot(xseq, mapply(f, d1, d2), type="l", main="F", xlab="x", ylab="PDF")
+
+  n = length(d1)
+  s = function(k) substitute(list(d[1]==i, d[2]==j), list(i=d1[k], j=d2[k]))
+  legend.labels = do.call("expression", lapply(1:n, s))
+  legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
+  dev.print(pdf, "figs/f.pdf")
 }
 
 plot.exp = function()
@@ -249,7 +280,9 @@ plot.geometric()
 plot.poisson()
 plot.normal()
 plot.lognormal()
+plot.student()
 plot.chisquare()
+plot.f()
 plot.exp()
 plot.gamma()
 plot.invgamma()
