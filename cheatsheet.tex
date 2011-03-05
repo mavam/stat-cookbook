@@ -11,6 +11,7 @@
 
 \usepackage{array}
 \usepackage{amsmath,amssymb}
+\usepackage{booktabs}
 \usepackage{caption}
 \usepackage{environ}
 \usepackage{float}
@@ -109,48 +110,48 @@
 \subsection{Discrete Distributions}
 
 \begin{center}
-\begin{tabular}{|l*5{|>{\begin{math}\displaystyle}c<{\end{math}}}|}
-  \hline &&&&& \\[-2ex]
-  & F_X(x) & f_X(x) & \E{X} & \V{X} & M_X(s) \\[1ex]
+\small
+\begin{tabular}{l*6{>{\begin{math}\displaystyle}c<{\end{math}}}}
+  \toprule &&&&&& \\[-2ex]
+  & \text{Notation} & F_X(x) & f_X(x) & \E{X} & \V{X} & M_X(s) \\[1ex]
 
-  \hline
-  \hline
+  \midrule
 
-  Uniform$\{a,\ldots,b\}$ & \punifd & \dunifd & 
+  Uniform & \unifd & \punifd & \dunifd & 
   \frac{a+b}{2} & \frac{(b-a+1)^2-1}{12} &
   \frac{e^{as}-e^{-(b+1)s}}{s(b-a)} \\[3ex]
 
-  Bernoulli($p$) & \pbern & \dbern &
+  Bernoulli & \bern & \pbern & \dbern &
   p & p(1-p) & 
   1-p+pe^s \\[3ex]
 
-  Binomial($n,p$) & I_{1-p}(n-x,x+1) & \dbin &
+  Binomial & \bin & I_{1-p}(n-x,x+1) & \dbin &
   np & np(1-p) &
   (1-p+pe^s)^n \\[3ex]
 
-  Multinomial($n,p$) & & \dmult \quad \sum_{i=1}^k x_i = n&
+  Multinomial & \mult & & \dmult \quad \sum_{i=1}^k x_i = n&
   np_i & np_i(1-p_i) &
   \left( \sum_{i=0}^k p_i e^{s_i} \right)^n \\[3ex]
 
-  Hypergeometric($N,m,n$) & 
+  Hypergeometric & \hyper & 
   \approx \Phi\left(\displaystyle\frac{x-np}{\sqrt{np(1-p)}}\right) &
   \dhyper & 
   \frac{nm}{N} & \frac{nm(N-n)(N-m)}{N^2(N-1)} &
   N/A\\[3ex]
 
-  Negative Binomial($r,p$) & \pnbin & \dnbin &
+  Negative Binomial & \nbin & \pnbin & \dnbin &
   r\frac{1-p}{p} & r\frac{1-p}{p^2} &
   \left(\frac{p}{1-(1-p)e^s}\right)^r \\[3ex]
 
-  Geometric($p$) & \pgeo \quad x\in\mathbb N^+ & \dgeo \quad x\in\mathbb N^+ &
+  Geometric & \geo & \pgeo \quad x\in\mathbb N^+ & \dgeo \quad x\in\mathbb N^+ &
   \frac{1}{p} & \frac{1-p}{p^2} &
   \frac{p}{1-(1-p)e^s} \\[3ex]
 
-  Poisson($\lambda$) & \ppois & \dpois &
+  Poisson & \pois & \ppois & \dpois &
   \lambda & \lambda &
   e^{\lambda(e^s-1)}\\[3ex]
 
-  \hline
+  \bottomrule
 \end{tabular}
 \begin{figure}[H]
   \includegraphics[scale=0.35]{figs/uniform-discrete.pdf}
@@ -166,79 +167,80 @@
 \subsection{Continuous Distributions}
 
 \begin{center}
-\begin{tabular}{|l*5{|>{\begin{math}\displaystyle}c<{\end{math}}}|}
-  \hline &&&&& \\[-2ex]
-  & F_X(x) & f_X(x) & \E{X} & \V{X} & M_X(s) \\[1ex]
+\small
+\begin{tabular}{l*6{>{\begin{math}\displaystyle}c<{\end{math}}}}
+  \toprule &&&&&& \\[-2ex]
+  & \text{Notation} & F_X(x) & f_X(x) & \E{X} & \V{X} & M_X(s) \\[1ex]
 
-  \hline
-  \hline
+  \midrule
 
-  Uniform($a,b$) & \punif & \dunif &
+  Uniform & \unif & \punif & \dunif &
   \frac{a+b}{2} & \frac{(b-a)^2}{12} &
   \frac{e^{sb}-e^{sa}}{s(b-a)} \\[3ex]
 
-  Normal($\mu,\sigma^2$) & 
+  Normal & \norm &
   \Phi(x)=\displaystyle\int_{-\infty}^x \phi(t)\,dt & 
   \phi(x)=\dnorm &
   \mu & \sigma^2 &
   \Exp{\mu s + \frac{\sigma^2s^2}{2}}\\[3ex]
 
-  Log-Normal($\mu,\sigma^2$) & 
+  Log-Normal & \ln\norm&
   \frac{1}{2}+\frac{1}{2} \erf\left[\frac{\ln x-\mu}{\sqrt{2\sigma^2}}\right] & 
   \frac{1}{x\sqrt{2\pi\sigma^2}} \Exp{-\frac{(\ln x - \mu)^2}{2\sigma^2}} &
   e^{\mu+\sigma^2/2} & 
   (e^{\sigma^2}-1) e^{2\mu+\sigma^2} &
   \\[3ex]
 
-  Multivariate Normal($\mu,\Sigma$) & & 
+  Multivariate Normal & \mvn & &
   (2\pi)^{-k/2} |\Sigma|^{-1/2} e^{-\frac{1}{2}(x-\mu)^T \Sigma^{-1}(x-\mu)} &
   \mu & \Sigma &
   \Exp{\mu^T s + \frac{1}{2} s^T \Sigma s}\\[3ex]
 
-  Chi-square($k$) & 
+  Chi-square & \chisq &
   \frac{1}{\Gamma(k/2)} \gamma\left(\frac{k}{2}, \frac{x}{2}\right) & 
   \frac{1}{2^{k/2} \Gamma(k/2)} x^{k/2} e^{-x/2}&
   k & 2k & 
   (1-2s)^{-k/2} \; s<1/2\\[3ex]
 
-  Exponential($\beta$) & \pex & \dex & 
+  Exponential & \ex & \pex & \dex & 
   \beta & \beta^2 &
   \frac{1}{1-\beta s} \left(s < 1/\beta \right) \\[3ex]
 
-  Gamma($\alpha,\beta$)\footnotemark & 
+  Gamma\footnotemark & \gam &
   \frac{\gamma(\alpha,x/\beta)}{\Gamma(\alpha)} & \dgamma &
   \alpha\beta & \alpha\beta^2 &
   \left( \frac{1}{1-\beta s} \right)^\alpha \left( s < 1/\beta \right)\\[3ex]
 
-  InverseGamma($\alpha,\beta$) & \pinvgamma & \dinvgamma &
+  Inverse Gamma & \invgamma & \pinvgamma & \dinvgamma &
   \frac{\beta}{\alpha-1} \; \alpha>1 &
   \frac{\beta^2}{(\alpha-1)^2(\alpha-2)^2} \; \alpha > 2 &
   \frac{2(-\beta s)^{\alpha/2}}{\Gamma(\alpha)}K_\alpha
   \left( \sqrt{-4\beta s} \right)\\[3ex]
 
-  Dirichlet($\alpha$) & & \ddir &
+  Dirichlet & \dir & & \ddir &
   \frac{\alpha_i}{\sum_{i=1}^k \alpha_i} & 
   \frac{\E{X_i}(1-\E{X_i})}{\sum_{i=1}^k\alpha_i + 1} & \\[3ex]
 
-  Beta($\alpha,\beta$)\footnotemark & I_x(\alpha,\beta)& \dbeta &
+  Beta\footnotemark & \bet & I_x(\alpha,\beta)& \dbeta &
   \frac{\alpha}{\alpha+\beta} &
   \frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)} &
   1+\sum_{k=1}^{\infty} \left( \prod_{r=0}^{k-1} 
     \frac{\alpha+r}{\alpha+\beta+r} \right) \frac{s^k}{k!} \\[3ex]
 
-  Weibull($\lambda, k$) & 1 - e^{-(x/\lambda)^k} & \dweibull &
+  Weibull & \mathrm{Weibull}(\lambda, k) & 1 - e^{-(x/\lambda)^k} & \dweibull &
   \lambda \Gamma\left(1 + \frac{1}{k} \right) & 
   \lambda^2 \Gamma\left(1 + \frac{2}{k}\right) - \mu^2 & 
   \sum_{n=0}^\infty \frac{s^n \lambda^n}{n!} \Gamma\left(1+\frac{n}{k}\right)
   \\[3ex]
 
-  Pareto($x_m, \alpha$) & 1 - \left(\frac{x_m}{x} \right)^\alpha \; x\ge x_m & 
+  Pareto & \mathrm{Pareto}(x_m, \alpha) & 
+  1 - \left(\frac{x_m}{x} \right)^\alpha \; x\ge x_m & 
   \alpha\frac{x_m^\alpha}{x^{\alpha+1}} \quad x\ge x_m&
   \frac{\alpha x_m}{\alpha-1} \; \alpha>1 & 
   \frac{x_m^\alpha}{(\alpha-1)^2(\alpha-2)} \; \alpha>2 & 
   \alpha(-x_m s)^\alpha \Gamma(-\alpha,-x_m s) \; s<0\\[3ex]
 
-  \hline
+  \bottomrule
 \end{tabular}
 \end{center}
 
