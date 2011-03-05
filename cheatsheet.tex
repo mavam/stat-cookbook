@@ -111,7 +111,7 @@
 
 \begin{center}
 \small
-\begin{tabular}{l*6{>{\begin{math}\displaystyle}c<{\end{math}}}}
+\begin{tabular}{@{}l*6{>{\begin{math}\displaystyle}c<{\end{math}}}@{}}
   \toprule &&&&&& \\[-2ex]
   & \text{Notation} & F_X(x) & f_X(x) & \E{X} & \V{X} & M_X(s) \\[1ex]
 
@@ -168,7 +168,7 @@
 
 \begin{center}
 \small
-\begin{tabular}{l*6{>{\begin{math}\displaystyle}c<{\end{math}}}}
+\begin{tabular}{@{}l*6{>{\begin{math}\displaystyle}c<{\end{math}}}@{}}
   \toprule &&&&&& \\[-2ex]
   & \text{Notation} & F_X(x) & f_X(x) & \E{X} & \V{X} & M_X(s) \\[1ex]
 
@@ -196,11 +196,27 @@
   \mu & \Sigma &
   \Exp{\mu^T s + \frac{1}{2} s^T \Sigma s}\\[3ex]
 
+  Student's $t$ & \text{Student}(\nu) & 
+  I_x\left( \frac{\nu}{2},\frac{\nu}{2} \right) &
+  \frac{\Gamma\left(\frac{\nu+1}{2}\right)}
+    {\sqrt{\nu\pi}\Gamma\left(\frac{\nu}{2}\right)}
+    \left(1+\frac{x^2}{\nu}\right)^{-(\nu+1)/2}
+  & 0 & 0 & \\[3ex]
+
   Chi-square & \chisq &
   \frac{1}{\Gamma(k/2)} \gamma\left(\frac{k}{2}, \frac{x}{2}\right) & 
   \frac{1}{2^{k/2} \Gamma(k/2)} x^{k/2} e^{-x/2}&
   k & 2k & 
   (1-2s)^{-k/2} \; s<1/2\\[3ex]
+
+  F & \text{F}(d_1,d_2) & 
+  I_\frac{d_1x}{d_1x+d_2}\left(\frac{d_1}{2},\frac{d_1}{2}\right) &
+  \frac{\sqrt{\frac{(d_1x)^{d_1} d_2^{d_2}}{(d_1x+d_2)^{d_1+d_2}}}}
+    {x\mathrm{B}\left(\frac{d_1}{2},\frac{d_1}{2}\right)} &
+  \frac{d_2}{d_2-2} %\; d_2 > 2 
+  & \frac{2d_2^2(d_1+d_2-2)}{d_1(d_2-2)^2(d_2-4)} %\; d_2 > 4 
+  & \\[3ex]
+
 
   Exponential & \ex & \pex & \dex & 
   \beta & \beta^2 &
