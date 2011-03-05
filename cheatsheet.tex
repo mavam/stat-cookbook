@@ -170,7 +170,8 @@
 \small
 \begin{tabular}{@{}l*6{>{\begin{math}\displaystyle}c<{\end{math}}}@{}}
   \toprule &&&&&& \\[-2ex]
-  & \text{Notation} & F_X(x) & f_X(x) & \E{X} & \V{X} & M_X(s) \\[1ex]
+  & \text{Notation}\footnotemark 
+  & F_X(x) & f_X(x) & \E{X} & \V{X} & M_X(s) \\[1ex]
 
   \midrule
 
@@ -222,7 +223,7 @@
   \beta & \beta^2 &
   \frac{1}{1-\beta s} \left(s < 1/\beta \right) \\[3ex]
 
-  Gamma\footnotemark & \gam &
+  Gamma & \gam &
   \frac{\gamma(\alpha,x/\beta)}{\Gamma(\alpha)} & \dgamma &
   \alpha\beta & \alpha\beta^2 &
   \left( \frac{1}{1-\beta s} \right)^\alpha \left( s < 1/\beta \right)\\[3ex]
@@ -237,7 +238,7 @@
   \frac{\alpha_i}{\sum_{i=1}^k \alpha_i} & 
   \frac{\E{X_i}(1-\E{X_i})}{\sum_{i=1}^k\alpha_i + 1} & \\[3ex]
 
-  Beta\footnotemark & \bet & I_x(\alpha,\beta)& \dbeta &
+  Beta & \bet & I_x(\alpha,\beta)& \dbeta &
   \frac{\alpha}{\alpha+\beta} &
   \frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)} &
   1+\sum_{k=1}^{\infty} \left( \prod_{r=0}^{k-1} 
@@ -260,16 +261,9 @@
 \end{tabular}
 \end{center}
 
-\addtocounter{footnote}{-1}
-\footnotetext{$\gamma(s,x)$ in the CDF of the Gamma distribution denotes the
-\emph{lower incomplete gamma function} which is defined as $\gamma(s,x) =
-\int_0^x t^{s-1}e^{-t}\d{t}$.}
-
-\addtocounter{footnote}{1}
-\footnotetext{$I_x(a,b)$ in the CDF of the Beta distribution denotes the
-\emph{regularized incomplete beta function} and is defined as $I_x(a,b) =
-B(x;a,b)/B(a,b)$, where $B(x;a,b)$ is the \emph{incomplete beta function} and
-is defined as $\mathrm{B}(x; a,b) = \int_0^x t^{a-1}(1-t)^{b-1}\d{t}$.}
+\footnotetext{We use the notation $\gamma(s,x)$ and $\Gamma(x)$ to refer to the
+Gamma functions (see \S\ref{sec:math:gamma}), and use $\text{B}(x,y)$ to refer
+to the Beta function (see \S\ref{sec:math:beta}).}
 
 \begin{figure}[H]
   \includegraphics[scale=0.35]{figs/uniform-continuous.pdf}
@@ -596,7 +590,7 @@ Normal
   \item Upper quantile of $\norm[0,1]$: $z_{\alpha} = \Phi^{-1}(1-\alpha)$
 \end{itemize}
 
-Gamma (distribution)
+Gamma
 \begin{itemize}
   \item $X\dist\gam \eqv X/\beta \dist\gam[\alpha,1]$
   \item $\gam\dist \sum_{i=1}^\alpha\ex$
@@ -606,17 +600,7 @@ Gamma (distribution)
     = \displaystyle\int_0^\infty x^{\alpha-1} e^{-\lambda x} \dx$
 \end{itemize}
 
-Gamma (function)
-\begin{itemize}
-  \item Ordinary: $\Gamma(s) = \int_0^\infty t^{s-1} e^{-t}dt$
-  \item Upper incomplete: $\Gamma(s,x) = \int_x^\infty t^{s-1} e^{-t}dt$
-  \item Lower incomplete: $\gamma(s,x) = \int_0^x t^{s-1} e^{-t}dt$
-  \item $\Gamma(\alpha + 1) = \alpha \Gamma(\alpha) \qquad \alpha>1$
-  \item $\Gamma(n) = (n-1)! \qquad n \in \mathbb N$
-  \item $\Gamma(1/2) = \sqrt{\pi}$
-\end{itemize}
-
-Beta (distribution)
+Beta
 \begin{itemize}
   \item $\displaystyle
     \frac{1}{\text{B}(\alpha,\beta)}x^{\alpha-1}(1-x)^{\beta-1} 
@@ -626,23 +610,6 @@ Beta (distribution)
     = \displaystyle\frac{\text{B}(\alpha+k,\beta)}{\text{B}(\alpha,\beta)}
     = \displaystyle\frac{\alpha+k-1}{\alpha+\beta+k-1}\E{X^{k-1}}$
   \item $\bet[1,1] \dist \unif[0,1]$
-\end{itemize}
-
-Beta (function):
-\begin{itemize}
-  \item Ordinary: $\text{B}(x,y) = \text{B}(y,x) 
-    = \displaystyle\int_0^1 t^{x-1}(1-t)^{y-1} \,dt
-    = \displaystyle\frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}$
-%    \item $\alpha,\beta \in \mathbb N \imp \displaystyle
-%      \text{B}(\alpha,\beta) = \frac{(\alpha-1)!(\beta-1)!}{(\alpha+\beta-1)!}$
-  \item Incomplete: $\text{B}(x;\,a,b) 
-    = \displaystyle\int_0^x t^{a-1}(1-t)^{b-1} \,dt$
-  \item Regularized incomplete: \\
-    $I_x(a,b) = \displaystyle\frac{\text{B}(x;\,a,b)}{\text{B}(a,b)}
-      \stackrel{a,b\in\mathbb N}{=} 
-      \sum_{j=a}^{a+b-1} \frac{(a+b-1)!}{j!(a+b-1-j)!}x^j(1-x)^{a+b-1-j}$
-  \item $I_0(a,b) = 0 \qquad I_1(a,b) = 1$
-  \item $I_x(a,b) = 1 - I_{1-x}(b,a)$
 \end{itemize}
 
 \section{Probability and Moment Generating Functions}
@@ -926,8 +893,7 @@ Method of Moments Estimator (MoM)
   \alpha_k(\theta) &= \hat{\alpha}_k
 \end{align*}
 
-Properties of the MoM estimator
-\begin{itemize}
+\begin{titemize}{Properties of the MoM estimator}
   \item $\that_n$ exists with probability tending to 1
   \item Consistency: $\that_n \pconv \theta$
   \item Asymptotic normality:
@@ -935,7 +901,7 @@ Properties of the MoM estimator
     where $\Sigma = g\E{YY^T}g^T$, $Y = (X,X^2,\dots,X^k)^T$,\\
     $g = (g_1,\dots,g_k)$ and 
     $g_j = \frac{\partial}{\partial\theta}\alpha_j^{-1}(\theta)$
-\end{itemize}
+\end{titemize}
 
 \subsection{Maximum Likelihood}
 
@@ -1034,6 +1000,8 @@ and $\hat{J}_n = J_n(\that)$ and $\hat{\nabla}\transform =
 Sample from $f(x;\that_n)$ instead of from $\hat{F}_n$, where
 $\that_n$ could be the \mle or method of moments estimator.
 
+\columnbreak
+
 \section{Hypothesis Testing}
 
 $$H_0: \theta\in\Theta_0 \qquad \text{versus} \qquad H_1: \theta\in\Theta_1$$
@@ -1112,8 +1080,7 @@ Likelihood Ratio Test (LRT)
                  \approx \Pr{\chi_{r-q}^2 > \lambda(x)}$
 \end{itemize}
 
-Multinomial LRT
-\begin{itemize}
+\begin{titemize}{Multinomial LRT}
   \item Let 
     $\hat p_n = \displaystyle \left(\frac{X_1}{n},\dots,\frac{X_k}{n}\right)$ 
     be the \mle
@@ -1123,7 +1090,7 @@ Multinomial LRT
     \left( \frac{\hat p_j}{p_{0j}} \right) \dconv \chi_{k-1}^2$ 
  \item The approximate size $\alpha$ LRT rejects $H_0$ when 
    $\lambda(X) \ge \chi_{k-1,\alpha}^2$
-\end{itemize}
+\end{titemize}
 
 Pearson $\chi^2$ Test
 \begin{itemize}
@@ -2380,6 +2347,38 @@ P(j/n)
 %  L_2(-1,1)
 %\end{align*}
 
+\subsection{Gamma Function}
+\label{sec:math:gamma}
+
+\begin{itemize}
+  \item Ordinary: $\Gamma(s) = \int_0^\infty t^{s-1} e^{-t}dt$
+  \item Upper incomplete: $\Gamma(s,x) = \int_x^\infty t^{s-1} e^{-t}dt$
+  \item Lower incomplete: $\gamma(s,x) = \int_0^x t^{s-1} e^{-t}dt$
+  \item $\Gamma(\alpha + 1) = \alpha \Gamma(\alpha) \qquad \alpha>1$
+  \item $\Gamma(n) = (n-1)! \qquad n \in \mathbb N$
+  \item $\Gamma(1/2) = \sqrt{\pi}$
+\end{itemize}
+
+\subsection{Beta Function}
+\label{sec:math:beta}
+
+\begin{itemize}
+  \item Ordinary: $\text{B}(x,y) = \text{B}(y,x) 
+    = \displaystyle\int_0^1 t^{x-1}(1-t)^{y-1} \,dt
+    = \displaystyle\frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}$
+%    \item $\alpha,\beta \in \mathbb N \imp \displaystyle
+%      \text{B}(\alpha,\beta) = \frac{(\alpha-1)!(\beta-1)!}{(\alpha+\beta-1)!}$
+  \item Incomplete: $\text{B}(x;\,a,b) 
+    = \displaystyle\int_0^x t^{a-1}(1-t)^{b-1} \,dt$
+  \item Regularized incomplete: \\
+    $I_x(a,b) = \displaystyle\frac{\text{B}(x;\,a,b)}{\text{B}(a,b)}
+      \stackrel{a,b\in\mathbb N}{=} 
+      \sum_{j=a}^{a+b-1} \frac{(a+b-1)!}{j!(a+b-1-j)!}x^j(1-x)^{a+b-1-j}$
+  \item $I_0(a,b) = 0 \qquad I_1(a,b) = 1$
+  \item $I_x(a,b) = 1 - I_{1-x}(b,a)$
+\end{itemize}
+
+
 \subsection{Series}
 
 \begin{multicols}{2}
@@ -2391,8 +2390,6 @@ Finite
   \item $\displaystyle\sum_{k=1}^n k^3 = \left(\frac{n(n+1)}{2}\right)^2$
   \item $\displaystyle\sum_{k=0}^n c^k = \frac{c^{n+1}-1}{c-1} \quad c\neq1$
 \end{itemize}
-
-\columnbreak
 
 Binomial
 \begin{itemize}
@@ -2406,8 +2403,6 @@ Binomial
 \end{itemize}
 
 \end{multicols}
-
-\pagebreak
 
 Infinite
 \begin{itemize}
@@ -2459,8 +2454,6 @@ $$\stirling{n}{k} = k\stirling{n-1}{k}+\stirling{n-1}{k-1}
 Partitions
 $$P_{n+k,k} = \sum_{i=1}^n P_{n,i} \qquad \qquad
   k>n:\;P_{n,k} = 0 \qquad n\ge1:\;P_{n,0} = 0, \; P_{0,0} = 1$$
-
-\columnbreak
 
 % Distinguishability.
 \def\distinguishable{\ensuremath{D}\xspace}
