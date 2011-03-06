@@ -199,7 +199,7 @@ plot.invgamma = function()
   xseq = seq(0,5, by=0.01)
   f = function(x,y) dinvgamma(xseq, x, y)
   matplot(xseq, mapply(f, a, b), type="l", 
-      main="InverseGamma", xlab="x", ylab="PDF")
+      main="Inverse Gamma", xlab="x", ylab="PDF")
 
   n = length(a)
   s = function(k) substitute(list(alpha == i, beta == j), list(i=a[k], j=b[k]))
