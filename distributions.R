@@ -64,17 +64,17 @@ plot.poisson = function()
 
 plot.uniform.continuous = function()
 {
-  xseq = 3:8
-  plot(range(xseq), rep(0.5,2), xlim=c(0,10), ylim=c(0,1), pch=19, col=2,
+  xseq = 3:7
+  plot(range(xseq), rep(0.4,2), xlim=c(0,10), ylim=c(0,1), pch=19, col=2,
       xaxt="n", yaxt="n", xlab="x", ylab="PDF", main="Uniform (continuous)")
   axis(1, at=range(xseq), labels=c("a", "b"))
-  axis(2, at=0.5, labels=expression(frac(1, b-a)), las=1)
+  axis(2, at=0.4, labels=expression(frac(1, b-a)), las=1)
 
   segments(0, 0, min(xseq), 0, col=2, lwd=2)
   for (x in range(xseq))
-    segments(x, 0, x, 0.5, lty=2, col=2)
+    segments(x, 0, x, 0.4, lty=2, col=2)
   segments(max(xseq), 0, 10, 0, col=2, lwd=3)
-  segments(min(xseq), 0.5, max(xseq), 0.5, col=2, lwd=2)
+  segments(min(xseq), 0.4, max(xseq), 0.4, col=2, lwd=2)
 
   points(range(xseq), rep(0,2), col=2, pch=21, bg="white")
 
