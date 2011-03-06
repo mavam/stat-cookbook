@@ -119,11 +119,11 @@ plot.student = function()
   xseq = seq(-5,5, by=0.01)
   f = function(x) dt(xseq, x)
   matplot(xseq, sapply(nu, f), type="l", 
-      main=expression("Student\'s" ~ italic(t)), xlab="x", ylab="PDF")
+      main=expression(bold("Student\'s") ~ italic(t)), xlab="x", ylab="PDF")
 
   n = length(nu)
   s = function(k) substitute(nu==i, list(i=nu[k]))
-  s.last = substitute(nu==infinity)
+  s.last = quote(nu==infinity)
   legend.labels = do.call("expression", c(lapply(1:(n-1), s), s.last))
   legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
   dev.print(pdf, "figs/student.pdf")
