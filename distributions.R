@@ -1,3 +1,5 @@
+par(mar=c(3,3,2,1), mgp=c(2,.7,0), tck=-.01)
+
 plot.uniform.discrete = function()
 {
   xseq = 3:8
@@ -47,7 +49,7 @@ plot.poisson = function()
 {
   lambda = c(1,4,10)
   xseq = 0:20
-  N = length(p)
+  N = length(lambda)
   f = function(x) dpois(xseq, x)
   matplot(xseq, sapply(lambda, f), type="b",
       main="Poisson", xlab="x", ylab="PMF", pch=1:N)
