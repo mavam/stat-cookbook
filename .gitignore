@@ -5,8 +5,8 @@
 *.blg
 *.brf
 *.log
-*.pdf
 *.out
 *.sw?
 *.toc
+cheatsheet.pdf
 literature
