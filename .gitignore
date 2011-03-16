@@ -9,4 +9,6 @@
 *.sw?
 *.toc
 cheatsheet.pdf
+cheatsheet-??.*
+config.tex
 literature
