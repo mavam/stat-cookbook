@@ -20,7 +20,6 @@
 \usepackage{fancyhdr}
 \usepackage[landscape,margin=13mm,footskip=1pt,includefoot]{geometry}
 \usepackage{graphicx}
-%\usepackage[pagebackref=true]{hyperref}
 \usepackage{hyperref}
 \usepackage{multicol}
 \usepackage{rotating}
@@ -28,6 +27,10 @@
 \usepackage{url}
 \usepackage{xspace}
 
+% Language configuration.
+\input{./config}
+
+% Probability and Statistics LaTeX shortcuts. (Not part of the repository.)
 \input{probstat}
 
 % TikZ tweaks
@@ -78,7 +81,7 @@
 \thispagestyle{empty}
 \begin{center}
   \vspace*{\fill}
-  \textsc{\Huge Probability and Statistics\\[2ex] \huge Cheat Sheet}
+  \textsc{\Huge \maintitle\\[2ex] \huge \subtitle}
   \vfill
   \footnotesize{
   Copyright \copyright{} 
@@ -92,64 +95,57 @@
 
 \thispagestyle{empty}
 \begin{multicols*}{3}
-  {\footnotesize
-  This cheat sheet integrates a variety of topics in probability theory and
-  statistics. It is based on literature \cite{Hoel72,Wasserman03,Shumway06} and
-  in-class material from courses of the statistics department at the University
-  of California in Berkeley but also influenced by other sources
-  \cite{Steger01,Steger02}. If you find errors or have suggestions for further
-  topics, I would appreciate if you send me an
-  \href{mailto:vallentin@icir.org}{email}. The most recent version of this
-  document is available at \web. To reproduce, please contact me.}
+  {\footnotesize \disclaimer}
   \tableofcontents
-
 \end{multicols*}
+
 \newpage
 
-\section{Distribution Overview}
+\section{\DistributionOverview}
 
-\subsection{Discrete Distributions}
+\subsection{\DiscreteDistributions}
 
 \begin{center}
 \small
 \begin{tabular}{@{}l*6{>{\begin{math}\displaystyle}c<{\end{math}}}@{}}
   \toprule &&&&&& \\[-2ex]
-  & \text{Notation}\footnotemark  
+  & \text{\Notation}\footnotemark  
   & F_X(x) & f_X(x) & \E{X} & \V{X} & M_X(s) \\[1ex]
 
   \midrule
 
-  Uniform & \unifd & \punifd & \dunifd & 
+  \Uniform & \unifd & \punifd & \dunifd & 
   \frac{a+b}{2} & \frac{(b-a+1)^2-1}{12} &
   \frac{e^{as}-e^{-(b+1)s}}{s(b-a)} \\[3ex]
 
-  Bernoulli & \bern & \pbern & \dbern &
+  \Bernoulli & \bern & \pbern & \dbern &
   p & p(1-p) & 
   1-p+pe^s \\[3ex]
 
-  Binomial & \bin & I_{1-p}(n-x,x+1) & \dbin &
+  \Binomial & \bin & I_{1-p}(n-x,x+1) & \dbin &
   np & np(1-p) &
   (1-p+pe^s)^n \\[3ex]
 
-  Multinomial & \mult & & \dmult \quad \sum_{i=1}^k x_i = n&
+  \Multinomial & \mult & & \dmult \quad \sum_{i=1}^k x_i = n&
   np_i & np_i(1-p_i) &
   \left( \sum_{i=0}^k p_i e^{s_i} \right)^n \\[3ex]
 
-  Hypergeometric & \hyper & 
+  \Hypergeometric & \hyper & 
   \approx \Phi\left(\displaystyle\frac{x-np}{\sqrt{np(1-p)}}\right) &
   \dhyper & 
-  \frac{nm}{N} & \frac{nm(N-n)(N-m)}{N^2(N-1)} &
-  N/A\\[3ex]
+  \frac{nm}{N} & \frac{nm(N-n)(N-m)}{N^2(N-1)} & \\[3ex]
 
-  Negative Binomial & \nbin & \pnbin & \dnbin &
+  \NegativeBinomial & \nbin & \pnbin & \dnbin &
   r\frac{1-p}{p} & r\frac{1-p}{p^2} &
   \left(\frac{p}{1-(1-p)e^s}\right)^r \\[3ex]
 
-  Geometric & \geo & \pgeo \quad x\in\mathbb N^+ & \dgeo \quad x\in\mathbb N^+ &
+  \Geometric & \geo & 
+  \pgeo \quad x\in\mathbb N^+ & 
+  \dgeo \quad x\in\mathbb N^+ &
   \frac{1}{p} & \frac{1-p}{p^2} &
   \frac{p}{1-(1-p)e^s} \\[3ex]
 
-  Poisson & \pois & \ppois & \dpois &
+  \Poisson & \pois & \ppois & \dpois &
   \lambda & \lambda &
   e^{\lambda(e^s-1)}\\[3ex]
 
@@ -164,53 +160,51 @@
 
 \end{center}
 
-\footnotetext{We use the notation $\gamma(s,x)$ and $\Gamma(x)$ to refer to the
-Gamma functions (see \S\ref{sec:math:gamma}), and use $\text{B}(x,y)$ and $I_x$
-to refer to the Beta functions (see \S\ref{sec:math:beta}).}
+\footnotetext{\FootnoteNotation}
 
 \pagebreak
 
-\subsection{Continuous Distributions}
+\subsection{\ContinuousDistributions}
 
 \begin{center}
 \small
 \begin{tabular}{@{}l*6{>{\begin{math}\displaystyle}c<{\end{math}}}@{}}
   \toprule &&&&&& \\[-2ex]
-  & \text{Notation}
+  & \text{\Notation}
   & F_X(x) & f_X(x) & \E{X} & \V{X} & M_X(s) \\[1ex]
 
   \midrule
 
-  Uniform & \unif & \punif & \dunif &
+  \Uniform & \unif & \punif & \dunif &
   \frac{a+b}{2} & \frac{(b-a)^2}{12} &
   \frac{e^{sb}-e^{sa}}{s(b-a)} \\[3ex]
 
-  Normal & \norm &
+  \Normal & \norm &
   \Phi(x)=\displaystyle\int_{-\infty}^x \phi(t)\,dt & 
   \phi(x)=\dnorm &
   \mu & \sigma^2 &
   \Exp{\mu s + \frac{\sigma^2s^2}{2}}\\[3ex]
 
-  Log-Normal & \ln\norm&
+  \LogNormal & \ln\norm&
   \frac{1}{2}+\frac{1}{2} \erf\left[\frac{\ln x-\mu}{\sqrt{2\sigma^2}}\right] & 
   \frac{1}{x\sqrt{2\pi\sigma^2}} \Exp{-\frac{(\ln x - \mu)^2}{2\sigma^2}} &
   e^{\mu+\sigma^2/2} & 
   (e^{\sigma^2}-1) e^{2\mu+\sigma^2} &
   \\[3ex]
 
-  Multivariate Normal & \mvn & &
+  \MultivariateNormal & \mvn & &
   (2\pi)^{-k/2} |\Sigma|^{-1/2} e^{-\frac{1}{2}(x-\mu)^T \Sigma^{-1}(x-\mu)} &
   \mu & \Sigma &
   \Exp{\mu^T s + \frac{1}{2} s^T \Sigma s}\\[3ex]
 
-  Student's $t$ & \text{Student}(\nu) & 
+  \Studentst & \text{Student}(\nu) & 
   I_x\left( \frac{\nu}{2},\frac{\nu}{2} \right) &
   \frac{\Gamma\left(\frac{\nu+1}{2}\right)}
     {\sqrt{\nu\pi}\Gamma\left(\frac{\nu}{2}\right)}
     \left(1+\frac{x^2}{\nu}\right)^{-(\nu+1)/2}
   & 0 & 0 & \\[3ex]
 
-  Chi-square & \chisq &
+  \ChiSquare & \chisq &
   \frac{1}{\Gamma(k/2)} \gamma\left(\frac{k}{2}, \frac{x}{2}\right) & 
   \frac{1}{2^{k/2} \Gamma(k/2)} x^{k/2} e^{-x/2}&
   k & 2k & 
@@ -224,8 +218,7 @@ to refer to the Beta functions (see \S\ref{sec:math:beta}).}
   & \frac{2d_2^2(d_1+d_2-2)}{d_1(d_2-2)^2(d_2-4)} %\; d_2 > 4 
   & \\[3ex]
 
-
-  Exponential & \ex & \pex & \dex & 
+  \Exponential & \ex & \pex & \dex & 
   \beta & \beta^2 &
   \frac{1}{1-\beta s} \left(s < 1/\beta \right) \\[3ex]
 
@@ -234,7 +227,7 @@ to refer to the Beta functions (see \S\ref{sec:math:beta}).}
   \alpha\beta & \alpha\beta^2 &
   \left( \frac{1}{1-\beta s} \right)^\alpha \left( s < 1/\beta \right)\\[3ex]
 
-  Inverse Gamma & \invgamma & \pinvgamma & \dinvgamma &
+  \InverseGamma & \invgamma & \pinvgamma & \dinvgamma &
   \frac{\beta}{\alpha-1} \; \alpha>1 &
   \frac{\beta^2}{(\alpha-1)^2(\alpha-2)^2} \; \alpha > 2 &
   \frac{2(-\beta s)^{\alpha/2}}{\Gamma(\alpha)}K_\alpha
@@ -284,31 +277,31 @@ to refer to the Beta functions (see \S\ref{sec:math:beta}).}
 
 \begin{multicols*}{2}
 
-\section{Probability Theory}
+\section{\ProbabilityTheory}
 
-Definitions
+\Definitions
 \begin{itemize}
-  \item Sample space $\Omega$
-  \item Outcome (point or element) $\omega \in \Omega$
-  \item Event $A \subseteq \Omega$
-  \item $\sigma$-algebra $\mathcal{A}$
+  \item \SampleSpace\ $\Omega$
+  \item \Outcome\ $\omega \in \Omega$
+  \item \Event\ $A \subseteq \Omega$
+  \item \SigmaAlgebra\ $\mathcal{A}$
     \begin{enumerate}
       \item $\emptyset \in \mathcal{A}$
       \item $A_1,A_2,\dots, \in \mathcal{A} 
         \imp \bigcup_{i=1}^\infty A_i \in \mathcal{A}$
       \item $A \in \mathcal{A} \imp \comp{A} \in \mathcal{A}$
     \end{enumerate}
-  \item Probability distribution $\prob$
+  \item \ProbabilityDistribution\ $\prob$
     \begin{enumerate}
-      \item $\Pr{A} \ge 0$ for every $A$
+      \item $\Pr{A} \ge 0 \quad \forall A$
       \item $\Pr{\Omega} = 1$
       \item $\Pr{\displaystyle\bigsqcup_{i=1}^\infty A_i} 
         = \displaystyle\sum_{i=1}^\infty \Pr{A_i}$
     \end{enumerate}
-  \item Probability space $(\Omega,\mathcal{A},\prob)$
+  \item \ProbabilitySpace\ $(\Omega,\mathcal{A},\prob)$
 \end{itemize}
 
-Properties
+\Properties
 \begin{itemize}
   \item $\Pr{\emptyset} = 0$
   \item $B = \Omega \cap B = (A \cup \comp{A}) \cap B 
@@ -330,30 +323,30 @@ Properties
   \item $\Pr{A \cap \comp{B}} = \Pr{A} - \Pr{A \cap B}$
 \end{itemize}
 
-Continuity of Probabilities
+\ContinuityOfProbabilities
 \begin{itemize}
   \item $A_1 \subset A_2 \subset \dots \imp \limn \Pr{A_n} = \Pr{A}
-    \quad\text{where } A = \bigcup_{i=1}^\infty A_i$
+    \quad\text{\where\ } A = \bigcup_{i=1}^\infty A_i$
   \item $A_1 \supset A_2 \supset \dots \imp \limn \Pr{A_n} = \Pr{A}
-    \quad\text{where } A = \bigcap_{i=1}^\infty A_i$
+    \quad\text{\where\ } A = \bigcap_{i=1}^\infty A_i$
 \end{itemize}
 
-Independence \ind
+\Independence\ \ind
 \[A \ind B \eqv \Pr{A \cap B} = \Pr{A}\Pr{B}\]
 
-Conditional Probability
-\[\Pr{A \giv B} = \frac{\Pr{A \cap B}}{\Pr{B}} \qquad if \quad \Pr{B} > 0\]
+\ConditionalProbability
+\[\Pr{A \giv B} = \frac{\Pr{A \cap B}}{\Pr{B}} \qquad \Pr{B} > 0\]
 
-Law of Total Probability
+\LawOfTotalProbability
 \[ \Pr{B} = \sum_{i=1}^n \Pr{B|A_i}\Pr{A_i}
   \qquad \Omega = \bigsqcup_{i=1}^n A_i\]
 
-Bayes' Theorem
+\BayesTheorem
 \[\Pr{A_i \giv B} 
 = \frac{\Pr{B \giv A_i}\Pr{A_i}}{\sum_{j=1}^n \Pr{B \giv A_j}\Pr{A_j}} 
 \qquad \Omega = \bigsqcup_{i=1}^n A_i\]
 
-Inclusion-Exclusion Principle
+\InclusionExclusionPrinciple
 \[\biggl|\bigcup_{i=1}^n A_i\biggr| = \sum_{r=1}^n(-1)^{r-1}
   \sum_{i \le i_1 < \dots < i_r \le n}\biggl|\bigcap_{j=1}^r A_{i_j}\biggr|\]
 
@@ -2523,9 +2516,9 @@ Balls and Urns  \qquad $f: B \to U$ \qquad \distinguishable = distinguishable,
 
 \begin{sidewaysfigure}
   \captionsetup{labelformat=empty,labelsep=none}
-  \includegraphics[width=\textwidth]{relationships}
+  \includegraphics[width=\textwidth]{figs/relationships}
   \caption{Univariate distribution relationships, 
-  courtesy of Leemis and McQueston~\cite{Leemis08}.}
+  courtesy Leemis and McQueston~\cite{Leemis08}.}
 \end{sidewaysfigure}
 
 \end{document}
