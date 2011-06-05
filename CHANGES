@@ -1,0 +1,105 @@
+2011-03-06  Matthias Vallentin  <vallentin@icir.org>
+
+    * Use \displaystyle for Gamma functions.
+
+    * Move footnote about Gamma/Beta functions to first table.
+
+    * Tweak distribution graphs: reduce margin and tick marks size.  (Colin
+      Gillespie)
+
+    * Fix title of InverseGamma distribution plot.
+
+2011-03-05  Matthias Vallentin  <vallentin@icir.org>
+
+    * Add Student's t and F distribution. (Colin Gillespie)
+
+    * Add extra column with notation/abbreviation of distribution. (Colin
+      Gillespie)
+
+    * Use LaTeX booktabs package for distribution tables. (Colin Gillespie)
+
+    * Move properties of Gamma and Beta functions from the section Distribution
+      Relationships into the Math section.
+
+    * Fix headings for finite and binomial series.
+
+2011-02-23  Matthias Vallentin  <vallentin@icir.org>
+
+    * Fixed wrong exponent in the MGF of the multinomial distribution. (Daniel
+      Nolan)
+
+    * In section 3, remove f_X(x) in the PDF equation. (Daniel Nolan)
+
+
+2011-02-18  Matthias Vallentin  <vallentin@icir.org>
+
+    * Fixed a subtle error in the section Probability Theory. The continuity of
+      probabilities property now stands by itself. (Daniel Nolan)
+
+
+2011-01-10  Matthias Vallentin  <vallentin@icir.org>
+
+    * Fix a wrong index in the finite series involving odd natural numbers
+      (Daniel Nolan).
+
+    * Unify indices of finite series to start at 1 where the first index
+      yields a vacuous term.
+
+    * Add a few basic identities involving binomial coefficients.
+
+
+2011-01-04  Matthias Vallentin  <vallentin@icir.org>
+
+    * Fix error in the Dirichlet density: the numerator and denominator of the
+      Dirichlet density function was flipped. (Rui Li)
+
+
+2010-12-18  Matthias Vallentin  <vallentin@icir.org>
+
+    * Add a section about basic concepts in spectral analysis of time series.
+
+
+2010-12-10  Matthias Vallentin  <vallentin@icir.org>
+
+    * In the section Maximum Likelihood, the numerator and denominator of the
+      asymptotic relative efficiency was flipped. (Jason He)
+
+    * In the section Point Estimation, the MSE did not include the squared
+      bias. (Jason He)
+
+
+2010-12-01  Matthias Vallentin  <vallentin@icir.org>
+
+    * Add a table describing the behavior of the ACF and PACF for causal and
+      invertible ARMA models.
+
+    * Remov the discussion about orthogonal functions in the math section.
+    
+
+2010-11-20  Matthias Vallentin  <vallentin@icir.org>
+
+    * Augment the distribution tables with plots of that visualize the PMFs and
+      PDFs of the major distributions.
+  
+    
+2010-11-19  Matthias Vallentin  <vallentin@icir.org>
+
+    * New section Sampling Methods, currently includes the boostrap, rejection
+      sampling, and importance sampling.
+
+    * More conjugate priors for the univariate Gaussian likelihood when the
+      mean is known and when both mean and variance are unknown. 
+
+    * Split distribution table in two tables for discrete and continuous
+      distributions.
+
+    * New distribution functions: Multinomial, Dirichlet, Weibull, Multivariate
+      Gaussian, Log-normal, Pareto, Chi-square.
+
+    * Fix log-likelihood symbol (replaced with \ell)
+  
+
+2010-10-09  Matthias Vallentin  <vallentin@icir.org>
+
+    * Add two conjugate prior tables for discrete and continuous likelihood
+      distributions, including both prior and posterior hyperparameters.
