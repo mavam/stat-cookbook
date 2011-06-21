@@ -1,5 +1,5 @@
 CFG := config.tex
-DOC := cheatsheet.tex
+DOC := cookbook.tex
 
 EN  := $(DOC:.tex=-en.tex)
 ES  := $(DOC:.tex=-es.tex)

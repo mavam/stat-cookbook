@@ -8,7 +8,7 @@
 *.out
 *.sw?
 *.toc
-cheatsheet.pdf
-cheatsheet-??.*
+cookbook.pdf
+cookbook-??.*
 config.tex
 literature

@@ -9,6 +9,7 @@
 
     * Fix title of InverseGamma distribution plot.
 
+
 2011-03-05  Matthias Vallentin  <vallentin@icir.org>
 
     * Add Student's t and F distribution. (Colin Gillespie)
@@ -22,6 +23,7 @@
       Relationships into the Math section.
 
     * Fix headings for finite and binomial series.
+
 
 2011-02-23  Matthias Vallentin  <vallentin@icir.org>
 
