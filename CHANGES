@@ -1,3 +1,22 @@
+2011-07-XX  Matthias Vallentin  <vallentin@icir.org>
+
+    * Provide language template for translation.
+
+    * Clean up wording in the process of creating language template.
+
+    * Consistent use of \widehat and \hat.
+
+    * Consistent capitalization.
+
+    * Remove 1-alpha description in Bayesian credible intervals.
+
+    * Fix a few spelling mistakes.
+
+2011-07-02  Matthias Vallentin  <vallentin@icir.org>
+
+    * Add missing parenthesis in result of infinite series kp^(k-1). (masonium)
+
+
 2011-03-06  Matthias Vallentin  <vallentin@icir.org>
 
     * Use \displaystyle for Gamma functions.

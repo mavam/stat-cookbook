@@ -11,15 +11,17 @@ WEB := login.eecs.berkeley.edu:public_html/dl
 RERUN := "(undefined references|Rerun to get (cross-references|the bars|point totals) right|Table widths have changed. Rerun LaTeX.|Linenumber reference failed)"
 RERUNBIB := "No file.*\.bbl|Citation.*undefined"
 
+TEXINPUTS := $(TEXINPUTS):translations:
+
 all: en
 
 en: $(DOC)
-	@echo '\input{lang-en}' > $(CFG)
+	@echo '\uselanguage{english}' > $(CFG)
 	@test -e $(EN) && diff -q $< $(EN) > /dev/null || cp $(DOC) $(EN)
 	@make english
 
 es: $(DOC)
-	@echo '\input{lang-es}' > $(CFG)
+	@echo '\uselanguage{spanish}' > $(CFG)
 	@test -e $(ES) && diff -q $< $(ES) > /dev/null || cp $(DOC) $(ES)
 	@make spanish
 
