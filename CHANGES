@@ -1,6 +1,10 @@
-2011-07-XX  Matthias Vallentin  <vallentin@icir.org>
+2011-07-20  Matthias Vallentin  <vallentin@icir.org>
 
-    * Provide language template for translation.
+    * Provide language template for translation. Please see
+
+        https://github.com/mavam/probstat-translations
+
+      for details.
 
     * Clean up wording in the process of creating language template.
 
@@ -11,6 +15,7 @@
     * Remove 1-alpha description in Bayesian credible intervals.
 
     * Fix a few spelling mistakes.
+
 
 2011-07-02  Matthias Vallentin  <vallentin@icir.org>
 
