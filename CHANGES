@@ -1,3 +1,8 @@
+2011-10-25  Matthias Vallentin  <vallentin@icir.org>
+
+    * Fix variable naming in Negative Binomial distribution. (Marcial)
+
+
 2011-07-20  Matthias Vallentin  <vallentin@icir.org>
 
     * Provide language template for translation. Please see
