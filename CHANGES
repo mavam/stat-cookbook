@@ -1,3 +1,8 @@
+2011-12-12  Matthias Vallentin  <vallentin@icir.org>
+
+    * Fix typo in chi-square PDF. (Steve Cheng-Xian Li)
+
+
 2011-10-25  Matthias Vallentin  <vallentin@icir.org>
 
     * Fix variable naming in Negative Binomial distribution. (Marcial)
