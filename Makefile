@@ -1,12 +1,11 @@
-CFG := config.tex
-DOC := cookbook.tex
+CFG  := config.tex
+DOC  := cookbook.tex
+DIST := stat-cookbook.tar.gz
+THIS := $(shell basename $(CURDIR))
 
 EN  := $(DOC:.tex=-en.tex)
 ES  := $(DOC:.tex=-es.tex)
 DE  := $(DOC:.tex=-de.tex)
-
-REMOTE := probstat
-WEB := login.eecs.berkeley.edu:public_html/dl
 
 RERUN := "(undefined references|Rerun to get (cross-references|the bars|point totals) right|Table widths have changed. Rerun LaTeX.|Linenumber reference failed)"
 RERUNBIB := "No file.*\.bbl|Citation.*undefined"
@@ -36,10 +35,14 @@ spanish: $(ES:.tex=.pdf)
 	@egrep -q $(RERUN) $*.log && pdflatex $<; true
 
 purge:
-	-rm -f *.{aux,dvi,log,bbl,blg,brf,toc,thm,out,fdb_latexmk}
+	-rm -f $(DIST) *.{aux,dvi,log,bbl,blg,brf,toc,thm,out,fdb_latexmk}
 
 clean: purge
 	-rm -f $(CFG) $(EN) $(EN:.tex=.pdf)
 
-#www: all
-#	scp $(LOCAL).pdf $(WEB)
+dist: clean
+	@git submodule update
+	@echo $(THIS)
+	@cd .. && \
+		tar cLzf $(DIST) --exclude literature $(THIS) && \
+		mv $(DIST) $(THIS)
