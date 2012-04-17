@@ -1,0 +1,331 @@
+\usepackage{amsmath,amssymb}
+\usepackage{dsfont}
+\usepackage{cancel}
+\usepackage{graphicx}
+\usepackage{xargs}
+\usepackage{xspace}
+
+% =============================================================================
+%                                  Formatting
+% =============================================================================
+
+% Make a note on the margin.
+\newcommand{\marnote}[1]{
+  \reversemarginpar
+  \marginpar[\raggedleft\footnotesize\textit{\\[3ex]#1}]%
+      {\raggedright\footnotesize\textit{\\[3ex]#1}}
+  \normalmarginpar
+}
+
+\newcommand{\pwiseii}[1]{\ensuremath{\left\{\begin{array}{ll}#1\end{array}}}
+\newcommand{\pwiseiii}[1]{\ensuremath{\left\{\begin{array}{ll}#1\end{array}}}
+\newcommand{\prn}[1]{\ensuremath{\left(#1\right)}}
+\newcommand{\brk}[1]{\ensuremath{\left[#1\right]}}
+\newcommand{\brc}[1]{\ensuremath{\left\{#1\right\}}}
+\newcommand{\x}[1]{\ensuremath{\cancel{#1}}}
+
+% =============================================================================
+%                                 General Math
+% =============================================================================
+
+% Special functions and operators
+\DeclareMathOperator{\erf}{erf}
+\DeclareMathOperator{\logit}{logit}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+
+% Definitions
+\def\define{:=}
+\def\defined{=:}
+\def\eqdef{\triangleq}
+
+% Proofs
+\def\qed{\ifhmode\unskip\nobreak\fi\hfill \ensuremath{\square}}
+
+% Standard transformation function
+\def\transform{\ensuremath{\varphi}\xspace}
+
+% Logic
+\newcommand{\comp}[1]{\neg{#1}}
+\newcommand{\imp}{\ensuremath{\;\Longrightarrow\;}}
+\newcommand{\pmi}{\ensuremath{\;\Longleftarrow\;}}
+\newcommand{\nimp}{\ensuremath{\;\not\!\!\Longrightarrow\;}}
+\newcommand{\npmi}{\ensuremath{\;\not\!\!\Longleftarrow\;}}
+\newcommand{\eqv}{\ensuremath{\;\Longleftrightarrow\;}}
+
+% Numbers.
+\def\C{\mathbb{C}}
+\def\N{\mathbb{N}}
+\def\R{\mathbb{R}}
+\def\Z{\mathbb{Z}}
+
+% Matrices
+\newcommand{\eyeii}{\ensuremath{\left(\begin{matrix}1 & 0 \\ 0 & 1\end{matrix}\right)}}
+\newcommand{\eyeiii}{\ensuremath{\left(\begin{matrix}1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1\end{matrix}\right)}}
+
+% Limits
+\newcommand{\Lim}[2]{\ensuremath{\lim_{#1\to #2}}}
+\newcommand{\limx}[1][\infty]{\ensuremath{\lim_{x\to #1}}}
+\newcommand{\limn}[1][\infty]{\ensuremath{\lim_{n\to #1}}}
+
+% Sums and products
+\newcommand{\Sum}[2][i=1]{\ensuremath{\sum_{#1}^{#2}}}
+\newcommand{\sumin}{\ensuremath{\sum_{i=1}^n}}
+\newcommand{\sumiN}{\ensuremath{\sum_{i=1}^N}}
+\newcommand{\sumim}{\ensuremath{\sum_{i=1}^m}}
+\newcommand{\sumjk}{\ensuremath{\sum_{j=1}^k}}
+\newcommand{\sumjn}{\ensuremath{\sum_{j=1}^n}}
+\newcommand{\sumjm}{\ensuremath{\sum_{j=1}^m}}
+\newcommand{\isum}[1][n]{\ensuremath{\sum_{#1}^\infty}}
+\newcommand{\dsum}[4][i=1]{\ensuremath{\sum_{#1}^{#2}\sum_{#3}^{#4}}}
+\newcommand{\Prod}[2][i=1]{\ensuremath{\prod_{#1}^{#2}}}
+\newcommand{\prodin}{\ensuremath{\prod_{i=1}^n}}
+\newcommand{\prodjn}{\ensuremath{\prod_{j=1}^n}}
+
+% Derivatives
+\newcommand{\der}[2][]{\ensuremath{\frac{d #1}{d #2}}}
+\newcommand{\dder}[2][]{\ensuremath{\frac{d^2 #1}{d #2^2}}}
+\newcommand{\pder}[2][]{\ensuremath{\frac{\partial #1}{\partial #2}}}
+\newcommand{\pdder}[2][]{\ensuremath{\frac{\partial^2 #1}{\partial #2^2}}}
+\newcommand{\mpder}[3][]{%
+  \ensuremath{\frac{\partial^2 #1}{\partial #2 \partial #3}}}
+
+% Differentials
+%\renewcommand{\d}[1]{\,\mathrm{d}#1}
+\renewcommand{\d}[1]{\,d#1}
+\def\ds{\d{s}}
+\def\dt{\d{t}}
+\def\dtheta{\d{\theta}}
+\def\du{\d{u}}
+\def\dx{\d{x}}
+\def\dy{\d{y}}
+\def\dfx{\d{F_X(x)}}
+\def\dfy{\d{F_Y(y)}}
+\def\dfhatx{\d{\widehat{F}_n(x)}}
+
+% Transcendentals w/ extended arguments.
+\newcommand{\Exp}[1]{\ensuremath{\exp\left\{#1\right\}}}
+\newcommand{\Log}[1]{\ensuremath{\log\left\{#1\right\}}}
+
+% =============================================================================
+%                          Probability and Statistics
+% =============================================================================
+
+% Formatted terminology.
+\def\bias{\textsf{bias}\xspace}
+\def\se{\textsf{se}\xspace}
+\def\pdf{\textsc{pdf}\xspace}
+\def\cdf{\textsc{cdf}\xspace}
+\def\ise{\textsc{ise}\xspace}
+\def\pgf{\textsc{pgf}\xspace}
+\def\mgf{\textsc{mgf}\xspace}
+\def\mse{\textsc{mse}\xspace}
+\def\mspe{\textsc{mspe}\xspace}
+\def\mle{\textsc{mle}\xspace}
+\def\mom{\textsc{mom}\xspace}
+\def\are{\textsc{are}\xspace}
+\def\rss{\textsc{rss}\xspace}
+\def\ess{\textsc{ess}\xspace}
+\def\tss{\textsc{tss}\xspace}
+
+% Naming shortcuts.
+\def\ahat{\ensuremath{\widehat{\alpha}}}
+\def\atil{\ensuremath{\tilde{\alpha}}}
+\def\bhat{\ensuremath{\widehat{\beta}}}
+\def\btil{\ensuremath{\tilde{\beta}}}
+\def\dhat{\ensuremath{\widehat{\delta}}}
+\def\ehat{\ensuremath{\hat{\epsilon}}}
+\def\ghat{\ensuremath{\widehat{\gamma}}}
+\def\khat{\ensuremath{\widehat{\kappa}}}
+\def\lhat{\ensuremath{\widehat{\lambda}}}
+\def\ltil{\ensuremath{\tilde{\lambda}}}
+\def\mhat{\ensuremath{\widehat{\mu}}}
+\def\nhat{\ensuremath{\widehat{\nu}}}
+\def\mtil{\ensuremath{\tilde{\mu}}}
+\def\psihat{\ensuremath{\widehat{\psi}}}
+\def\shat{\ensuremath{\widehat{\sigma}}}
+\def\stil{\ensuremath{\tilde{\sigma}}}
+\def\that{\ensuremath{\widehat{\theta}}}
+\def\ttil{\ensuremath{\widetilde{\theta}}}
+\def\rhohat{\widehat{\rho}}
+\def\xihat{\widehat{\xi}}
+
+\def\sehat{\ensuremath{\widehat{\se}}}
+\def\fhat{\ensuremath{\widehat{f}}}
+\def\Fhat{\ensuremath{\widehat{F}}}
+\def\fnhat{\ensuremath{\widehat{f}_n}}
+\def\Fnhat{\ensuremath{\widehat{F}_n}}
+\def\Jhat{\ensuremath{\widehat{J}}}
+\def\phat{\ensuremath{\widehat{p}}}
+\def\ptil{\ensuremath{\tilde{p}}}
+\def\rhat{\widehat{r}}
+\def\Rbar{\bar{R}}
+\def\Rhat{\widehat{R}}
+\def\Qbar{\bar{Q}}
+\def\Qhat{\widehat{Q}}
+\def\Xhat{\widehat{X}}
+\def\xbar{\bar{x}}
+\def\Xbar{\bar{X}}
+\def\Xsqbar{\overline{X^2}}
+\def\xnbar{\overline{x}_n}
+\def\Xnbar{\overline{X}_n}
+\def\Yhat{\widehat{Y}}
+\def\ybar{\overline{y}}
+\def\Ybar{\overline{Y}}
+\def\Ynbar{\overline{Y}_n}
+
+% Random variables.
+\def\rv{\textsc{rv}\xspace}
+\def\iid{\ensuremath{\textsc{iid}}\xspace}
+\def\dist{\ensuremath{\sim}\xspace}
+\def\disteq{\ensuremath{\stackrel{D}{=}}\xspace}
+\def\distiid{\ensuremath{\stackrel{iid}{\sim}}\xspace}
+\def\ind{\ensuremath{\perp\!\!\!\perp}\xspace}
+\def\nind{\ensuremath{\perp\!\!\!\!\big\vert\!\!\!\!\perp}\xspace}
+\def\Xon{\ensuremath{X_1,\dots,X_n}\xspace}
+\def\xon{\ensuremath{x_1,\dots,x_n}\xspace}
+\def\giv{\ensuremath{\,|\,}}
+\def\Giv{\ensuremath{\,\big|\,}}
+\def\GIV{\ensuremath{\,\Big|\,}}
+\newcommand{\indicator}[1]{\mathds{1}_{\left\{#1\right\}}}
+
+% Probability, expectation, and variance.
+\def\prob{\mathbb{P}}
+\renewcommand{\Pr}[2][]{\ensuremath{\prob_{#1}\left[#2\right]}\xspace}
+\newcommand{\E}[2][]{\ensuremath{\mathbb{E}_{#1}\left[#2\right]}}
+\newcommand{\V}[2][]{\ensuremath{\mathbb{V}_{#1}\left[#2\right]}}
+\newcommand{\cov}[2][]{\ensuremath{\mathrm{Cov}_{#1}\left[#2\right]}}
+\newcommand{\corr}[2][]{\ensuremath{\rho_{#1}\left[#2\right]}}
+\def\sd{\ensuremath{\textsf{sd}}\xspace}
+\def\samplemean{\ensuremath{\bar{X}_n}\xspace}
+\def\samplevar{\ensuremath{S^2}\xspace}
+\def\za{\ensuremath{z_{\alpha}}}
+\def\zat{\ensuremath{z_{\alpha/2}}}
+
+% Inference
+\def\Ll{\ensuremath{\mathcal{L}}\xspace}
+\def\Lln{\ensuremath{\Ll_n}\xspace}
+\def\ll{\ensuremath{\ell}}
+\def\lln{\ensuremath{\ll_n}}
+
+% Hypothesis testing
+\newcommand{\hyp}[2]{
+\ensuremath{H_0:#1 \ifhmode\quad\text{versus}\quad\fi\text{ vs. } H_1:#2}}
+
+% Convergence.
+\def\conv{\rightarrow}
+\def\convinf{\rightarrow_{n\to\infty}}
+\def\pconv{\stackrel{\text{\tiny{P}}}{\rightarrow}}
+\def\npconv{\stackrel{\text{\tiny{P}}}{\nrightarrow}}
+\def\dconv{\stackrel{\text{\tiny{D}}}{\rightarrow}}
+\def\ndconv{\stackrel{\text{\tiny{D}}}{\nrightarrow}}
+\def\qmconv{\stackrel{\text{\tiny{qm}}}{\rightarrow}}
+\def\nqmconv{\stackrel{\text{\tiny{qm}}}{\nrightarrow}}
+\def\asconv{\stackrel{\text{\tiny{as}}}{\rightarrow}}
+\def\nasconv{\stackrel{\text{\tiny{as}}}{\nrightarrow}}
+
+%
+% Distributions
+%
+\newcommandx{\unif}[1][1={a,b}]{\textrm{Unif}\left({#1}\right)}
+\newcommandx{\unifd}[1][1={a,\ldots,b}]{\textrm{Unif}\left\{{#1}\right\}}
+\newcommandx{\dunif}[3][1=x,2=a,3=b]{\frac{I(#2<#1<#3)}{#3-#2}}
+\newcommandx{\dunifd}[3][1=x,2=a,3=b]{\frac{I(#2<#1<#3)}{#3-#2+1}}
+\newcommandx{\punif}[3][1=x,2=a,3=b]{
+\begin{cases} 0 & #1 < #2 \\ \frac{#1-#2}{#3-#2} & #2 < #1 < #3 \\ 1 & #1 > #3\\\end{cases}}
+\newcommandx{\punifd}[3][1=x,2=a,3=b]{
+\begin{cases} 0 & #1 < #2\\ \frac{\lfloor#1\rfloor-#2+1}{#3-#2} & #2 \le #1 \le #3 \\ 1 & #1 > #3\\ \end{cases}}
+
+% Bernoulli
+\newcommandx\bern[1][1=p]{\textrm{Bern}\left({#1}\right)}
+\newcommandx\dbern[2][1=x,2=p]{#2^{#1} \left(1-#2\right)^{1-#1}}
+\newcommandx\pbern[2][1=x,2=p]{\left(1-#2\right)^{1-#1}}
+
+% Binomial
+\newcommandx\bin[1][1={n,p}]{\textrm{Bin}\left(#1\right)}
+\newcommandx\dbin[3][1=x,2=n,3=p]{\binom{#2}{#1}#3^#1\left(1-#3\right)^{#2-#1}}
+
+% Multinomial
+\newcommandx\mult[1][1={n,p}]{\textrm{Mult}\left(#1\right)}
+\newcommandx\dmult[3][1=x,2=n,3=p]{\frac{#2!}{#1_1!\ldots#1_k!}#3_1^{#1_1}\cdots#3_k^{#1_k}}
+
+% Hypergeometric
+\newcommandx\hyper[1][1={N,m,n}]{\textrm{Hyp}\left({#1}\right)}
+\newcommandx\dhyper[4][1=x,2=N,3=m,4=n]{\frac{\binom{#3}{#1}\binom{#3-#1}{#4-#1}}{\binom{#2}{#1}}}
+
+% Negative Binomial
+\newcommandx\nbin[1][1={r,p}]{\textrm{NBin}\left({#1}\right)}
+\newcommandx\dnbin[3][1=x,2=r,3=p]{\binom{#1+#2-1}{#2-1}#3^#2(1-#3)^#1}
+\newcommandx\pnbin[3][1=x,2=r,3=p]{I_#3(#2,#1+1)}
+
+% Geometric
+\newcommandx\geo[1][1=p]{\textrm{Geo}\left(#1\right)}
+\newcommandx\dgeo[2][1=x,2=p]{#2(1-#2)^{#1-1}}
+\newcommandx\pgeo[2][1=x,2=p]{1-(1-#2)^#1}
+
+% Poisson
+\newcommandx\pois[1][1=\lambda]{\textrm{Po}\left({#1}\right)}
+\newcommandx\dpois[2][1=x,2=\lambda]{\frac{#2^#1 e^{-#2}}{#1!}}
+\newcommandx\ppois[2][1=x,2=\lambda]{e^{-#2}\sum_{i=0}^#1\frac{#2^i}{i!}}
+
+% Normal
+\newcommandx\norm[1][1={\mu,\sigma^2}]{\mathcal{N}\left({#1}\right)}
+\newcommandx\dnorm[3][1=x,2=\mu,3=\sigma]%
+{\frac{1}{#3\sqrt{2\pi}}\Exp{-\frac{\left(#1-#2\right)^2}{2 #3^2}}}
+\newcommandx\pnorm[1][1=x]{\Phi\left({#1}\right)}
+\newcommandx\qnorm[1]{\Phi^{-1}\left({#1}\right)}
+
+% Multivariate Normal
+\newcommandx\mvn[1][1={\mu,\Sigma}]{\mathrm{MVN}\left({#1}\right)}
+
+% Exponential
+\newcommandx\ex[1][1=\beta]{\textrm{Exp}\left(#1\right)}
+\newcommandx\dex[2][1=x,2=\beta]{\frac{1}{#2}e^{-#1/#2}}
+\newcommandx\pex[2][1=x,2=\beta]{1-e^{-#1/#2}}
+
+% Gamma
+\newcommandx\gam[1][1={\alpha,\beta}]{\textrm{Gamma}\left({#1}\right)}
+\newcommandx\dgamma[3][1=x,2=\alpha,3=\beta]%
+{\frac{1}{\Gamma\left( #2 \right) #3^{#2}} #1^{#2 -1}e^{- #1 / #3}}
+
+% InverseGamma
+\newcommandx\invgamma[1][1={\alpha,\beta}]{\textrm{InvGamma}\left({#1}\right)}
+\newcommandx\dinvgamma[3][1=x,2=\alpha,3=\beta]%
+{\frac{#3^{#2}}{\Gamma\left(#2\right)}#1^{-#2-1}e^{-#3/#1}}
+\newcommandx\pinvgamma[3][1=x,2=\alpha,3=\beta]%
+{\frac{\Gamma\left(#2,\frac{#3}{#1}\right)}{\Gamma\left(#2\right)}}
+
+% Beta
+\newcommandx\bet[1][1={\alpha,\beta}]{\textrm{Beta}\left(#1\right)}
+\newcommandx\dbeta[3][1=x,2=\alpha,3=\beta]
+{\frac{\Gamma\left(#2+#3\right)}{\Gamma\left(#2\right)\Gamma\left(#3\right)}#1^{#2-1}\left(1-#1\right)^{#3-1}}
+
+% Dirichlet
+\newcommandx\dir[1][1={\alpha}]{\textrm{Dir}\left(#1\right)}
+\newcommandx\ddir[3][1=x,2=\alpha]{\frac{\Gamma\left(\sum_{i=1}^k #2_i\right)}{\prod_{i=1}^k\Gamma\left(#2_i\right)}\prod_{i=1}^k #1_i^{#2_i-1}}
+
+% Weibull
+\newcommandx\weibull[1][1={\alpha}]{\textrm{Dir}\left(#1\right)}
+\newcommandx\dweibull[3][1=x,2=\lambda,3=k]{\frac{#3}{#2}
+\left(\frac{#1}{#2}\right)^{#3-1} e^{-(#1/#2)^k}}
+
+% Chi-squard
+\newcommandx\chisq[1][1=k]{\chi_{#1}^2}
+
+% Zeta
+\newcommandx\zet[1][1=s]{\textrm{Zeta}\left(#1\right)}
+\newcommandx\dzeta[2][1=x,2=s]{\frac{#1^{-#2}}{\zeta\left(#2\right)}}
+
+% Time Series
+\newcommandx\AR[1][1=p]{\mathsf{AR}\left({#1}\right)}
+\newcommandx\MA[1][1=q]{\mathsf{MA}\left({#1}\right)}
+\newcommandx\ARMA[1][1={p,q}]{\mathsf{ARMA}\left({#1}\right)}
+\newcommandx\ARIMA[1][1={p,d,q}]{\mathsf{ARIMA}\left({#1}\right)}
+\newcommandx\SARIMA[3][1={p,d,q},2={P,D,Q},3=s]{\mathsf{ARIMA}\left(#1\right) \times \left(#2\right)_{#3}}
+
+
+% =============================================================================
+%                                 Algorithms
+% =============================================================================
+
+\newcommandx\step[1][1=t]{^{(#1)}}
