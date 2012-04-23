@@ -1,7 +1,7 @@
 The [probability and statistics cookbook][stat-cookbook] contains a succinct
 representation of various topics in probability theory and statistics. It
-provides a comprehensive mathematical reference reduced to its minimal
-mathematical essence, rather than aiming for elaborate explanations.
+provides a comprehensive mathematical reference reduced to its essence, rather
+than aiming for elaborate explanations.
 
 Feel encouraged to extend the cookbook by forking it and submitting pull
 requests.
@@ -13,7 +13,7 @@ The cookbook aims to be language agnostic and factors out its textual elements
 into a separate dictionary. It is thus possible to translate the entire
 cookbook without needing to change the core LaTeX source and simply providing a
 new dictionary file. Please see the subdirectory
-[translations][stat-cookbook-traslations] for details.
+[translations][stat-cookbook-translations] for details.
 
 The current translation setup is heavily geared to Roman languages, as this was
 the easiest way to begin with. Feel free to make the necessary changes to the
