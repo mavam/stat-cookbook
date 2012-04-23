@@ -1,0 +1,720 @@
+%
+% Dictionary for the Probability and Statistics Cookbook.
+%
+% Language: English (default)
+% Author: Matthias Vallentin
+%
+
+\ProvidesDictionary{probstat}{english}
+
+%
+% Preamble
+%
+
+\newtranslation{maintitle}{Probability and Statistics}
+\newtranslation{subtitle}{Cookbook}
+\newtranslation{disclaimer}{%
+  This cookbook integrates a variety of topics in probability theory and
+  statistics. It is based on literature \cite{Hoel72,Wasserman03,Shumway06} and
+  in-class material from courses of the statistics department at the University
+  of California in Berkeley but also influenced by other sources
+  \cite{Steger01,Steger02}. If you find errors or have suggestions for further
+  topics, I would appreciate if you send me an \href{mailto:\email}{email}. The
+  most recent version of this document is available at \web. To reproduce,
+  please contact me.}
+
+%
+% Global (sorted alphabetically)
+%
+
+\newtranslation{be the}{be the}
+\newtranslation{and}{and}
+\newtranslation{Continuous}{Continuous}
+\newtranslation{continuous}{continuous}
+\newtranslation{Definition}{Definition}
+\newtranslation{Definitions}{Definitions}
+\newtranslation{Discrete}{Discrete}
+\newtranslation{discrete}{discrete}
+\newtranslation{Estimate}{Estimate}
+\newtranslation{Example}{Example}
+\newtranslation{for some}{for some}
+\newtranslation{If}{If}
+\newtranslation{In particular}{In particular}
+\newtranslation{is the}{is the}
+\newtranslation{large}{large}
+\newtranslation{Let}{Let}
+\newtranslation{let}{let}
+\newtranslation{of}{of}
+\newtranslation{Properties}{Properties}
+\newtranslation{properties}{properties}
+\newtranslation{Sample mean}{Sample mean}
+\newtranslation{Sample variance}{Sample variance}
+\newtranslation{small}{small}
+\newtranslation{Suppose}{Suppose}
+\newtranslation{Then}{Then}
+\newtranslation{when}{when}
+\newtranslation{where}{where}
+\newtranslation{with}{with}
+\newtranslation{under}{under}
+
+%
+% Sections (sorted by occurrence; each paragraph covers one section)
+%
+
+\newtranslation{Distribution Overview}{Distribution Overview}
+\newtranslation{Discrete Distributions}{Discrete Distributions}
+\newtranslation{Notation}{Notation}
+\newtranslation{Uniform}{Uniform}
+\newtranslation{Bernoulli}{Bernoulli}
+\newtranslation{Binomial}{Binomial}
+\newtranslation{Multinomial}{Multinomial}
+\newtranslation{Hypergeometric}{Hypergeometric}
+\newtranslation{Negative Binomial}{Negative Binomial}
+\newtranslation{Geometric}{Geometric}
+\newtranslation{Poisson}{Poisson}
+\newtranslation{Footnote about notation}{%
+  We use the notation $\gamma(s,x)$ and $\Gamma(x)$ to refer to the Gamma
+  functions (see \S\ref{sec:math:gamma}), and use $\text{B}(x,y)$ and $I_x$ to
+  refer to the Beta functions (see \S\ref{sec:math:beta}).}
+
+\newtranslation{Continuous Distributions}{Continuous Distributions}
+\newtranslation{Normal}{Normal}
+\newtranslation{Log-Normal}{Log-Normal}
+\newtranslation{Multivariate Normal}{Multivariate Normal}
+\newtranslation{Student's t}{Student's $t$}
+\newtranslation{Chi-square}{Chi-square}
+\newtranslation{Exponential}{Exponential}
+\newtranslation{Inverse Gamma}{Inverse Gamma}
+
+\newtranslation{Probability Theory}{Probability Theory}
+\newtranslation{Sample space}{Sample space}
+\newtranslation{Outcome}{Outcome (point or element)}
+\newtranslation{Event}{Event}
+\newtranslation{Sigma-algebra}{$\sigma$-algebra}
+\newtranslation{Probability distribution}{Probability distribution}
+\newtranslation{Probability space}{Probability space}
+\newtranslation{Continuity of Probabilities}{Continuity of Probabilities}
+\newtranslation{Independence}{Independence}
+\newtranslation{Conditional Probability}{Conditional Probability}
+\newtranslation{Law of Total Probability}{Law of Total Probability}
+\newtranslation{Bayes' Theorem}{Bayes' Theorem}
+\newtranslation{Inclusion-Exclusion Principle}{Inclusion-Exclusion Principle}
+
+\newtranslation{Random Variables}{Random Variables}
+\newtranslation{Random Variable}{Random Variable (RV)}
+\newtranslation{Probability Mass Function}{Probability Mass Function (PMF)}
+\newtranslation{Probability Density Function}{
+  Probability Density Function (PDF)}
+\newtranslation{Cumulative Distribution Function}{
+  Cumulative Distribution Function (CDF)}
+\newtranslation{Nondecreasing}{Nondecreasing}
+\newtranslation{Normalized}{Normalized}
+\newtranslation{Right-Continuous}{Right-Continuous}
+\newtranslation{Transformations}{Transformations}
+\newtranslation{Transformation function}{Transformation function}
+\newtranslation{Special case if transform strictly monotone}{%
+  Special case if $\transform$ strictly monotone}
+\newtranslation{The Rule of the Lazy Statistician}{%
+  The Rule of the Lazy Statistician}
+\newtranslation{Convolution}{Convolution}
+
+\newtranslation{Expectation}{Expectation}
+\newtranslation{inequality}{inequality}
+\newtranslation{Conditional expectation}{Conditional expectation}
+
+\newtranslation{Variance}{Variance}
+\newtranslation{Standard deviation}{Standard deviation}
+\newtranslation{Covariance}{Covariance}
+\newtranslation{Correlation}{Correlation}
+\newtranslation{Conditional variance}{Conditional variance}
+
+\newtranslation{Inequalities}{Inequalities}
+\newtranslation{convex}{convex}
+
+\newtranslation{Distribution Relationships}{Distribution Relationships}
+\newtranslation{far from 0 and 1}{far from 0 and 1}
+\newtranslation{Memoryless property}{Memoryless property}
+\newtranslation{Upper quantile of}{Upper quantile of}
+
+\newtranslation{Probability and Moment Generating Functions}{%
+  Probability and Moment Generating Functions}
+
+\newtranslation{Multivariate Distributions}{Multivariate Distributions} 
+\newtranslation{Standard Bivariate Normal}{Standard Bivariate Normal}
+\newtranslation{Joint density}{Joint density}
+\newtranslation{Conditionals}{Conditionals}
+\newtranslation{Bivariate Normal}{Bivariate Normal}
+\newtranslation{Conditional mean and variance}{Conditional mean and variance}
+\newtranslation{Multivariate Normal}{Multivariate Normal}
+\newtranslation{Covariance Matrix}{Covariance matrix}
+\newtranslation{Precision Matrix}{Precision matrix}
+
+\newtranslation{Convergence}{Convergence}
+\newtranslation{Convergence Introduction}{%
+  Let $\{X_1,X_2,\ldots\}$ be a sequence of \rv's and let $X$ be another \rv.
+  Let $F_n$ denote the \cdf of $X_n$ and let $F$ denote the \cdf of $X$.}
+\newtranslation{Types of Convergence}{Types of convergence}
+\newtranslation{In distribution}{In distribution (weakly, in law)}
+\newtranslation{In probability}{In probability}
+\newtranslation{Almost surely}{Almost surely (strongly)}
+\newtranslation{In quadratic mean}{In quadratic mean ($L_2$)}
+\newtranslation{Relationships}{Relationships}
+\newtranslation{Slutzky's Theorem}{\textsc{Slutzky's Theorem}}
+\newtranslation{In general}{In general}
+\newtranslation{Law of Large Numbers}{Law of Large Numbers (LLN)}
+\newtranslation{WLLN}{Weak (WLLN)}
+\newtranslation{SLLN}{Strong (WLLN)}
+\newtranslation{LLN Introduction}{%
+  Let $\{X_1,\ldots,X_n\}$ be a sequence of \iid \rv's, $\E{X_1}=\mu$, and 
+  $\V{X_1} < \infty$.}
+\newtranslation{Central Limit Theorem}{Central Limit Theorem (CLT)}
+\newtranslation{CLT Introduction}{%
+  Let $\{X_1,\ldots,X_n\}$ be a sequence of \iid \rv's, $\E{X_1}=\mu$, and 
+  $\V{X_1} = \sigma^2$.}
+\newtranslation{CLT notations}{CLT notations}
+\newtranslation{Continuity correction}{Continuity correction}
+\newtranslation{Delta method}{Delta method}
+
+\newtranslation{Statistical Inference}{Statistical Inference}
+\newtranslation{Statistical Inference Introduction}{%
+  Let $X_1,\cdots,X_n \distiid F$ if not otherwise noted.}
+\newtranslation{Point Estimation}{Point Estimation}
+\newtranslation{Point estimator}{Point estimator $\that_n$ of $\theta$ is a \rv}
+\newtranslation{Consistency}{Consistency}
+\newtranslation{Sampling distribution}{Sampling distribution}
+\newtranslation{Standard error}{Standard error}
+\newtranslation{Mean squared error}{Mean squared error}
+\newtranslation{is consistent}{is consistent}
+\newtranslation{Asymptotic normality}{Asymptotic normality}
+\newtranslation{Slutzky Note}{%
+  \translate{Slutzky's Theorem} often lets us replace $\se(\that_n)$ by some
+  (weakly) consistent estimator $\shat_n$.}
+\newtranslation{Normal-based Confidence Interval}{%
+  Normal-based Confidence Interval}
+\newtranslation{Empirical distribution}{Empirical distribution}
+\newtranslation{Empirical Distribution Function}{%
+  Empirical Distribution Function (ECDF)}
+\newtranslation{for any fixed x}{for any fixed $x$}
+\newtranslation{Dvoretzky-Kiefer-Wolfowitz inequality}{%
+  \textsc{Dvoretzky-Kiefer-Wolfowitz} (DKW) inequality}
+\newtranslation{Nonparametric confidence band}{%
+  Nonparametric $1-\alpha$ confidence band for $F$}
+\newtranslation{Statistical Functionals}{Statistical Functionals}
+\newtranslation{Statistical functional}{Statistical functional}
+\newtranslation{Plug-in estimator of theta}{%
+  Plug-in estimator of $\theta = (F)$}
+\newtranslation{Linear functional}{Linear functional}
+\newtranslation{Plug-in estimator for linear functional}{%
+  Plug-in estimator for linear functional}
+\newtranslation{Often}{Often}
+\newtranslation{quantile}{quantile}
+
+\newtranslation{Parametric Inference}{Parametric Inference}
+\newtranslation{Parametric Inference Introduction}{%
+  Let $\mathfrak{F} = \bigl\{ f(x;\theta) : \theta\in\Theta \bigr\}$ be a
+  parametric model with parameter space $\Theta \subset \R^k$ and parameter 
+  $\theta = (\theta_1,\dots,\theta_k)$.}
+\newtranslation{Method of moments}{Method of Moments}
+\newtranslation{jth moment}{$j^{\mathrm{th}}$ moment}
+\newtranslation{jth sample moment}{$j^{\mathrm{th}}$ sample moment}
+\newtranslation{Method of Moments estimator}{Method of moments estimator (MoM)}
+\newtranslation{Properties of the MoM estimator}{%
+  Properties of the MoM estimator}
+\newtranslation{exists with probability tending to 1}{%
+  exists with probability tending to 1}
+\newtranslation{Maximum likelihood}{Maximum likelihood}
+\newtranslation{Likelihood}{Likelihood}
+\newtranslation{Log-likelihood}{Log-likelihood}
+\newtranslation{Maximum likelihood estimator}{%
+  Maximum likelihood estimator (\mle)}
+\newtranslation{Score function}{Score function}
+\newtranslation{Fisher information}{Fisher information}
+\newtranslation{exponential family}{exponential family}
+\newtranslation{Observed Fisher information}{Observed Fisher information}
+\newtranslation{Properties of the MLE}{Properties of the \mle}
+\newtranslation{Equivariance}{Equivariance}
+\newtranslation{Asymptotic optimality}{%
+  Asymptotic optimality (or efficiency), i.e., smallest variance for large
+  samples. If $\ttil_n$ is any other estimator, the asymptotic relative
+  efficiency is}
+\newtranslation{Approximately the Bayes estimator}{%
+  Approximately the Bayes estimator}
+\newtranslation{is differentiable}{is differentiable}
+\newtranslation{Multiparameter Models}{Multiparameter Models}
+\newtranslation{Fisher information matrix}{Fisher information matrix}
+\newtranslation{Under appropriate regularity conditions}{%
+  Under appropriate regularity conditions}
+\newtranslation{Note on component convergence}{%
+  Further, if $\that_j$ is the $j^{\mathrm{th}}$ component of $\theta$,
+  then \[\frac{(\that_j-\theta_j)}{\sehat_j} \dconv \norm[0,1]\]
+  where $\sehat_j^2 = J_n(j,j)$ and $\cov{\that_j,\that_k} = J_n(j,k)$}
+\newtranslation{Multiparameter delta method}{Multiparameter delta method}
+\newtranslation{let the gradient of transform be}{%
+  let the gradient of \transform be}
+\newtranslation{Parametric Bootstrap}{Parametric Bootstrap}
+\newtranslation{Parametric Bootstrap Note}{%
+  Sample from $f(x;\that_n)$ instead of from $\Fnhat$, 
+  where $\that_n$ could be the \mle or method of moments estimator.}
+
+\newtranslation{Hypothesis Testing}{Hypothesis Testing}
+\newtranslation{versus}{versus}
+\newtranslation{Null hypothesis}{Null hypothesis}
+\newtranslation{Alternative hypothesis}{Alternative hypothesis}
+\newtranslation{Simple hypothesis}{Simple hypothesis}
+\newtranslation{Composite hypothesis}{Composite hypothesis}
+\newtranslation{Two-sided test}{Two-sided test}
+\newtranslation{One-sided test}{One-sided test}
+\newtranslation{Critical value}{Critical value}
+\newtranslation{Test statistic}{Test statistic}
+\newtranslation{Rejection region}{Rejection region}
+\newtranslation{Power function}{Power function}
+\newtranslation{Power of a test}{Power of a test}
+\newtranslation{Test size}{Test size}
+\newtranslation{Retain}{Retain}
+\newtranslation{Reject}{Reject}
+\newtranslation{true}{true}
+\newtranslation{Type I error}{Type I error}
+\newtranslation{Type II error}{Type II error}
+\newtranslation{power}{power}
+\newtranslation{p-value}{p-value}
+\newtranslation{evidence}{evidence}
+\newtranslation{very strong evidence against}{very strong evidence against}
+\newtranslation{strong evidence against}{strong evidence against}
+\newtranslation{weak evidence against}{weak evidence against}
+\newtranslation{little or no evidence against}{little or no evidence against}
+\newtranslation{Wald test}{Wald test}
+\newtranslation{Likelihood ratio test}{Likelihood ratio test (LRT)}
+\newtranslation{Multinomial LRT}{Multinomial LRT}
+\newtranslation{The approximate size alpha LRT rejects H0}{%
+  The approximate size $\alpha$ LRT rejects $H_0$ when
+  $\lambda(X) \ge \chi_{k-1,\alpha}^2$}
+\newtranslation{Pearson}{Pearson}
+\newtranslation{Pearson Chi-square}{Pearson $\chi^2$}
+\newtranslation{Pearson Chi-square test}{\translate{Pearson Chi-square} test}
+\newtranslation{Faster convergence than LRT, hence preferable for small n}{%
+  Faster $\dconv X_{k-1}^2$ than LRT, hence preferable for small $n$}
+\newtranslation{Independence testing}{Independence testing}
+\newtranslation{rows}{rows}
+\newtranslation{columns}{columns}
+\newtranslation{multinomial sample of size}{multinomial sample of size}
+\newtranslation{unconstrained}{unconstrained}
+\newtranslation{LRT}{LRT}
+
+\newtranslation{Bayesian Inference}{Bayesian Inference}
+\newtranslation{Prior density}{Prior density}
+\newtranslation{joint density of the data}{joint density of the data}
+\newtranslation{Posterior density}{Posterior density}
+\newtranslation{Normalizing constant}{Normalizing constant}
+\newtranslation{Kernel: part of a density that depends on theta}{%
+  Kernel: part of a density that depends on $\theta$}
+\newtranslation{Posterior mean}{Posterior mean}
+\newtranslation{Credible Intervals}{Credible Intervals}
+\newtranslation{Posterior interval}{Posterior interval}
+\newtranslation{Equal-tail credible interval}{Equal-tail credible interval}
+\newtranslation{Highest posterior density (HPD) region}{%
+  Highest posterior density (HPD) region}
+\newtranslation{is unimodal}{is unimodal}
+\newtranslation{is an interval}{is an interval}
+\newtranslation{Function of parameters}{Function of parameters}
+\newtranslation{Posterior CDF for tau}{Posterior CDF for $\tau$}
+\newtranslation{Bayesian delta method}{Bayesian delta method}
+\newtranslation{Priors}{Priors}
+\newtranslation{Choice}{Choice}
+\newtranslation{Subjective Bayesianism}{%
+  Subjective Bayesianism: prior should incorporate as much detail as
+  possible the research's a priori knowledge --- via \emph{prior elicitation}}
+\newtranslation{Objective Bayesianism}{%
+  Objective Bayesianism: prior should incorporate as little detail as possible
+  (\emph{non-informative} prior)}
+\newtranslation{Robust Bayesianism}{%
+  Robust Bayesianism: consider various priors and determine \emph{sensitivity}
+  of our inferences to changes in the prior}
+\newtranslation{Types}{Types}
+\newtranslation{Flat}{Flat}
+\newtranslation{Proper}{Proper}
+\newtranslation{Improper}{Improper}
+\newtranslation{transformation-invariant}{transformation-invariant}
+\newtranslation{Jeffrey's Prior}{\textsc{Jeffrey}'s prior}
+\newtranslation{Conjugate}{Conjugate}
+\newtranslation{belong to the same parametric family}{%
+  belong to the same parametric family}
+\newtranslation{Conjugate Priors}{Conjugate Priors}
+\newtranslation{Discrete likelihood}{Discrete likelihood}
+\newtranslation{Posterior hyperparameters}{Posterior hyperparameters}
+\newtranslation{Conjugate prior}{Conjugate prior}
+\newtranslation{Continuous likelihood}{%
+  Continuous likelihood (subscript $c$ denotes constant)}
+\newtranslation{Scaled Inverse Chi-square}{Scaled Inverse Chi-square}
+\newtranslation{Normal-scaled Inverse Gamma}{Normal-scaled Inverse Gamma}
+\newtranslation{Inverse-Wishart}{Inverse-Wishart}
+\newtranslation{Bayesian Testing}{Bayesian Testing}
+\newtranslation{Prior probability}{Prior probability}
+\newtranslation{Posterior probability}{Posterior probability}
+\newtranslation{Let H_0...H_K-1 be k hypotheses}{%
+Let $H_0,\ldots,H_{K-1}$ be $K$ hypotheses}
+\newtranslation{Marginal likelihood}{Marginal likelihood}
+\newtranslation{Posterior odds}{Posterior odds (of $H_i$ relative to $H_j$)}
+\newtranslation{Bayes factor}{Bayes factor}
+\newtranslation{Weak}{Weak}
+\newtranslation{Moderate}{Moderate}
+\newtranslation{Strong}{Strong}
+\newtranslation{Decisive}{Decisive}
+
+\newtranslation{Exponential Family}{Exponential Family}
+\newtranslation{Scalar parameter}{Scalar parameter}
+\newtranslation{Vector parameter}{Vector parameter}
+\newtranslation{Natural form}{Natural form}
+
+\newtranslation{Sampling Methods}{Sampling Methods}
+\newtranslation{The Bootstrap}{The Bootstrap}
+\newtranslation{be a statistic}{be a statistic}
+\newtranslation{Approximate}{Approximate}
+\newtranslation{using simulation}{using simulation}
+\newtranslation{Repeat the following B times}{%
+  Repeat the following $B$ times to get $T_{n,1}^*,\dots,T_{n,B}^*$,
+  an \iid sample from the sampling distribution implied by $\Fnhat$}
+\newtranslation{Sample uniformly}{Sample uniformly}
+\newtranslation{Bootstrap Confidence Intervals}{Bootstrap Confidence Intervals}
+\newtranslation{Normal-based interval}{Normal-based interval}
+\newtranslation{Pivotal interval}{Pivotal interval}
+\newtranslation{Location parameter}{Location parameter}
+\newtranslation{Pivot}{Pivot}
+\newtranslation{using bootstrap}{using bootstrap}
+\newtranslation{beta sample quantile of}{$\beta$ sample quantile of}
+\newtranslation{Approximate 1-alpha CI}{%
+  Approximate $1 - \alpha$ confidence interval}
+\newtranslation{Percentile interval}{Percentile interval}
+\newtranslation{Rejection Sampling}{Rejection Sampling}
+\newtranslation{Setup}{Setup}
+\newtranslation{We can easily sample from g}{%
+  We can easily sample from $g(\theta)$}
+\newtranslation{We want to sample from h, but it is difficult}{%
+  We want to sample from $h(\theta)$, but it is difficult}
+\newtranslation{We know h up to a proportional constant}{%
+  We know $h(\theta)$ up to a proportional constant}
+\newtranslation{Envelope condition: we can find M > 0 such that}{%
+  Envelope condition: we can find $M > 0$ such that}
+\newtranslation{Algorithm}{Algorithm}
+\newtranslation{Draw}{Draw}
+\newtranslation{Generate}{Generate}
+\newtranslation{Accept}{Accept}
+\newtranslation{We can easily sample from the prior}{%
+  We can easily sample from the prior}
+\newtranslation{Repeat until B values of theta-cand have been accepted}{%
+  Repeat until $B$ values of $\theta^{cand}$ have been accepted}
+\newtranslation{Target is the posterior}{Target is the posterior}
+\newtranslation{Envelope condition}{Envelope condition}
+\newtranslation{Importance Sampling}{Importance Sampling}
+\newtranslation{Importance Sampling Introduction}{%
+  Sample from an importance function $g$ rather than target density $h$.\\
+  Algorithm to obtain an approximation to $\E{q(\theta) \giv x^n}$:}
+\newtranslation{Sample from the prior}{Sample from the prior}
+
+\newtranslation{Decision Theory}{Decision Theory}
+\newtranslation{Unknown quantity affecting our decision}{%
+  Unknown quantity affecting our decision}
+\newtranslation{Decision rule: synonymous for an estimator theta hat}{%
+  Decision rule: synonymous for an estimator $\that$}
+\newtranslation{Action a in A}{%
+  Action $a \in \mathcal{A}$: possible value of the decision rule. In the
+  estimation context, the action is just an estimate of $\theta$, $\that(x)$.}
+\newtranslation{Loss function L}{%
+  Loss function $L$: consequences of taking action $a$ when true state is
+  $\theta$ or discrepancy between $\theta$ and $\that$}
+\newtranslation{Loss functions}{Loss functions}
+\newtranslation{Squared error loss}{Squared error loss}
+\newtranslation{Linear loss}{Linear loss}
+\newtranslation{Absolute error loss}{Absolute error loss}
+\newtranslation{linear loss with}{linear loss with}
+\newtranslation{loss}{loss}
+\newtranslation{Zero-one loss}{Zero-one loss}
+\newtranslation{Risk}{Risk}
+\newtranslation{Posterior risk}{Posterior risk}
+\newtranslation{(Frequentist) risk}{(Frequentist) risk}
+\newtranslation{Bayes risk}{Bayes risk}
+\newtranslation{Admissibility}{Admissibility}
+\newtranslation{dominates}{dominates}
+\newtranslation{is inadmissible if there is at least one other estimator}{%
+  is inadmissible if there is at least one other estimator $\that'$ that
+  dominates it. Otherwise it is called admissible.}
+\newtranslation{Bayes Rule}{Bayes Rule}
+\newtranslation{Bayes rule}{Bayes rule}
+\newtranslation{or Bayes estimator}{or Bayes estimator}
+\newtranslation{Theorems}{Theorems}
+\newtranslation{posterior mean}{posterior mean}
+\newtranslation{posterior median}{posterior median}
+\newtranslation{posterior mode}{posterior mode}
+\newtranslation{Minimax Rules}{Minimax Rules}
+\newtranslation{Maximum risk}{Maximum risk}
+\newtranslation{Minimax rule}{Minimax rule}
+\newtranslation{Least favorable prior}{Least favorable prior}
+
+\newtranslation{Linear Regression}{Linear Regression}
+\newtranslation{Response variable}{Response variable}
+\newtranslation{Covariate}{Covariate}
+\newtranslation{aka predictor variable or feature}{%
+  aka predictor variable or feature}
+\newtranslation{Simple Linear Regression}{Simple Linear Regression}
+\newtranslation{Model}{Model}
+\newtranslation{Fitted line}{Fitted line}
+\newtranslation{Predicted (fitted) values}{Predicted (fitted) values}
+\newtranslation{Residuals}{Residuals}
+\newtranslation{Residual sums of squares}{Residual sums of squares}
+\newtranslation{Least square estimates}{Least square estimates}
+\newtranslation{unbiased estimate}{unbiased estimate}
+\newtranslation{Further properties}{Further properties}
+\newtranslation{Approximate 1-alpha CI for beta0 and beta1}{%
+  Approximate $1-\alpha$ confidence intervals for $\beta_0$ and $\beta_1$}
+\newtranslation{reject}{reject}
+\newtranslation{Likelihood}{Likelihood}
+\newtranslation{Under the assumption of Normality, the least squares estimator
+  is also the MLE}{%
+  Under the assumption of Normality, the least squares estimator is also the
+  \mle}
+\newtranslation{Prediction}{Prediction}
+\newtranslation{Observe X = x* of the covariate and want to predict their 
+  outcome Y*}{%
+  Observe $X = x_*$ of the covariate and want to predict their outcome $Y_*$}
+\newtranslation{Prediction interval}{Prediction interval}
+\newtranslation{Multiple Regression}{Multiple Regression}
+\newtranslation{If the k by k matrix X'X is invertible}{%
+  If the $(k \times k)$ matrix $X^TX$ is invertible}
+\newtranslation{Estimate regression function}{Estimate regression function}
+\newtranslation{Unbiased estimate for sigma-squared}{%
+  Unbiased estimate for $\sigma^2$}
+\newtranslation{Confidence interval}{Confidence interval}
+\newtranslation{Model Selection}{Model Selection}
+\newtranslation{Model Selection Introduction}{
+  Consider predicting a new observation $Y^*$ for covariates $X^*$ and let $S
+  \subset J$ denote a subset of the covariates in the model, where $|S| = k$
+  and $|J| = n$}
+\newtranslation{Issues}{Issues}
+\newtranslation{Underfitting: too few covariates yields high bias}{%
+  Underfitting: too few covariates yields high bias}
+\newtranslation{Overfitting: too many covariates yields high variance}{%
+  Overfitting: too many covariates yields high variance}
+\newtranslation{Procedure}{Procedure}
+\newtranslation{Assign a score to each model}{Assign a score to each model}
+\newtranslation{Search through all models to find the one with the highest 
+  score}{Search through all models to find the one with the highest score}
+\newtranslation{Hypothesis testing}{Hypothesis testing}
+\newtranslation{Mean squared prediction error (MSPE)}{%
+  Mean squared prediction error (\mspe)}
+\newtranslation{Prediction risk}{Prediction risk}
+\newtranslation{Training error}{Training error}
+\newtranslation{The training error is a downward-biased estimate of the 
+  prediction risk}{%
+  The training error is a downward-biased estimate of the prediction risk}
+\newtranslation{Adjusted R2}{Adjusted $R^2$}
+\newtranslation{Mallow's Cp statistic}{\textsc{Mallow's} $C_p$ statistic}
+\newtranslation{lack of fit}{lack of fit}
+\newtranslation{complexity penalty}{complexity penalty}
+\newtranslation{Akaike Information Criterion (AIC)}{%
+  \textsc{Akaike} Information Criterion (AIC)}
+\newtranslation{Bayesian Information Criterion (BIC)}{%
+  Bayesian Information Criterion (BIC)}
+\newtranslation{Validation and training}{Validation and training}
+\newtranslation{validation data}{validation data}
+\newtranslation{often}{often}
+\newtranslation{Leave-one-out cross-validation}{Leave-one-out cross-validation}
+
+\newtranslation{Non-parametric Function Estimation}{%
+  Non-parametric Function Estimation}
+\newtranslation{Density Estimation}{Density Estimation}
+\newtranslation{Integrated square error (ISE)}{Integrated square error (\ise)}
+\newtranslation{Frequentist risk}{Frequentist risk}
+\newtranslation{Histograms}{Histograms}
+\newtranslation{Number of bins}{Number of bins}
+\newtranslation{Binwidth}{Binwidth}
+\newtranslation{Bin}{Bin}
+\newtranslation{has}{has}
+\newtranslation{observations}{observations}
+\newtranslation{Define}{Define}
+\newtranslation{Histogram estimator}{Histogram estimator}
+\newtranslation{Cross-validation estimate of}{Cross-validation estimate of}
+\newtranslation{Kernel Density Estimator (KDE)}{Kernel Density Estimator (KDE)}
+\newtranslation{Kernel}{Kernel}
+\newtranslation{KDE}{KDE}
+\newtranslation{Epanechnikov Kernel}{\textsc{Epanechnikov} Kernel}
+\newtranslation{otherwise}{otherwise}
+\newtranslation{Non-parametric Regression}{Non-parametric Regression}
+\newtranslation{Consider pairs of points (x1,Y1),...,(xn,Yn) related by}{%
+  Consider pairs of points $(x_1,Y_1),\dots,(x_n,Y_n)$ related by}
+\newtranslation{k-nearest Neighbor Estimator}{$k$-nearest Neighbor Estimator}
+\newtranslation{values of}{values of}
+\newtranslation{closest to}{closest to}
+\newtranslation{Nadaraya-Watson Kernel Estimator}{%
+  \textsc{Nadaraya-Watson} Kernel Estimator}
+\newtranslation{Smoothing Using Orthogonal Functions}{%
+  Smoothing Using Orthogonal Functions}
+\newtranslation{Approximation}{Approximation}
+\newtranslation{Multivariate regression}{Multivariate regression}
+\newtranslation{Least squares estimator}{Least squares estimator}
+\newtranslation{for equally spaced observations only}{%
+  for equally spaced observations only}
+
+\newtranslation{Stochastic Processes}{Stochastic Processes}
+\newtranslation{Stochastic Process}{Stochastic Process}
+\newtranslation{Notations}{Notations}
+\newtranslation{State space}{State space}
+\newtranslation{Index set}{Index set}
+\newtranslation{Markov Chains}{Markov Chains}
+\newtranslation{Markov chain}{Markov chain}
+\newtranslation{Transition probabilities}{Transition probabilities}
+\newtranslation{n-step}{n-step}
+\newtranslation{Transition matrix}{Transition matrix}
+\newtranslation{element is}{element is}
+\newtranslation{Marginal probability}{Marginal probability}
+\newtranslation{initial distribution}{initial distribution}
+\newtranslation{Poisson Processes}{Poisson Processes}
+\newtranslation{Poisson process}{Poisson process}
+\newtranslation{number of events up to and including time}{%
+  number of events up to and including time}
+\newtranslation{Independent increments}{Independent increments}
+\newtranslation{Intensity function}{Intensity function}
+\newtranslation{Homogeneous Poisson process}{Homogeneous Poisson process}
+\newtranslation{Waiting times}{Waiting times}
+\newtranslation{time at which Xt occurs}{time at which $X_t$ occurs}
+\newtranslation{Interarrival times}{Interarrival times}
+
+\newtranslation{Time Series}{Time Series}
+\newtranslation{Mean function}{Mean function}
+\newtranslation{Autocovariance function}{Autocovariance function}
+\newtranslation{Autocorrelation function (ACF)}{Autocorrelation function (ACF)}
+\newtranslation{Cross-covariance function (CCV)}{%
+  Cross-covariance function (CCV)}
+\newtranslation{Cross-correlation function (CCF)}{%
+  Cross-correlation function (CCF)}
+\newtranslation{Backshift operator}{Backshift operator}
+\newtranslation{Difference operator}{Difference operator}
+\newtranslation{White noise}{White noise}
+\newtranslation{Gaussian}{Gaussian}
+\newtranslation{Random walk}{Random walk}
+\newtranslation{Drift}{Drift}
+\newtranslation{Symmetric moving average}{Symmetric moving average}
+\newtranslation{Stationary Time Series}{Stationary Time Series}
+\newtranslation{Strictly stationary}{Strictly stationary}
+\newtranslation{Weakly stationary}{Weakly stationary}
+\newtranslation{Autocovariance function}{Autocovariance function}
+\newtranslation{Autocorrelation function (ACF)}{Autocorrelation function (ACF)}
+\newtranslation{Jointly stationary time series}{Jointly stationary time series}
+\newtranslation{Linear process}{Linear process}
+\newtranslation{Estimation of Correlation}{Estimation of Correlation}
+\newtranslation{Sample autocovariance function}{Sample autocovariance function}
+\newtranslation{Estimation of Correlation}{Estimation of Correlation}
+\newtranslation{Sample autocovariance function}{Sample autocovariance function}
+\newtranslation{Sample autocorrelation function}{%
+  Sample autocorrelation function}
+\newtranslation{Sample cross-variance function}{Sample cross-variance function}
+\newtranslation{Sample cross-correlation function}{%
+  Sample cross-correlation function}
+\newtranslation{is white noise}{is white noise}
+\newtranslation{Non-Stationary Time Series}{Non-Stationary Time Series}
+\newtranslation{Classical decomposition model}{Classical decomposition model}
+\newtranslation{trend}{trend}
+\newtranslation{seasonal component}{seasonal component}
+\newtranslation{random noise term}{random noise term}
+\newtranslation{Detrending}{Detrending}
+\newtranslation{Least squares}{Least squares}
+\newtranslation{Choose trend model}{Choose trend model}
+\newtranslation{Minimize RSS to obtain trend estimate}{%
+  Minimize \rss to obtain trend estimate}
+\newtranslation{Residuals}{Residuals}
+\newtranslation{noise}{noise}
+\newtranslation{Moving average}{Moving average}
+\newtranslation{The low-pass filter vt is a symmetric moving average}{%
+  The \emph{low-pass} filter $v_t$ is a symmetric moving average $m_t$ with
+  $a_j = \frac{1}{2k+1}$}
+\newtranslation{a linear trend function mut passes without distortion}{%
+  a linear trend function $\mu_t = \beta_0 + \beta_1t$ passes without
+  distortion}
+\newtranslation{Differencing}{Differencing}
+\newtranslation{ARIMA models}{ARIMA models}
+\newtranslation{Autoregressive polynomial}{Autoregressive polynomial}
+\newtranslation{Autoregressive operator}{Autoregressive operator}
+\newtranslation{Autoregressive model order p}{Autoregressive model order $p$}
+\newtranslation{Moving average polynomial}{Moving average polynomial}
+\newtranslation{Moving average operator}{Moving average operator}
+\newtranslation{moving average model order}{moving average model order}
+\newtranslation{Partial autocorrelation function (PACF)}{%
+  Partial autocorrelation function (PACF)}
+\newtranslation{regression of xi on}{regression of $x_i$ on}
+\newtranslation{Exponentially Weighted Moving Average (EWMA)}{%
+  Exponentially Weighted Moving Average (EWMA)}
+\newtranslation{Seasonal ARIMA}{Seasonal ARIMA}
+\newtranslation{Denoted by}{Denoted by}
+\newtranslation{Causality and Invertibility}{Causality and Invertibility}
+\newtranslation{is causal (future-independent)}{is causal (future-independent)}
+\newtranslation{such that}{such that}
+\newtranslation{is invertible}{is invertible}
+\newtranslation{causal}{causal}
+\newtranslation{roots of phi(z) lie outside the unit circle}{
+  roots of $\phi(z)$ lie outside the unit circle}
+\newtranslation{invertible}{invertible}
+\newtranslation{roots of theta(z) lie outside the unit circle}{%
+  roots of $\theta(z)$ lie outside the unit circle}
+\newtranslation{Behavior of the ACF and PACF for causal and invertible ARMA
+  models}{%
+  Behavior of the ACF and PACF for causal and invertible ARMA models}
+\newtranslation{tails off}{tails off}
+\newtranslation{cuts off after lag}{cuts off after lag}
+\newtranslation{Spectral Analysis}{Spectral Analysis}
+\newtranslation{Periodic process}{Periodic process}
+\newtranslation{Frequency index omega (cycles per unit time)}{%
+  Frequency index $\omega$ (cycles per unit time)}
+\newtranslation{period}{period}
+\newtranslation{Amplitude}{Amplitude}
+\newtranslation{Phase}{Phase}
+\newtranslation{often normally distributed RV's}{%
+  often normally distributed \rv's}
+\newtranslation{Periodic mixture}{Periodic mixture}
+\newtranslation{are independent zero-mean RV's with variances}{%
+  are independent zero-mean \rv's with variances}
+\newtranslation{Spectral representation of a periodic process}{%
+  Spectral representation of a periodic process}
+\newtranslation{Spectral distribution function}{Spectral distribution function}
+\newtranslation{Spectral density}{Spectral density}
+\newtranslation{Needs}{Needs}
+\newtranslation{Discrete Fourier Transform (DFT)}{%
+  Discrete Fourier Transform (DFT)}
+\newtranslation{Fourier/Fundamental frequencies}{%
+  Fourier/Fundamental frequencies}
+\newtranslation{Inverse DFT}{Inverse DFT}
+\newtranslation{Periodogram}{Periodogram}
+\newtranslation{Scaled Periodogram}{Scaled Periodogram}
+
+\newtranslation{Gamma Function}{Gamma Function}
+\newtranslation{Ordinary}{Ordinary}
+\newtranslation{Upper incomplete}{Upper incomplete}
+\newtranslation{Lower incomplete}{Lower incomplete}
+\newtranslation{Beta Function}{Beta Function}
+\newtranslation{Incomplete}{Incomplete}
+\newtranslation{Regularized incomplete}{Regularized incomplete}
+\newtranslation{Series}{Series}
+\newtranslation{Finite}{Finite}
+\newtranslation{Binomial}{Binomial}
+\newtranslation{Vandermonde's Identity}{\textsc{Vandermonde}'s Identity}
+\newtranslation{Binomial Theorem}{Binomial Theorem}
+\newtranslation{Infinite}{Infinite}
+\newtranslation{Combinatorics}{Combinatorics}
+\newtranslation{Sampling}{Sampling}
+\newtranslation{k out of n}{$k$ out of $n$}
+\newtranslation{w/o replacement}{w/o replacement}
+\newtranslation{w/ replacement}{w/ replacement}
+\newtranslation{ordered}{ordered}
+\newtranslation{unordered}{unordered}
+\newtranslation{Stirling numbers, 2nd kind}{Stirling numbers, $2^{nd}$ kind}
+\newtranslation{Partitions}{Partitions}
+\newtranslation{Balls and Urns}{Balls and Urns}
+\newtranslation{distinguishable}{distinguishable}
+\newtranslation{indistinguishable}{indistinguishable}
+\newtranslation{arbitrary}{arbitrary}
+\newtranslation{injective}{injective}
+\newtranslation{surjective}{surjective}
+\newtranslation{bijective}{bijective}
+\newtranslation{Univariate distribution relationships, 
+  courtesy Leemis and McQueston}{%
+  Univariate distribution relationships, courtesy Leemis and McQueston}
+
+% vim: ft=tex
+
