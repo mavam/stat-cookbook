@@ -1,4 +1,5 @@
-par(mar=c(3,3,2,1), mgp=c(2,.7,0), tck=-.01)
+defaultLwd <- 1.5
+par(mar=c(3,3,2,1), mgp=c(2,.7,0), tck=-.01, cex=1.5, lwd=2, lty=defaultLwd)
 
 plot.uniform.discrete = function()
 {
@@ -22,11 +23,11 @@ plot.binomial = function()
   N = length(n)
   f = function(x,y) dbinom(xseq, x, y)
   matplot(xseq, mapply(f, n, p), type="b", 
-      main="Binomial", xlab="x", ylab="PMF", pch=1:N)
+      main="Binomial", xlab="x", ylab="PMF", pch=1:N, lty=1)
 
   s = function(k) substitute(list(n==i, p==j), list(i=n[k], j=p[k]))
   legend.labels = do.call("expression", lapply(1:N, s))
-  legend("topright", legend.labels, bty="n", col=1:N, pch=1:N, lty=1:N)
+  legend("topright", legend.labels, bty="n", col=1:N, pch=1:N, lty=1)
   dev.print(pdf, "figs/binomial.pdf")
 }
 
@@ -37,11 +38,11 @@ plot.geometric = function()
   N = length(p)
   f = function(x) dgeom(xseq, x)
   matplot(xseq+1, sapply(p, f), type="b", xlim=range(xseq),
-      main="Geometric", xlab="x", ylab="PMF", pch=1:N)
+      main="Geometric", xlab="x", ylab="PMF", pch=1:N, lty=1)
 
   s = function(k) substitute(p==j, list(j=p[k]))
   legend.labels = do.call("expression", lapply(1:N, s))
-  legend("topright", legend.labels, bty="n", col=1:N, pch=1:N, lty=1:N)
+  legend("topright", legend.labels, bty="n", col=1:N, pch=1:N, lty=1)
   dev.print(pdf, "figs/geometric.pdf")
 }
 
@@ -52,11 +53,11 @@ plot.poisson = function()
   N = length(lambda)
   f = function(x) dpois(xseq, x)
   matplot(xseq, sapply(lambda, f), type="b",
-      main="Poisson", xlab="x", ylab="PMF", pch=1:N)
+      main="Poisson", xlab="x", ylab="PMF", pch=1:N, lty=1)
 
   s = function(k) substitute(lambda==j, list(j=lambda[k]))
   legend.labels = do.call("expression", lapply(1:N, s))
-  legend("topright", legend.labels, bty="n", col=1:N, pch=1:N, lty=1:N)
+  legend("topright", legend.labels, bty="n", col=1:N, pch=1:N, lty=1)
   dev.print(pdf, "figs/poisson.pdf")
 }
 
@@ -88,12 +89,12 @@ plot.normal = function()
   xseq = seq(-5,5, by=0.01)
   f = function(x,y) dnorm(xseq, x, y)
   matplot(xseq, mapply(f, mu, sqrt(s2)), type="l", 
-      main="Normal", xlab="x", ylab=expression(phi(x)))
+      main="Normal", xlab="x", ylab=expression(phi(x)), lty=1, lwd=defaultLwd)
 
   n = length(mu)
   s = function(k) substitute(list(mu==i, sigma^2==j), list(i=mu[k], j=s2[k]))
   legend.labels = do.call("expression", lapply(1:n, s))
-  legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
+  legend("topright", legend.labels, bty="n", col=1:n, lty=1)
   dev.print(pdf, "figs/normal.pdf")
 }
 
@@ -104,12 +105,12 @@ plot.lognormal = function()
   xseq = seq(0,3, by=0.01)
   f = function(x,y) dlnorm(xseq, x, y)
   matplot(xseq, mapply(f, mu, sqrt(s2)), type="l", 
-      main="Log-normal", xlab="x", ylab="PDF")
+      main="Log-normal", xlab="x", ylab="PDF", lwd=defaultLwd, lty=1)
 
   n = length(mu)
   s = function(k) substitute(list(mu==i, sigma^2==j), list(i=mu[k], j=s2[k]))
   legend.labels = do.call("expression", lapply(1:n, s))
-  legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
+  legend("topright", legend.labels, bty="n", col=1:n, lty=1)
   dev.print(pdf, "figs/lognormal.pdf")
 }
 
@@ -119,13 +120,14 @@ plot.student = function()
   xseq = seq(-5,5, by=0.01)
   f = function(x) dt(xseq, x)
   matplot(xseq, sapply(nu, f), type="l", 
-      main=expression(bold("Student\'s") ~ italic(t)), xlab="x", ylab="PDF")
+      main=expression(bold("Student\'s") ~ italic(t)), xlab="x", ylab="PDF",
+      lwd=defaultLwd, lty=1)
 
   n = length(nu)
   s = function(k) substitute(nu==i, list(i=nu[k]))
   s.last = quote(nu==infinity)
   legend.labels = do.call("expression", c(lapply(1:(n-1), s), s.last))
-  legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
+  legend("topright", legend.labels, bty="n", col=1:n, lty=1)
   dev.print(pdf, "figs/student.pdf")
 }
 
@@ -135,12 +137,12 @@ plot.chisquare = function()
   xseq = seq(0,8, by=0.01)
   f = function(x) dchisq(xseq, x)
   matplot(xseq, sapply(k, f), type="l", ylim=c(0,0.5),
-      main=expression(chi^2), xlab="x", ylab="PDF")
+      main=expression(chi^2), xlab="x", ylab="PDF", lwd=defaultLwd, lty=1)
 
   n = length(k)
   s = function(l) substitute(k == i, list(i=k[l]))
   legend.labels = do.call("expression", lapply(1:n, s))
-  legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
+  legend("topright", legend.labels, bty="n", col=1:n, lty=1)
   dev.print(pdf, "figs/chisquare.pdf")
 }
 
@@ -150,12 +152,13 @@ plot.f = function()
   d2 = c(1,1,2,1,100)
   xseq = seq(0,5, by=0.01)
   f = function(x,y) df(xseq, x, y)
-  matplot(xseq, mapply(f, d1, d2), type="l", main="F", xlab="x", ylab="PDF")
+  matplot(xseq, mapply(f, d1, d2), type="l", main="F", xlab="x", ylab="PDF",
+          lwd=defaultLwd, lty=1)
 
   n = length(d1)
   s = function(k) substitute(list(d[1]==i, d[2]==j), list(i=d1[k], j=d2[k]))
   legend.labels = do.call("expression", lapply(1:n, s))
-  legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
+  legend("topright", legend.labels, bty="n", col=1:n, lty=1)
   dev.print(pdf, "figs/f.pdf")
 }
 
@@ -165,12 +168,12 @@ plot.exp = function()
   xseq = seq(0, 5, by=0.01)
   f = function(x) dexp(xseq, x)
   matplot(xseq, sapply(b, f), type="l", 
-      main="Exponential", xlab="x", ylab="PDF")
+      main="Exponential", xlab="x", ylab="PDF", lwd=defaultLwd, lty=1)
 
   n = length(b)
   s = function(k) substitute(beta == i, list(i=b[k]))
   legend.labels = do.call("expression", lapply(1:n, s))
-  legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
+  legend("topright", legend.labels, bty="n", col=1:n, lty=1)
   dev.print(pdf, "figs/exponential.pdf")
 }
 
@@ -181,12 +184,12 @@ plot.gamma = function()
   xseq = seq(0,20, by=0.1)
   f = function(x,y) dgamma(xseq, x, 1/y)
   matplot(xseq, mapply(f, a, b), type="l", 
-      main="Gamma", xlab="x", ylab="PDF")
+      main="Gamma", xlab="x", ylab="PDF", lwd=defaultLwd, lty=1)
 
   n = length(a)
   s = function(k) substitute(list(alpha == i, beta == j), list(i=a[k], j=b[k]))
   legend.labels = do.call("expression", lapply(1:n, s))
-  legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
+  legend("topright", legend.labels, bty="n", col=1:n, lty=1)
   dev.print(pdf, "figs/gamma.pdf")
 }
 
@@ -199,12 +202,12 @@ plot.invgamma = function()
   xseq = seq(0,5, by=0.01)
   f = function(x,y) dinvgamma(xseq, x, y)
   matplot(xseq, mapply(f, a, b), type="l", 
-      main="Inverse Gamma", xlab="x", ylab="PDF")
+      main="Inverse Gamma", xlab="x", ylab="PDF", lwd=defaultLwd, lty=1)
 
   n = length(a)
   s = function(k) substitute(list(alpha == i, beta == j), list(i=a[k], j=b[k]))
   legend.labels = do.call("expression", lapply(1:n, s))
-  legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
+  legend("topright", legend.labels, bty="n", col=1:n, lty=1)
   dev.print(pdf, "figs/invgamma.pdf")
 }
 
@@ -215,12 +218,12 @@ plot.dirichlet = function()
   #  a = c(1,2,3)
   #  xseq = seq(0, 5, by=0.01)
   #  matplot(xseq, ddirichlet(, type="l", 
-  #      main="Dirichlet", xlab="x", ylab="PDF")
+  #      main="Dirichlet", xlab="x", ylab="PDF", lwd=defaultLwd, lty=1)
   #
   #  n = length(a)
   #  s = function(k) substitute(list(alpha == i, beta == j), list(i=a[k], j=b[k]))
   #  legend.labels = do.call("expression", lapply(1:n, s))
-  #  legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
+  #  legend("topright", legend.labels, bty="n", col=1:n, lty=1)
   #  dev.print(pdf, "figs/dirichlet.pdf")
 }
 
@@ -231,12 +234,12 @@ plot.beta = function()
   xseq = seq(0,1, by=0.01)
   f = function(x,y) dbeta(xseq, x, y)
   matplot(xseq, mapply(f, a, b), type="l", ylim=c(0,3),
-      main="Beta", xlab="x", ylab="PDF")
+      main="Beta", xlab="x", ylab="PDF", lwd=defaultLwd, lty=1)
 
   n = length(a)
   s = function(k) substitute(list(alpha == i, beta == j), list(i=a[k], j=b[k]))
   legend.labels = do.call("expression", lapply(1:n, s))
-  legend("top", legend.labels, bty="n", col=1:n, lty=1:n)
+  legend("top", legend.labels, bty="n", col=1:n, lty=1)
   dev.print(pdf, "figs/beta.pdf")
 }
 
@@ -247,13 +250,13 @@ plot.weibull = function()
   xseq = seq(0, 2.5, by=0.01)
   f = function(x,y) dweibull(xseq, x, y)
   matplot(xseq, mapply(f, k, lambda), type="l", ylim=c(0,2.5),
-      main="Weibull", xlab="x", ylab="PDF")
+      main="Weibull", xlab="x", ylab="PDF", lwd=defaultLwd, lty=1)
 
   n = length(k)
   s = function(l) substitute(list(lambda == i, k == j), 
       list(i=lambda[l], j=k[l]))
   legend.labels = do.call("expression", lapply(1:n, s))
-  legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
+  legend("topright", legend.labels, bty="n", col=1:n, lty=1)
   dev.print(pdf, "figs/weibull.pdf")
 }
 
@@ -266,12 +269,12 @@ plot.pareto = function()
   xseq = seq(0,5, by=0.01)
   f = function(x,y) dpareto(xseq, x, y)
   matplot(xseq, mapply(f, xm, a), type="l", col=2:5,
-      main="Pareto", xlab="x", ylab="PDF")
+      main="Pareto", xlab="x", ylab="PDF", lwd=defaultLwd, lty=1)
 
   n = length(a)
   s = function(k) substitute(list(x[m] == i, alpha == j), list(i=xm[k], j=a[k]))
   legend.labels = do.call("expression", lapply(1:n, s))
-  legend("topright", legend.labels, bty="n", col=1:n+1, lty=1:n)
+  legend("topright", legend.labels, bty="n", col=1:n+1, lty=1)
   dev.print(pdf, "figs/pareto.pdf")
 }
 
