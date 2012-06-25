@@ -1,48 +1,86 @@
-par(mar=c(3,3,2,1), mgp=c(2,.7,0), tck=-.01)
+library(ggplot2)
+library(reshape) # melt
+#library(grid)
+
+theme_set(theme_bw())
+#theme.old <- theme_update(
+#               axis.text.x=theme_text(size=16),
+#               axis.text.y=theme_text(size=16, hjust=1),
+#               axis.title.x=theme_text(size=18, hjust=0.55),
+#               axis.title.y=theme_text(size=18, angle=90, vjust=0.3),
+#               legend.title=theme_text(size=16),
+#               legend.title.align=0.5,
+#               legend.text=theme_text(size=16),
+#               legend.key=theme_rect(colour='white'),
+#               legend.background=theme_rect(fill='#ffffff00', colour=NA),
+#               strip.text.x=theme_text(size=16),
+#               plot.margin=unit(c(0.1, 0.2, 0.2, 0.5), 'lines'))
+
+
+# TODO: ggplotify the effect of this statement.
+#par(mar=c(3,3,2,1), mgp=c(2,.7,0), tck=-.01, cex=1.5, lwd=1.5)
+
+# --------------------------------------------------------------------------- #
+
+# Plots a probability mass function.
+#
+# Requires: x is a molten data frame and has a column "x" representing the
+# abscissa values.
+plot.discrete = function(data, name, legend_labels)
+{
+  ggplot(data) +
+    aes(x, value,
+        group=variable, color=variable, shape=variable, linetype=variable) + 
+    geom_line() + 
+    geom_point() + 
+    ylab("PMF") +
+    scale_color_discrete(name="", labels=legend_labels) +
+    scale_shape_discrete(name="", labels=legend_labels) +
+    scale_linetype_discrete(name="", labels=legend_labels) +
+    opts(title=name,
+         legend.justification=c(1, 1),
+         legend.position=c(1, 1))
+}
 
 plot.uniform.discrete = function()
 {
   xseq = 3:8
-  plot(xseq, rep(0.5,length(xseq)), xlim=c(1,10), pch=19, col=2,
-      xaxt="n", yaxt="n", xlab="x", ylab="PMF", main="Uniform (discrete)")
-  axis(1, at=xseq, labels=c("a", rep("", length(xseq)-2), "b"))
-  axis(2, at=0.5, labels=expression(frac(1, n)), las=1)
-
-  for (x in xseq)
-    segments(x, 0, x, 0.5, lty=2, col=2)
-
-  dev.print(pdf, "figs/uniform-discrete.pdf")
+  ggplot(data.frame(x0=factor(xseq), x1=xseq, y0=0, y1=0.5)) +
+    aes(x=x0, y=y1) +
+    geom_point() + 
+#    geom_segment(aes(x=x1, xend=x1, y=y0, yend=y1), linetype="dashed") +
+    opts(title="Uniform (discrete)", panel.grid.minor=theme_blank()) +
+    scale_x_discrete(name="x",
+                     breaks=xseq,
+                     limits=1:10,
+                     labels=c("a", rep("", length(xseq)-2), "b")) +
+    scale_y_continuous(name="PMF",
+                       breaks=0.5,
+                       limits=0:1,
+                       labels=expression(frac(1, n)))
 }
 
 plot.binomial = function()
 {
-  n = c(40,30,25)
+  n = c(40, 30, 25)
   p = c(0.3, 0.6, 0.9)
   xseq = 1:40
-  N = length(n)
-  f = function(x,y) dbinom(xseq, x, y)
-  matplot(xseq, mapply(f, n, p), type="b", 
-      main="Binomial", xlab="x", ylab="PMF", pch=1:N)
+  pmf = function(x, y) dbinom(xseq, x, y)
+  molten = melt(cbind(x=xseq, data.frame(mapply(pmf, n, p))), id=1)
 
   s = function(k) substitute(list(n==i, p==j), list(i=n[k], j=p[k]))
-  legend.labels = do.call("expression", lapply(1:N, s))
-  legend("topright", legend.labels, bty="n", col=1:N, pch=1:N, lty=1:N)
-  dev.print(pdf, "figs/binomial.pdf")
+  plot.discrete(molten, "Binomial", lapply(1:length(n), s))
 }
 
 plot.geometric = function()
 {
   p = c(0.2, 0.5, 0.8)
   xseq = 0:10
-  N = length(p)
-  f = function(x) dgeom(xseq, x)
-  matplot(xseq+1, sapply(p, f), type="b", xlim=range(xseq),
-      main="Geometric", xlab="x", ylab="PMF", pch=1:N)
+  pmf = function(x) dgeom(xseq, x)
+  molten = melt(cbind(x=xseq+1, data.frame(sapply(p, pmf))), id=1)
 
   s = function(k) substitute(p==j, list(j=p[k]))
-  legend.labels = do.call("expression", lapply(1:N, s))
-  legend("topright", legend.labels, bty="n", col=1:N, pch=1:N, lty=1:N)
-  dev.print(pdf, "figs/geometric.pdf")
+  plot.discrete(molten, "Geometric", lapply(1:length(p), s))
 }
 
 plot.poisson = function()
@@ -50,35 +88,63 @@ plot.poisson = function()
   lambda = c(1,4,10)
   xseq = 0:20
   N = length(lambda)
-  f = function(x) dpois(xseq, x)
-  matplot(xseq, sapply(lambda, f), type="b",
-      main="Poisson", xlab="x", ylab="PMF", pch=1:N)
+  pmf = function(x) dpois(xseq, x)
+  molten = melt(cbind(x=xseq+1, data.frame(sapply(lambda, pmf))), id=1)
 
   s = function(k) substitute(lambda==j, list(j=lambda[k]))
-  legend.labels = do.call("expression", lapply(1:N, s))
-  legend("topright", legend.labels, bty="n", col=1:N, pch=1:N, lty=1:N)
-  dev.print(pdf, "figs/poisson.pdf")
+  plot.discrete(molten, "Poisson", lapply(1:length(lambda), s))
 }
 
-# ----------------------------------------------------------------------------#
+# --------------------------------------------------------------------------- #
+
+# Plots a probability distribution function.
+#
+# Requires: x is a molten data frame and has a column "x" representing the
+# abscissa values.
+plot.continuous = function(data, name, legend_labels)
+{
+  ggplot(data) +
+    aes(x, value, group=variable, color=variable, linetype=variable) + 
+    geom_line() + 
+    ylab("PDF") +
+    scale_color_discrete(name="", labels=legend_labels) +
+    scale_linetype_discrete(name="", labels=legend_labels) +
+    opts(title=name,
+         legend.justification=c(1, 1),
+         legend.position=c(1, 1))
+}
 
 plot.uniform.continuous = function()
 {
-  xseq = 3:7
-  plot(range(xseq), rep(0.4,2), xlim=c(0,10), ylim=c(0,1), pch=19, col=2,
-      xaxt="n", yaxt="n", xlab="x", ylab="PDF", main="Uniform (continuous)")
-  axis(1, at=range(xseq), labels=c("a", "b"))
-  axis(2, at=0.4, labels=expression(frac(1, b-a)), las=1)
+  solid = data.frame(x0=c(1, 3,   8),
+                     x1=c(3, 8,  10),
+                     y0=c(0, 0.5, 0),
+                     y1=c(0, 0.5, 0))
+  dashed = data.frame(x0=c(solid[1,2], solid[3,1]),
+                      x1=c(solid[1,2], solid[2,2]),
+                      y0=c(solid[1,3], solid[3,3]),
+                      y1=c(solid[2,3], solid[2,4]))
+  filled = data.frame(x=c(solid[2,1], solid[3,1]),
+                      y=c(solid[2,3], solid[2,3]))
+  hollow = data.frame(x=c(solid[2,1], solid[3,1]),
+                      y=c(solid[1,3], solid[3,3]))
 
-  segments(0, 0, min(xseq), 0, col=2, lwd=2)
-  for (x in range(xseq))
-    segments(x, 0, x, 0.4, lty=2, col=2)
-  segments(max(xseq), 0, 10, 0, col=2, lwd=3)
-  segments(min(xseq), 0.4, max(xseq), 0.4, col=2, lwd=2)
-
-  points(range(xseq), rep(0,2), col=2, pch=21, bg="white")
-
-  dev.print(pdf, "figs/uniform-continuous.pdf")
+  ggplot(solid) +
+    geom_segment(aes(x=x0, xend=x1, y=y0, yend=y1)) +
+    geom_segment(data=dashed,
+                 aes(x=x0, xend=x1, y=y0, yend=y1),
+                 linetype="dashed") +
+    geom_point(data=filled, aes(x=x, y=y)) +
+    geom_point(data=hollow, aes(x=x, y=y), shape=21, fill="white") +
+    opts(title="Uniform (continuous)", panel.grid.minor=theme_blank()) +
+    scale_x_continuous(name="x",
+                       breaks=c(solid[1,2], solid[3,1]),
+                       limits=c(solid[1,1], solid[3,2]),
+                       labels=c("a", "b")) +
+    scale_y_continuous(name="PDF",
+                       breaks=solid[2,3],
+                       limits=0:1,
+                       labels=expression(frac(1, b-a)))
 }
 
 plot.normal = function()
@@ -87,14 +153,11 @@ plot.normal = function()
   s2 = c(0.2,1,5,0.5)
   xseq = seq(-5,5, by=0.01)
   f = function(x,y) dnorm(xseq, x, y)
-  matplot(xseq, mapply(f, mu, sqrt(s2)), type="l", 
-      main="Normal", xlab="x", ylab=expression(phi(x)))
+  molten = melt(cbind(x=xseq, data.frame(mapply(f, mu, sqrt(s2)))), id=1)
 
-  n = length(mu)
   s = function(k) substitute(list(mu==i, sigma^2==j), list(i=mu[k], j=s2[k]))
-  legend.labels = do.call("expression", lapply(1:n, s))
-  legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
-  dev.print(pdf, "figs/normal.pdf")
+  plot.continuous(molten, "Normal", lapply(1:length(mu), s)) +
+    ylab(expression(phi(x)))
 }
 
 plot.lognormal = function()
@@ -102,15 +165,11 @@ plot.lognormal = function()
   mu = c(0,2,0,1/2,1/4,1/8)
   s2 = c(3,2,1,1,1,1)
   xseq = seq(0,3, by=0.01)
-  f = function(x,y) dlnorm(xseq, x, y)
-  matplot(xseq, mapply(f, mu, sqrt(s2)), type="l", 
-      main="Log-normal", xlab="x", ylab="PDF")
+  f = function(x, y) dlnorm(xseq, x, y)
+  molten = melt(cbind(x=xseq, data.frame(mapply(f, mu, sqrt(s2)))), id=1)
 
-  n = length(mu)
   s = function(k) substitute(list(mu==i, sigma^2==j), list(i=mu[k], j=s2[k]))
-  legend.labels = do.call("expression", lapply(1:n, s))
-  legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
-  dev.print(pdf, "figs/lognormal.pdf")
+  plot.continuous(molten, "Log-Normal", lapply(1:length(mu), s))
 }
 
 plot.student = function()
@@ -118,15 +177,13 @@ plot.student = function()
   nu = c(1,2,5,Inf)
   xseq = seq(-5,5, by=0.01)
   f = function(x) dt(xseq, x)
-  matplot(xseq, sapply(nu, f), type="l", 
-      main=expression(bold("Student\'s") ~ italic(t)), xlab="x", ylab="PDF")
+  molten = melt(cbind(x=xseq, data.frame(sapply(nu, f))), id=1)
 
-  n = length(nu)
   s = function(k) substitute(nu==i, list(i=nu[k]))
   s.last = quote(nu==infinity)
-  legend.labels = do.call("expression", c(lapply(1:(n-1), s), s.last))
-  legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
-  dev.print(pdf, "figs/student.pdf")
+  plot.continuous(molten,
+                  expression(bold("Student\'s") ~ italic(t)),
+                  c(lapply(1:(length(nu)-1), s), s.last))
 }
 
 plot.chisquare = function()
@@ -134,14 +191,10 @@ plot.chisquare = function()
   k = 1:5
   xseq = seq(0,8, by=0.01)
   f = function(x) dchisq(xseq, x)
-  matplot(xseq, sapply(k, f), type="l", ylim=c(0,0.5),
-      main=expression(chi^2), xlab="x", ylab="PDF")
+  molten = melt(cbind(x=xseq, data.frame(sapply(k, f))), id=1)
 
-  n = length(k)
   s = function(l) substitute(k == i, list(i=k[l]))
-  legend.labels = do.call("expression", lapply(1:n, s))
-  legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
-  dev.print(pdf, "figs/chisquare.pdf")
+  plot.continuous(molten, expression(chi^2), lapply(1:length(k), s))
 }
 
 plot.f = function()
@@ -149,14 +202,11 @@ plot.f = function()
   d1 = c(1,2,5,100,100)
   d2 = c(1,1,2,1,100)
   xseq = seq(0,5, by=0.01)
-  f = function(x,y) df(xseq, x, y)
-  matplot(xseq, mapply(f, d1, d2), type="l", main="F", xlab="x", ylab="PDF")
+  f = function(x, y) df(xseq, x, y)
+  molten = melt(cbind(x=xseq, data.frame(mapply(f, d1, d2))), id=1)
 
-  n = length(d1)
   s = function(k) substitute(list(d[1]==i, d[2]==j), list(i=d1[k], j=d2[k]))
-  legend.labels = do.call("expression", lapply(1:n, s))
-  legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
-  dev.print(pdf, "figs/f.pdf")
+  plot.continuous(molten, expression(chi^2), lapply(1:length(d1), s))
 }
 
 plot.exp = function()
@@ -164,30 +214,22 @@ plot.exp = function()
   b = c(2, 1, 0.4)
   xseq = seq(0, 5, by=0.01)
   f = function(x) dexp(xseq, x)
-  matplot(xseq, sapply(b, f), type="l", 
-      main="Exponential", xlab="x", ylab="PDF")
+  molten = melt(cbind(x=xseq, data.frame(sapply(b, f))), id=1)
 
-  n = length(b)
   s = function(k) substitute(beta == i, list(i=b[k]))
-  legend.labels = do.call("expression", lapply(1:n, s))
-  legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
-  dev.print(pdf, "figs/exponential.pdf")
+  plot.continuous(molten, "Exponential", lapply(1:length(b), s))
 }
 
 plot.gamma = function()
 {
   a = c(1,2,3,5,9)
   b = c(2,2,2,1,0.5)
-  xseq = seq(0,20, by=0.1)
-  f = function(x,y) dgamma(xseq, x, 1/y)
-  matplot(xseq, mapply(f, a, b), type="l", 
-      main="Gamma", xlab="x", ylab="PDF")
+  xseq = seq(0, 20, by=0.1)
+  f = function(x, y) dgamma(xseq, x, 1/y)
+  molten = melt(cbind(x=xseq, data.frame(mapply(f, a, b))), id=1)
 
-  n = length(a)
   s = function(k) substitute(list(alpha == i, beta == j), list(i=a[k], j=b[k]))
-  legend.labels = do.call("expression", lapply(1:n, s))
-  legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
-  dev.print(pdf, "figs/gamma.pdf")
+  plot.continuous(molten, "Gamma", lapply(1:length(a), s))
 }
 
 plot.invgamma = function()
@@ -196,48 +238,40 @@ plot.invgamma = function()
 
   a = c(1,2,3,3)
   b = c(1,1,1,0.5)
-  xseq = seq(0,5, by=0.01)
+  xseq = seq(0, 5, by=0.01)
   f = function(x,y) dinvgamma(xseq, x, y)
-  matplot(xseq, mapply(f, a, b), type="l", 
-      main="Inverse Gamma", xlab="x", ylab="PDF")
+  molten = melt(cbind(x=xseq, data.frame(mapply(f, a, b))), id=1)
 
-  n = length(a)
   s = function(k) substitute(list(alpha == i, beta == j), list(i=a[k], j=b[k]))
-  legend.labels = do.call("expression", lapply(1:n, s))
-  legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
-  dev.print(pdf, "figs/invgamma.pdf")
+  plot.continuous(molten, "Inverse Gamma", lapply(1:length(a), s))
 }
 
-plot.dirichlet = function()
-{
-  require(MCMCpack)
-
-  #  a = c(1,2,3)
-  #  xseq = seq(0, 5, by=0.01)
-  #  matplot(xseq, ddirichlet(, type="l", 
-  #      main="Dirichlet", xlab="x", ylab="PDF")
-  #
-  #  n = length(a)
-  #  s = function(k) substitute(list(alpha == i, beta == j), list(i=a[k], j=b[k]))
-  #  legend.labels = do.call("expression", lapply(1:n, s))
-  #  legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
-  #  dev.print(pdf, "figs/dirichlet.pdf")
-}
+#plot.dirichlet = function()
+#{
+#  require(MCMCpack)
+#
+#  a = list(c(6,2,2), c(3,7,5), c(6,2,6), c(2,3,4))
+#  seqs = seq(0, 15, by=0.01) # FIXME: choose right input
+#  f = function(v) ddirichlet(cbind(seqs, seqs, seqs), v)
+#
+#  # TODO
+#  mapply(f, a, b)
+#
+#  s = function(k) substitute(list(alpha == i), list(i=a[k]))
+#  labs = lapply(1:length(a), s)
+#}
 
 plot.beta = function()
 {
   a = c(0.5,5,1,2,2)
   b = c(0.5,1,3,2,5)
-  xseq = seq(0,1, by=0.01)
+  xseq = seq(0, 1, by=0.01)
   f = function(x,y) dbeta(xseq, x, y)
-  matplot(xseq, mapply(f, a, b), type="l", ylim=c(0,3),
-      main="Beta", xlab="x", ylab="PDF")
+  molten = melt(cbind(x=xseq, data.frame(mapply(f, a, b))), id=1)
 
-  n = length(a)
   s = function(k) substitute(list(alpha == i, beta == j), list(i=a[k], j=b[k]))
-  legend.labels = do.call("expression", lapply(1:n, s))
-  legend("top", legend.labels, bty="n", col=1:n, lty=1:n)
-  dev.print(pdf, "figs/beta.pdf")
+  plot.continuous(molten, "Beta", lapply(1:length(a), s)) +
+    opts(legend.justification=c(0.5, 1), legend.position=c(0.5, 1))
 }
 
 plot.weibull = function()
@@ -246,15 +280,11 @@ plot.weibull = function()
   k = c(0.5,1,1.5,5)
   xseq = seq(0, 2.5, by=0.01)
   f = function(x,y) dweibull(xseq, x, y)
-  matplot(xseq, mapply(f, k, lambda), type="l", ylim=c(0,2.5),
-      main="Weibull", xlab="x", ylab="PDF")
+  molten = melt(cbind(x=xseq, data.frame(mapply(f, k, lambda))), id=1)
 
-  n = length(k)
   s = function(l) substitute(list(lambda == i, k == j), 
-      list(i=lambda[l], j=k[l]))
-  legend.labels = do.call("expression", lapply(1:n, s))
-  legend("topright", legend.labels, bty="n", col=1:n, lty=1:n)
-  dev.print(pdf, "figs/weibull.pdf")
+                             list(i=lambda[l], j=k[l]))
+  plot.continuous(molten, "Weibull", lapply(1:length(k), s))
 }
 
 plot.pareto = function()
@@ -265,29 +295,38 @@ plot.pareto = function()
   a = c(1,2,4)
   xseq = seq(0,5, by=0.01)
   f = function(x,y) dpareto(xseq, x, y)
-  matplot(xseq, mapply(f, xm, a), type="l", col=2:5,
-      main="Pareto", xlab="x", ylab="PDF")
+  molten = melt(cbind(x=xseq, data.frame(mapply(f, xm, a))), id=1)
 
-  n = length(a)
   s = function(k) substitute(list(x[m] == i, alpha == j), list(i=xm[k], j=a[k]))
-  legend.labels = do.call("expression", lapply(1:n, s))
-  legend("topright", legend.labels, bty="n", col=1:n+1, lty=1:n)
-  dev.print(pdf, "figs/pareto.pdf")
+  plot.continuous(molten, "Pareto", lapply(1:length(a), s))
 }
 
-plot.uniform.discrete()
-plot.uniform.continuous()
-plot.binomial()
-plot.geometric()
-plot.poisson()
-plot.normal()
-plot.lognormal()
-plot.student()
-plot.chisquare()
-plot.f()
-plot.exp()
-plot.gamma()
-plot.invgamma()
-plot.beta()
-plot.weibull()
-plot.pareto()
+# --------------------------------------------------------------------------- #
+
+# Saves a ggplot2 to disk.
+#
+# Requires: f outputs a ggplot2.
+store = function(f, name)
+{
+    pdf(paste(paste("figs", name, sep="/"), "pdf", sep="."))
+    print(f())
+    dev.off()
+}
+
+store(plot.uniform.discrete, "uniform-discrete")
+store(plot.uniform.continuous, "uniform-continuous")
+store(plot.binomial, "binomial")
+store(plot.geometric, "geometric")
+store(plot.poisson, "poisson")
+store(plot.normal, "normal")
+store(plot.lognormal, "lognormal")
+store(plot.poisson, "poisson")
+store(plot.student, "student")
+store(plot.chisquare, "chisquare")
+store(plot.f, "f")
+store(plot.exp, "exponential")
+store(plot.gamma, "gamma")
+store(plot.invgamma, "invgamma")
+store(plot.beta, "beta")
+store(plot.weibull, "weibull")
+store(plot.pareto, "pareto")
