@@ -1,24 +1,13 @@
 library(ggplot2)
-library(reshape) # melt
-#library(grid)
+library(reshape)  # melt
+library(grid)     # unit
 
-theme_set(theme_bw())
-#theme.old <- theme_update(
-#               axis.text.x=theme_text(size=16),
-#               axis.text.y=theme_text(size=16, hjust=1),
-#               axis.title.x=theme_text(size=18, hjust=0.55),
-#               axis.title.y=theme_text(size=18, angle=90, vjust=0.3),
-#               legend.title=theme_text(size=16),
-#               legend.title.align=0.5,
-#               legend.text=theme_text(size=16),
-#               legend.key=theme_rect(colour='white'),
-#               legend.background=theme_rect(fill='#ffffff00', colour=NA),
-#               strip.text.x=theme_text(size=16),
-#               plot.margin=unit(c(0.1, 0.2, 0.2, 0.5), 'lines'))
+theme_set(theme_bw(base_size=20))
+theme_update(legend.key=theme_rect(colour="white"),
+             plot.margin=unit(rep(0, 4), "lines"))
 
-
-# TODO: ggplotify the effect of this statement.
-#par(mar=c(3,3,2,1), mgp=c(2,.7,0), tck=-.01, cex=1.5, lwd=1.5)
+# FIXME: can this statement move to theme_update?
+scale_color_discrete = function(...) scale_color_brewer(..., palette="Dark2")
 
 # --------------------------------------------------------------------------- #
 
