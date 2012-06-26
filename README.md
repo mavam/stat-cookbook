@@ -19,6 +19,16 @@ The current translation setup is heavily geared to Roman languages, as this was
 the easiest way to begin with. Feel free to make the necessary changes to the
 core source file to relax this constraint.
 
+Build Setup
+-----------
+
+You can build the cookbook locally via:
+
+    make
+
+This first generates the distribution plots and then compiles the LaTeX source.
+You may have to install a few missing packages via CRAN.
+
 License
 -------
 
