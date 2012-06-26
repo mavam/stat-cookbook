@@ -2,11 +2,14 @@ library(ggplot2)
 library(reshape)  # melt
 library(grid)     # unit
 
+line_width = 1.3
+point_size = 4
 theme_set(theme_bw(base_size=20))
 theme_update(legend.key=theme_rect(colour="white"),
+             legend.key.width=unit(3, "lines"),
              plot.margin=unit(rep(0, 4), "lines"))
 
-# FIXME: can this statement move to theme_update?
+# FIXME: is it possible to move this statement into theme_update?
 scale_color_discrete = function(...) scale_color_brewer(..., palette="Dark2")
 
 # --------------------------------------------------------------------------- #
@@ -20,8 +23,8 @@ plot.discrete = function(data, name, legend_labels)
   ggplot(data) +
     aes(x, value,
         group=variable, color=variable, shape=variable, linetype=variable) + 
-    geom_line() + 
-    geom_point() + 
+    geom_line(size=line_width) + 
+    geom_point(size=point_size) + 
     ylab("PMF") +
     scale_color_discrete(name="", labels=legend_labels) +
     scale_shape_discrete(name="", labels=legend_labels) +
@@ -36,7 +39,7 @@ plot.uniform.discrete = function()
   xseq = 3:8
   ggplot(data.frame(x0=factor(xseq), x1=xseq, y0=0, y1=0.5)) +
     aes(x=x0, y=y1) +
-    geom_point() + 
+    geom_point(size=point_size) + 
 #    geom_segment(aes(x=x1, xend=x1, y=y0, yend=y1), linetype="dashed") +
     opts(title="Uniform (discrete)", panel.grid.minor=theme_blank()) +
     scale_x_discrete(name="x",
@@ -94,7 +97,7 @@ plot.continuous = function(data, name, legend_labels)
 {
   ggplot(data) +
     aes(x, value, group=variable, color=variable, linetype=variable) + 
-    geom_line() + 
+    geom_line(size=line_width) + 
     ylab("PDF") +
     scale_color_discrete(name="", labels=legend_labels) +
     scale_linetype_discrete(name="", labels=legend_labels) +
@@ -119,12 +122,14 @@ plot.uniform.continuous = function()
                       y=c(solid[1,3], solid[3,3]))
 
   ggplot(solid) +
-    geom_segment(aes(x=x0, xend=x1, y=y0, yend=y1)) +
+    geom_segment(aes(x=x0, xend=x1, y=y0, yend=y1), size=line_width) +
     geom_segment(data=dashed,
                  aes(x=x0, xend=x1, y=y0, yend=y1),
+                 size=line_width,
                  linetype="dashed") +
-    geom_point(data=filled, aes(x=x, y=y)) +
-    geom_point(data=hollow, aes(x=x, y=y), shape=21, fill="white") +
+    geom_point(data=filled, aes(x=x, y=y), size=point_size) +
+    geom_point(data=hollow, aes(x=x, y=y), size=point_size, shape=21,
+               fill="white") +
     opts(title="Uniform (continuous)", panel.grid.minor=theme_blank()) +
     scale_x_continuous(name="x",
                        breaks=c(solid[1,2], solid[3,1]),
