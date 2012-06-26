@@ -302,7 +302,7 @@ plot.pareto = function()
 # Requires: f outputs a ggplot2.
 store = function(f, name)
 {
-    pdf(paste(paste("figs", name, sep="/"), "pdf", sep="."))
+    pdf(paste(name, "pdf", sep="."))
     print(f())
     dev.off()
 }

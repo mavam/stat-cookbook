@@ -12,7 +12,12 @@ RERUNBIB := "No file.*\.bbl|Citation.*undefined"
 
 TEXINPUTS := $(TEXINPUTS):translations:
 
-all: en
+.PHONY: all figs en es english spanish purge clean dist
+
+all: figs en
+
+figs:
+	$(MAKE) -C $@
 
 en: $(DOC)
 	@echo '\uselanguage{english}' > $(CFG)
@@ -38,6 +43,7 @@ purge:
 	-rm -f $(DIST) *.{aux,dvi,log,bbl,blg,brf,toc,thm,out,fdb_latexmk}
 
 clean: purge
+	$(MAKE) -C figs $@
 	-rm -f $(CFG) $(EN) $(EN:.tex=.pdf)
 
 dist: clean

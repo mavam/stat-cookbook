@@ -8,6 +8,8 @@
 *.out
 *.sw?
 *.toc
+figs/*
+!figs/relationships.pdf
 cookbook.pdf
 cookbook-??.*
 config.tex
