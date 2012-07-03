@@ -1,3 +1,23 @@
+2012-07-03  Matthias Vallentin  <vallentin@icir.org>
+
+    * Create ggplot2 version of the distribution plots. The new plots work
+      better with black-and-white printing since they:
+
+        1) use a dark Brewer color palette (more contrast)
+        2) use different line types
+        3) have an increased line width
+
+    * Let Make pre-generate the distribution plots and remove them from the
+      repository. Building the cookbook now requires and recent R installation
+      and the following packages:
+
+        - ggplot2
+        - reshape
+        - grid
+        - MCMCpack
+        - VGAM
+
+
 2011-12-12  Matthias Vallentin  <vallentin@icir.org>
 
     * Fix typo in chi-square PDF. (Steve Cheng-Xian Li)
@@ -110,21 +130,21 @@
       invertible ARMA models.
 
     * Remov the discussion about orthogonal functions in the math section.
-    
+
 
 2010-11-20  Matthias Vallentin  <vallentin@icir.org>
 
     * Augment the distribution tables with plots of that visualize the PMFs and
       PDFs of the major distributions.
-  
-    
+
+
 2010-11-19  Matthias Vallentin  <vallentin@icir.org>
 
     * New section Sampling Methods, currently includes the boostrap, rejection
       sampling, and importance sampling.
 
     * More conjugate priors for the univariate Gaussian likelihood when the
-      mean is known and when both mean and variance are unknown. 
+      mean is known and when both mean and variance are unknown.
 
     * Split distribution table in two tables for discrete and continuous
       distributions.
@@ -133,7 +153,7 @@
       Gaussian, Log-normal, Pareto, Chi-square.
 
     * Fix log-likelihood symbol (replaced with \ell)
-  
+
 
 2010-10-09  Matthias Vallentin  <vallentin@icir.org>
 
