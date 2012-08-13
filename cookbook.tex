@@ -174,7 +174,9 @@
 
 \begin{center}
 \small
-\begin{tabular}{@{}l*6{>{\begin{math}\displaystyle}c<{\end{math}}}@{}}
+%\newcolumntype{L}{>{\varwidth[c]{\linewidth}}l<{\endvarwidth}}
+\newcolumntype{M}{>{\begin{math}\displaystyle}c<{\end{math}}}
+\begin{tabular}{@{}l*6{M}@{}}
   \toprule &&&&&& \\[-2ex]
   & \text{\T{Notation}}
   & F_X(x) & f_X(x) & \E{X} & \V{X} & M_X(s) \\[1ex]
@@ -203,12 +205,17 @@
   \mu & \Sigma &
   \Exp{\mu^T s + \frac{1}{2} s^T \Sigma s}\\[3ex]
 
-  \T{Student's t} & \text{Student}(\nu) & 
-  I_x\left( \frac{\nu}{2},\frac{\nu}{2} \right) &
-  \frac{\Gamma\left(\frac{\nu+1}{2}\right)}
+  \T{Student's t} & \text{Student}(\nu)
+  & I_x\left( \frac{\nu}{2},\frac{\nu}{2} \right)
+  & \frac{\Gamma\left(\frac{\nu+1}{2}\right)}
     {\sqrt{\nu\pi}\Gamma\left(\frac{\nu}{2}\right)}
     \left(1+\frac{x^2}{\nu}\right)^{-(\nu+1)/2}
-  & 0 & 0 & \\[3ex]
+  & 0
+  & \begin{cases}
+      \displaystyle\frac{\nu}{\nu-2} & \nu > 2 \\
+      \infty & 1 < \nu \le 2
+    \end{cases}
+  & \\[3ex]
 
   \T{Chi-square} & \chisq &
   \frac{1}{\Gamma(k/2)} \gamma\left(\frac{k}{2}, \frac{x}{2}\right) & 
