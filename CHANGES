@@ -1,7 +1,7 @@
 2012-09-16  Matthias Vallentin  <vallentin@icir.org>
 
     * Address a couple of issues pointed out by Michael Turmon:
-      
+
       - Fix wrong label of the F distribution plot.
       - In §5, sum of variances: demote invalid equivalence to an implication.
       - Fix incorrect abbreviation of the Strong Law of Large Numbers (SLLN).
