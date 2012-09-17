@@ -200,7 +200,7 @@ plot.f = function()
   molten = melt(cbind(x=xseq, data.frame(mapply(f, d1, d2))), id=1)
 
   s = function(k) substitute(list(d[1]==i, d[2]==j), list(i=d1[k], j=d2[k]))
-  plot.continuous(molten, expression(chi^2), lapply(1:length(d1), s))
+  plot.continuous(molten, "F", lapply(1:length(d1), s))
 }
 
 plot.exp = function()
