@@ -163,7 +163,7 @@
 \newtranslation{In general}{In general}
 \newtranslation{Law of Large Numbers}{Law of Large Numbers (LLN)}
 \newtranslation{WLLN}{Weak (WLLN)}
-\newtranslation{SLLN}{Strong (WLLN)}
+\newtranslation{SLLN}{Strong (SLLN)}
 \newtranslation{LLN Introduction}{%
   Let $\{X_1,\ldots,X_n\}$ be a sequence of \iid \rv's, $\E{X_1}=\mu$, and 
   $\V{X_1} < \infty$.}
