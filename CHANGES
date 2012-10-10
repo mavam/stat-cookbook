@@ -1,3 +1,11 @@
+2012-10-10  Matthias Vallentin  <vallentin@icir.org>
+
+    * Fix wrong label in balls and urns table. In the first row, both balls and
+      urns should be distinguishable. (Mathieu Bruyen)
+
+    * Fix \begin{center} typo. (Mathieu Bruyen)
+
+
 2012-09-16  Matthias Vallentin  <vallentin@icir.org>
 
     * Address a couple of issues pointed out by Michael Turmon:
