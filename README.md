@@ -12,8 +12,8 @@ Translations
 The cookbook aims to be language agnostic and factors out its textual elements
 into a separate dictionary. It is thus possible to translate the entire
 cookbook without needing to change the core LaTeX source and simply providing a
-new dictionary file. Please see the subdirectory
-[translations][stat-cookbook-translations] for details.
+new dictionary file. Please see the subdirectory [translations](translations)
+for details.
 
 The current translation setup is heavily geared to Roman languages, as this was
 the easiest way to begin with. Feel free to make the necessary changes to the
@@ -48,6 +48,5 @@ Screenshots
 ![Time Series](http://matthias.vallentin.net/blog/2010/10/time-series.png)
 
 [stat-cookbook]: http://matthias.vallentin.net/probability-and-statistics-cookbook/
-[stat-cookbook-translations]: https://www.github.com/mavam/stat-cookbook/tree/master/translations
 [by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/3.0/
 [by-nc-sa-img]: http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png
