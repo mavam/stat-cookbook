@@ -1574,7 +1574,7 @@ R(\theta,\that^f) \le r(f,\that^f) \;\forall\theta\]
            = \frac{\sumin X_iY_i-n\Xbar\Ybar}{\sumin X_i^2 - n\Xsqbar} \\
   \E{\bhat\giv X^n} &= \begin{pmatrix}\beta_0 \\ \beta_1\end{pmatrix} \\
   \V{\bhat\giv X^n} &=
-  \frac{\sigma^2}{n s_X}
+  \frac{\sigma^2}{n s^2_X}
     \begin{pmatrix}n^{-1}\sumin X_i^2 & -\Xnbar \\ -\Xnbar & 1\end{pmatrix} \\
   \sehat(\bhat_0) &= \frac{\shat}{s_X\sqrt{n}} \sqrt{\frac{\sumin X_i^2}{n}} \\
   \sehat(\bhat_1) &= \frac{\shat}{s_X\sqrt{n}}
@@ -1614,7 +1614,8 @@ R$^2$
 \end{align*}
 
 \T{Under the assumption of Normality,
-  the least squares estimator is also the MLE}
+  the least squares parameter estimators are also the MLEs,
+  but the least squares variance estimator is not the MLE}
 \[\shat^2 = \frac{1}{n}\sumin \ehat_i^2\]
 
 \subsection{\T{Prediction}}
