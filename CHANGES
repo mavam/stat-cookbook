@@ -1,6 +1,7 @@
 2014-01-24  Matthias Vallentin  <vallentin@icir.org>
 
     * Fix wrong denominator in alternative CLT representations. (Lluís Ramon)
+    * Fix typo in balls-and-urns table. (Soumya Basu)
 
 
 2012-10-10  Matthias Vallentin  <vallentin@icir.org>
