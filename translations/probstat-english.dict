@@ -145,7 +145,6 @@
 \newtranslation{Conditionals}{Conditionals}
 \newtranslation{Bivariate Normal}{Bivariate Normal}
 \newtranslation{Conditional mean and variance}{Conditional mean and variance}
-\newtranslation{Multivariate Normal}{Multivariate Normal}
 \newtranslation{Covariance Matrix}{Covariance matrix}
 \newtranslation{Precision Matrix}{Precision matrix}
 
@@ -465,7 +464,6 @@ Let $H_0,\ldots,H_{K-1}$ be $K$ hypotheses}
 \newtranslation{Approximate 1-alpha CI for beta0 and beta1}{%
   Approximate $1-\alpha$ confidence intervals for $\beta_0$ and $\beta_1$}
 \newtranslation{reject}{reject}
-\newtranslation{Likelihood}{Likelihood}
 \newtranslation{Under the assumption of Normality, the least squares estimator
   is also the MLE}{%
   Under the assumption of Normality, the least squares estimator is also the
@@ -594,12 +592,8 @@ Let $H_0,\ldots,H_{K-1}$ be $K$ hypotheses}
 \newtranslation{Stationary Time Series}{Stationary Time Series}
 \newtranslation{Strictly stationary}{Strictly stationary}
 \newtranslation{Weakly stationary}{Weakly stationary}
-\newtranslation{Autocovariance function}{Autocovariance function}
-\newtranslation{Autocorrelation function (ACF)}{Autocorrelation function (ACF)}
 \newtranslation{Jointly stationary time series}{Jointly stationary time series}
 \newtranslation{Linear process}{Linear process}
-\newtranslation{Estimation of Correlation}{Estimation of Correlation}
-\newtranslation{Sample autocovariance function}{Sample autocovariance function}
 \newtranslation{Estimation of Correlation}{Estimation of Correlation}
 \newtranslation{Sample autocovariance function}{Sample autocovariance function}
 \newtranslation{Sample autocorrelation function}{%
@@ -618,7 +612,6 @@ Let $H_0,\ldots,H_{K-1}$ be $K$ hypotheses}
 \newtranslation{Choose trend model}{Choose trend model}
 \newtranslation{Minimize RSS to obtain trend estimate}{%
   Minimize \rss to obtain trend estimate}
-\newtranslation{Residuals}{Residuals}
 \newtranslation{noise}{noise}
 \newtranslation{Moving average}{Moving average}
 \newtranslation{The low-pass filter vt is a symmetric moving average}{%
@@ -691,7 +684,6 @@ Let $H_0,\ldots,H_{K-1}$ be $K$ hypotheses}
 \newtranslation{Regularized incomplete}{Regularized incomplete}
 \newtranslation{Series}{Series}
 \newtranslation{Finite}{Finite}
-\newtranslation{Binomial}{Binomial}
 \newtranslation{Vandermonde's Identity}{\textsc{Vandermonde}'s Identity}
 \newtranslation{Binomial Theorem}{Binomial Theorem}
 \newtranslation{Infinite}{Infinite}

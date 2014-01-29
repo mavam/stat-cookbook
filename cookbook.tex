@@ -781,7 +781,7 @@ Z_n &\approx \norm[0,1] \\
 \samplemean &\approx \norm[\mu,\frac{\sigma^2}{n}] \\
 \samplemean - \mu &\approx \norm[0,\frac{\sigma^2}{n}] \\
 \sqrt{n}(\samplemean - \mu) &\approx \norm[0,\sigma^2] \\
-\frac{\sqrt{n}(\samplemean - \mu)}{n} &\approx \norm[0,1] \\
+\frac{\sqrt{n}(\samplemean - \mu)}{\sigma} &\approx \norm[0,1] \\
 \end{align*}
 
 \T{Continuity correction}
@@ -2476,7 +2476,7 @@ P(j/n)
       \begin{cases} n! & m = n\\ 0 & \text{\T{else}} \end{cases}\\[3ex]
     \hline &&&&\\[-2ex]
     $B:\indistinguishable,\; U:\distinguishable$ &
-      \binom{n+n-1}{n} & \binom{m}{n} &
+      \binom{m+n-1}{n} & \binom{m}{n} &
       \binom{n-1}{m-1} &
       \begin{cases} 1 & m = n\\ 0 & \text{\T{else}} \end{cases}\\[3ex]
     \hline &&&&\\[-2ex]
