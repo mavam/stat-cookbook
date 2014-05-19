@@ -40,7 +40,8 @@ spanish: $(ES:.tex=.pdf)
 	@egrep -q $(RERUN) $*.log && pdflatex $<; true
 
 purge:
-	-rm -f $(DIST) *.{aux,dvi,log,bbl,blg,brf,toc,thm,out,fdb_latexmk}
+	-rm -f $(DIST) $(DOC:.tex=-*) \
+		*.{aux,dvi,log,bbl,blg,brf,toc,thm,out,fdb_latexmk}
 
 clean: purge
 	$(MAKE) -C figs $@
