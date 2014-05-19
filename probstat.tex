@@ -230,7 +230,7 @@
 \newcommandx{\unif}[1][1={a,b}]{\textrm{Unif}\left({#1}\right)}
 \newcommandx{\unifd}[1][1={a,\ldots,b}]{\textrm{Unif}\left\{{#1}\right\}}
 \newcommandx{\dunif}[3][1=x,2=a,3=b]{\frac{I(#2<#1<#3)}{#3-#2}}
-\newcommandx{\dunifd}[3][1=x,2=a,3=b]{\frac{I(#2<#1<#3)}{#3-#2+1}}
+\newcommandx{\dunifd}[3][1=x,2=a,3=b]{\frac{I(#2\le#1\le#3)}{#3-#2+1}}
 \newcommandx{\punif}[3][1=x,2=a,3=b]{
 \begin{cases} 0 & #1 < #2 \\ \frac{#1-#2}{#3-#2} & #2 < #1 < #3 \\ 1 & #1 > #3\\\end{cases}}
 \newcommandx{\punifd}[3][1=x,2=a,3=b]{

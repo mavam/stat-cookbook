@@ -1,3 +1,13 @@
+2014-05-18  Matthias Vallentin  <vallentin@icir.org>
+
+    * Fix several issues reported by Kyaw Sint:
+
+      - Use consistent parametrization for MGF of the geometric distribution.
+      - Use <= for indicator function in the discrete uniform distribution.
+      - Add a missing "dx" in definition of continuous expectation.
+      - Fix typo in constant expectation.
+
+
 2014-01-24  Matthias Vallentin  <vallentin@icir.org>
 
     * Fix wrong denominator in alternative CLT representations. (Lluís Ramon)

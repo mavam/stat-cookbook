@@ -149,7 +149,7 @@
   \pgeo \quad x\in\mathbb N^+ &
   \dgeo \quad x\in\mathbb N^+ &
   \frac{1}{p} & \frac{1-p}{p^2} &
-  \frac{p}{1-(1-p)e^s} \\[3ex]
+  \frac{pe^s}{1-(1-p)e^s} \\[3ex]
 
   \T{Poisson} & \pois & \ppois & \dpois &
   \lambda & \lambda &
@@ -456,9 +456,9 @@
   \item $\E{X} = \mu_X = \displaystyle \int x \dfx =
     \begin{cases}
       \displaystyle\sum_x xf_X(x) & \text{X \T{discrete}} \\\\
-      \displaystyle\int xf_X(x) & \text{X \T{continuous}}
+      \displaystyle\int xf_X(x)\dx & \text{X \T{continuous}}
     \end{cases}$
-  \item $\Pr{X=c}=1 \imp \E{c} = c$
+  \item $\Pr{X=c}=1 \imp \E{X} = c$
   \item $\E{cX} = c\,\E{X}$
   \item $\E{X+Y} = \E{X}+\E{Y}$
   \item $\E{XY} = \displaystyle\int_{X,Y} xy f_{X,Y}(x,y)\dfx\dfy$
