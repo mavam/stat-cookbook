@@ -15,9 +15,9 @@
 \newtranslation{subtitle}{Cookbook}
 \newtranslation{disclaimer}{%
   This cookbook integrates a variety of topics in probability theory and
-  statistics. It is based on literature \cite{Hoel72,Wasserman03,Shumway06} and
-  in-class material from courses of the statistics department at the University
-  of California in Berkeley but also influenced by other sources
+  statistics. It is based on literature %\cite{Hoel72,Wasserman03,Shumway06}
+  and in-class material from courses of the statistics department at the
+  University of California in Berkeley but also influenced by other sources
   \cite{Steger01,Steger02}. If you find errors or have suggestions for further
   topics, I would appreciate if you send me an \href{mailto:\email}{email}. The
   most recent version of this document is available at \web. To reproduce,

@@ -17,7 +17,7 @@ TEXINPUTS := $(TEXINPUTS):translations:
 all: figs en
 
 figs:
-	$(MAKE) -C $@
+	@$(MAKE) -C $@
 
 en: $(DOC)
 	@echo '\uselanguage{english}' > $(CFG)

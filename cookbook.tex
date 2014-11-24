@@ -5,9 +5,9 @@
 %
 % ----------------------------------------------------------------------------
 %
-% Copyright © Matthias Vallentin <vallentin@icir.org>, 2011
+% Copyright © Matthias Vallentin <vallentin@icir.org>, 2014
 %
-%
+
 \documentclass[landscape]{article}
 
 \usepackage{array}
@@ -103,6 +103,7 @@
 \begin{multicols*}{3}
   {\footnotesize \T{disclaimer}}
   \tableofcontents
+  \vfill~
 \end{multicols*}
 
 \newpage
@@ -999,8 +1000,6 @@ $\widehat{\tau} = \transform(\that)$. \T{Then},
 
 \T{Parametric Bootstrap Note}
 
-\columnbreak
-
 \section{\T{Hypothesis Testing}}
 
 \[H_0:\theta\in\Theta_0 \qquad\text{\T{versus}}\qquad H_1:\theta\in\Theta_1\]
@@ -1196,33 +1195,6 @@ $R_n$ \T{is unimodal} \imp $R_n$ \T{is an interval}
 
 \subsubsection{\T{Conjugate Priors}}
 
-\begin{tabular}{*3{|>{\begin{math}\displaystyle}l<{\end{math}}}|}
-  \hline
-  \multicolumn{3}{|c|}{\T{Discrete likelihood}}\\
-  \hline && \\[-2ex]
-
-  \text{\T{Likelihood}} & \text{\T{Conjugate prior}} &
-    \text{\T{Posterior hyperparameters}} \\[1ex]
-
-  \hline && \\[-2ex]
-
-  \bern[p] & \bet[\alpha,\beta] &
-  \alpha + \sumin x_i, \beta + n - \sumin x_i \\
-
-  \bin[p] & \bet[\alpha,\beta] &
-  \alpha + \sumin x_i, \beta + \sumin N_i - \sumin x_i \\
-
-  \nbin[p] & \bet[\alpha,\beta] & \alpha + rn, \beta + \sumin x_i \\
-
-  \pois[\lambda] & \gam[\alpha,\beta] & \alpha + \sumin x_i, \beta + n \\
-
-  \text{Multinomial}(p) & \dir[\alpha] & \alpha + \sumin x^{(i)} \\
-
-  \geo[p] & \bet[\alpha,\beta] & \alpha + n, \beta + \sumin x_i \\[3ex]
-
-  \hline
-\end{tabular}
-
 \begin{tabular}{|l|p{.23\columnwidth}|p{.45\columnwidth}|}
   \hline
   \multicolumn{3}{|c|}{\T{Continuous likelihood}}\\
@@ -1273,6 +1245,35 @@ $R_n$ \T{is unimodal} \imp $R_n$ \T{is an interval}
 
   $\gam[\alpha_c,\beta]$ & $\gam[\alpha_0,\beta_0]$ &
   $\displaystyle \alpha_0 + n\alpha_c, \beta_0 + \sumin x_i$ \\[3ex]
+
+  \hline
+\end{tabular}
+
+\vfill~
+\columnbreak
+
+\begin{tabular}{*3{|>{\begin{math}\displaystyle}l<{\end{math}}}|}
+  \hline
+  \multicolumn{3}{|c|}{\T{Discrete likelihood}}\\
+  \hline && \\[-2ex]
+  \text{\T{Likelihood}} & \text{\T{Conjugate prior}} &
+    \text{\T{Posterior hyperparameters}} \\[1ex]
+
+  \hline && \\[-2ex]
+
+  \bern[p] & \bet[\alpha,\beta] &
+  \alpha + \sumin x_i, \beta + n - \sumin x_i \\
+
+  \bin[p] & \bet[\alpha,\beta] &
+  \alpha + \sumin x_i, \beta + \sumin N_i - \sumin x_i \\
+
+  \nbin[p] & \bet[\alpha,\beta] & \alpha + rn, \beta + \sumin x_i \\
+
+  \pois[\lambda] & \gam[\alpha,\beta] & \alpha + \sumin x_i, \beta + n \\
+
+  \text{Multinomial}(p) & \dir[\alpha] & \alpha + \sumin x^{(i)} \\
+
+  \geo[p] & \bet[\alpha,\beta] & \alpha + n, \beta + \sumin x_i \\[3ex]
 
   \hline
 \end{tabular}
@@ -1344,6 +1345,21 @@ f_X(x \giv \eta)
 \end{align*}
 
 \section{\T{Sampling Methods}}
+
+\subsection{\T{Inverse Transform Sampling}}
+
+\T{Setup}
+\begin{itemize}
+  \item $U \dist \unif[0,1]$
+  \item $X \dist F$
+  \item $F^{-1}(u)= \inf\{ x \mid F(x) \ge u\}$
+\end{itemize}
+
+\T{Algorithm}
+\begin{enumerate}
+  \item \T{Generate} $u \dist \unif[0,1]$
+  \item \T{Compute} $x = F^{-1}(u)$
+\end{enumerate}
 
 \subsection{\T{The Bootstrap}}
 
@@ -2173,8 +2189,6 @@ $\ARIMA$
 \quad\text{\T{when} } |\lambda| < 1\]
 \[\tilde{x}_{n+1} = (1-\lambda)x_n + \lambda \tilde{x}_n\]
 
-\columnbreak
-
 \T{Seasonal ARIMA}
 \begin{itemize}
   \item \T{Denoted by} $\SARIMA$
@@ -2515,8 +2529,11 @@ P(j/n)
 %      \end{cases}$
 %  \end{itemize}
 
+{
+\footnotesize
 \bibliographystyle{abbrv}
 \bibliography{cookbook}
+}
 
 \end{multicols*}
 

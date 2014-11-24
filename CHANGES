@@ -1,3 +1,8 @@
+2014-11-23  Matthias Vallentin  <vallentin@icir.org>
+
+    * Add section about inverse transform sampling.
+
+
 2014-05-18  Matthias Vallentin  <vallentin@icir.org>
 
     * Fix several issues reported by Kyaw Sint:
