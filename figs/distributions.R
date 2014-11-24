@@ -1,16 +1,18 @@
 library(ggplot2)
-library(reshape)  # melt
-library(grid)     # unit
+library(reshape2)
+library(grid)
+library(RColorBrewer)
 
 line_width = 1.3
 point_size = 4
 theme_set(theme_bw(base_size=20))
-theme_update(legend.key=theme_rect(colour="white"),
+theme_update(legend.key=element_rect(colour="white"),
              legend.key.width=unit(3, "lines"),
              plot.margin=unit(rep(0, 4), "lines"))
 
 # FIXME: is it possible to move this statement into theme_update?
 scale_color_discrete = function(...) scale_color_brewer(..., palette="Dark2")
+
 
 # --------------------------------------------------------------------------- #
 
@@ -18,30 +20,65 @@ scale_color_discrete = function(...) scale_color_brewer(..., palette="Dark2")
 #
 # Requires: x is a molten data frame and has a column "x" representing the
 # abscissa values.
-plot.discrete = function(data, name, legend_labels)
+plot.discrete.pmf = function(data, name, legend_labels)
 {
   ggplot(data) +
     aes(x, value,
-        group=variable, color=variable, shape=variable, linetype=variable) + 
-    geom_line(size=line_width) + 
-    geom_point(size=point_size) + 
-    ylab("PMF") +
-    scale_color_discrete(name="", labels=legend_labels) +
-    scale_shape_discrete(name="", labels=legend_labels) +
-    scale_linetype_discrete(name="", labels=legend_labels) +
-    opts(title=name,
-         legend.justification=c(1, 1),
-         legend.position=c(1, 1))
+        group=variable, color=variable, shape=variable, linetype=variable) +
+    geom_line(size=line_width) +
+    geom_point(size=point_size) +
+    labs(title=name, y="PMF", color="", shape="", linetype="") +
+    scale_color_discrete(labels=legend_labels) +
+    scale_shape_discrete(labels=legend_labels) +
+    scale_linetype_discrete(labels=legend_labels) +
+    theme(legend.title=element_blank(),
+          legend.justification=c(1, 1),
+          legend.position=c(1, 1))
 }
 
-plot.uniform.discrete = function()
+# Plots an ECDF for a given sample.
+plot.discrete.cdf = function(data, name, legend_labels)
+{
+  ggplot(data) +
+    aes(value,
+        group=variable, color=variable, shape=variable, linetype=variable) +
+    stat_ecdf() +
+    labs(title=name, y="ECDF", color="", shape="", linetype="") +
+    scale_color_discrete(labels=legend_labels) +
+    scale_shape_discrete(labels=legend_labels) +
+    scale_linetype_discrete(labels=legend_labels) +
+    theme(legend.title=element_blank())
+}
+
+# Plots a list of CDFs.
+plot.cdf <- function(from, to, name, cdfs, legend_labels)
+{
+  pal <- brewer.pal(length(cdfs), "Dark2")
+
+  p <- ggplot(data.frame(x=c(from, to)), aes(x)) +
+         labs(title=name, y="CDF", color="", shape="", linetype="") +
+         scale_color_discrete(labels=legend_labels) +
+         scale_shape_discrete(labels=legend_labels) +
+         scale_linetype_discrete(labels=legend_labels) +
+         theme(legend.title=element_blank(),
+               legend.justification=c(0, 1),
+               legend.position=c(0, 1))
+
+  for (i in 1:length(cdfs))
+    p <- p + stat_function(fun=cdfs[[i]], geom="step", color=pal[i])
+
+  p
+}
+
+plot.uniform.pmf = function()
 {
   xseq = 3:8
   ggplot(data.frame(x0=factor(xseq), x1=xseq, y0=0, y1=0.5)) +
     aes(x=x0, y=y1) +
-    geom_point(size=point_size) + 
+    geom_point(size=point_size) +
 #    geom_segment(aes(x=x1, xend=x1, y=y0, yend=y1), linetype="dashed") +
-    opts(title="Uniform (discrete)", panel.grid.minor=theme_blank()) +
+    labs(title="Uniform (discrete)") +
+    theme(panel.grid.minor=element_blank()) +
     scale_x_discrete(name="x",
                      breaks=xseq,
                      limits=1:10,
@@ -52,7 +89,7 @@ plot.uniform.discrete = function()
                        labels=expression(frac(1, n)))
 }
 
-plot.binomial = function()
+plot.binomial.pmf = function()
 {
   n = c(40, 30, 25)
   p = c(0.3, 0.6, 0.9)
@@ -61,10 +98,20 @@ plot.binomial = function()
   molten = melt(cbind(x=xseq, data.frame(mapply(pmf, n, p))), id=1)
 
   s = function(k) substitute(list(n==i, p==j), list(i=n[k], j=p[k]))
-  plot.discrete(molten, "Binomial", lapply(1:length(n), s))
+  plot.discrete.pmf(molten, "Binomial", lapply(1:length(n), s))
 }
 
-plot.geometric = function()
+plot.binomial.cdf = function()
+{
+  n = c(40, 30, 25)
+  p = c(0.3, 0.6, 0.9)
+  factory <- function(x, y) { force(x); force(y); function(z) pbinom(z, x, y) }
+  cdfs <- mapply(factory, n, p)
+  s = function(k) substitute(list(n==i, p==j), list(i=n[k], j=p[k]))
+  plot.cdf(1, 40, "Binomial", cdfs, s)
+}
+
+plot.geometric.pmf = function()
 {
   p = c(0.2, 0.5, 0.8)
   xseq = 0:10
@@ -72,19 +119,35 @@ plot.geometric = function()
   molten = melt(cbind(x=xseq+1, data.frame(sapply(p, pmf))), id=1)
 
   s = function(k) substitute(p==j, list(j=p[k]))
-  plot.discrete(molten, "Geometric", lapply(1:length(p), s))
+  plot.discrete.pmf(molten, "Geometric", lapply(1:length(p), s)) +
+    theme(legend.justification=c(0, 1), legend.position=c(0, 1))
 }
 
-plot.poisson = function()
+plot.geometric.cdf = function()
+{
+  p = c(0.2, 0.5, 0.8)
+  cdfs = sapply(p, function(z) { force(z); function(x) pgeom(x, z) })
+  s = function(k) substitute(p==j, list(j=p[k]))
+  plot.cdf(1, 10, "Geometric", cdfs, s)
+}
+
+plot.poisson.pmf = function()
 {
   lambda = c(1,4,10)
   xseq = 0:20
-  N = length(lambda)
   pmf = function(x) dpois(xseq, x)
   molten = melt(cbind(x=xseq+1, data.frame(sapply(lambda, pmf))), id=1)
 
   s = function(k) substitute(lambda==j, list(j=lambda[k]))
-  plot.discrete(molten, "Poisson", lapply(1:length(lambda), s))
+  plot.discrete.pmf(molten, "Poisson", lapply(1:length(lambda), s))
+}
+
+plot.poisson.cdf = function()
+{
+  lambda = c(1,4,10)
+  cdfs = sapply(lambda, function(z) { force(z); function(x) ppois(x, z) })
+  s = function(k) substitute(lambda==j, list(j=lambda[k]))
+  plot.cdf(1, 20, "Poisson", cdfs, s)
 }
 
 # --------------------------------------------------------------------------- #
@@ -93,20 +156,20 @@ plot.poisson = function()
 #
 # Requires: x is a molten data frame and has a column "x" representing the
 # abscissa values.
-plot.continuous = function(data, name, legend_labels)
+plot.continuous.pdf = function(data, name, legend_labels)
 {
   ggplot(data) +
-    aes(x, value, group=variable, color=variable, linetype=variable) + 
-    geom_line(size=line_width) + 
+    aes(x, value, group=variable, color=variable, linetype=variable) +
+    geom_line(size=line_width) +
     ylab("PDF") +
     scale_color_discrete(name="", labels=legend_labels) +
     scale_linetype_discrete(name="", labels=legend_labels) +
-    opts(title=name,
-         legend.justification=c(1, 1),
-         legend.position=c(1, 1))
+    ggtitle(name) +
+    theme(legend.justification=c(1, 1),
+          legend.position=c(1, 1))
 }
 
-plot.uniform.continuous = function()
+plot.uniform.pdf = function()
 {
   solid = data.frame(x0=c(1, 3,   8),
                      x1=c(3, 8,  10),
@@ -130,7 +193,8 @@ plot.uniform.continuous = function()
     geom_point(data=filled, aes(x=x, y=y), size=point_size) +
     geom_point(data=hollow, aes(x=x, y=y), size=point_size, shape=21,
                fill="white") +
-    opts(title="Uniform (continuous)", panel.grid.minor=theme_blank()) +
+    theme(panel.grid.minor=element_blank()) +
+    ggtitle("Uniform (continuous)") +
     scale_x_continuous(name="x",
                        breaks=c(solid[1,2], solid[3,1]),
                        limits=c(solid[1,1], solid[3,2]),
@@ -150,7 +214,7 @@ plot.normal = function()
   molten = melt(cbind(x=xseq, data.frame(mapply(f, mu, sqrt(s2)))), id=1)
 
   s = function(k) substitute(list(mu==i, sigma^2==j), list(i=mu[k], j=s2[k]))
-  plot.continuous(molten, "Normal", lapply(1:length(mu), s)) +
+  plot.continuous.pdf(molten, "Normal", lapply(1:length(mu), s)) +
     ylab(expression(phi(x)))
 }
 
@@ -163,7 +227,7 @@ plot.lognormal = function()
   molten = melt(cbind(x=xseq, data.frame(mapply(f, mu, sqrt(s2)))), id=1)
 
   s = function(k) substitute(list(mu==i, sigma^2==j), list(i=mu[k], j=s2[k]))
-  plot.continuous(molten, "Log-Normal", lapply(1:length(mu), s))
+  plot.continuous.pdf(molten, "Log-Normal", lapply(1:length(mu), s))
 }
 
 plot.student = function()
@@ -175,7 +239,7 @@ plot.student = function()
 
   s = function(k) substitute(nu==i, list(i=nu[k]))
   s.last = quote(nu==infinity)
-  plot.continuous(molten,
+  plot.continuous.pdf(molten,
                   expression(bold("Student\'s") ~ italic(t)),
                   c(lapply(1:(length(nu)-1), s), s.last))
 }
@@ -188,7 +252,7 @@ plot.chisquare = function()
   molten = melt(cbind(x=xseq, data.frame(sapply(k, f))), id=1)
 
   s = function(l) substitute(k == i, list(i=k[l]))
-  plot.continuous(molten, expression(chi^2), lapply(1:length(k), s))
+  plot.continuous.pdf(molten, expression(chi^2), lapply(1:length(k), s))
 }
 
 plot.f = function()
@@ -200,7 +264,7 @@ plot.f = function()
   molten = melt(cbind(x=xseq, data.frame(mapply(f, d1, d2))), id=1)
 
   s = function(k) substitute(list(d[1]==i, d[2]==j), list(i=d1[k], j=d2[k]))
-  plot.continuous(molten, "F", lapply(1:length(d1), s))
+  plot.continuous.pdf(molten, "F", lapply(1:length(d1), s))
 }
 
 plot.exp = function()
@@ -211,7 +275,7 @@ plot.exp = function()
   molten = melt(cbind(x=xseq, data.frame(sapply(b, f))), id=1)
 
   s = function(k) substitute(beta == i, list(i=b[k]))
-  plot.continuous(molten, "Exponential", lapply(1:length(b), s))
+  plot.continuous.pdf(molten, "Exponential", lapply(1:length(b), s))
 }
 
 plot.gamma = function()
@@ -223,7 +287,7 @@ plot.gamma = function()
   molten = melt(cbind(x=xseq, data.frame(mapply(f, a, b))), id=1)
 
   s = function(k) substitute(list(alpha == i, beta == j), list(i=a[k], j=b[k]))
-  plot.continuous(molten, "Gamma", lapply(1:length(a), s))
+  plot.continuous.pdf(molten, "Gamma", lapply(1:length(a), s))
 }
 
 plot.invgamma = function()
@@ -237,7 +301,7 @@ plot.invgamma = function()
   molten = melt(cbind(x=xseq, data.frame(mapply(f, a, b))), id=1)
 
   s = function(k) substitute(list(alpha == i, beta == j), list(i=a[k], j=b[k]))
-  plot.continuous(molten, "Inverse Gamma", lapply(1:length(a), s))
+  plot.continuous.pdf(molten, "Inverse Gamma", lapply(1:length(a), s))
 }
 
 #plot.dirichlet = function()
@@ -264,8 +328,8 @@ plot.beta = function()
   molten = melt(cbind(x=xseq, data.frame(mapply(f, a, b))), id=1)
 
   s = function(k) substitute(list(alpha == i, beta == j), list(i=a[k], j=b[k]))
-  plot.continuous(molten, "Beta", lapply(1:length(a), s)) +
-    opts(legend.justification=c(0.5, 1), legend.position=c(0.5, 1))
+  plot.continuous.pdf(molten, "Beta", lapply(1:length(a), s)) +
+    theme(legend.justification=c(0.5, 1), legend.position=c(0.5, 1))
 }
 
 plot.weibull = function()
@@ -276,9 +340,9 @@ plot.weibull = function()
   f = function(x,y) dweibull(xseq, x, y)
   molten = melt(cbind(x=xseq, data.frame(mapply(f, k, lambda))), id=1)
 
-  s = function(l) substitute(list(lambda == i, k == j), 
+  s = function(l) substitute(list(lambda == i, k == j),
                              list(i=lambda[l], j=k[l]))
-  plot.continuous(molten, "Weibull", lapply(1:length(k), s))
+  plot.continuous.pdf(molten, "Weibull", lapply(1:length(k), s))
 }
 
 plot.pareto = function()
@@ -292,7 +356,7 @@ plot.pareto = function()
   molten = melt(cbind(x=xseq, data.frame(mapply(f, xm, a))), id=1)
 
   s = function(k) substitute(list(x[m] == i, alpha == j), list(i=xm[k], j=a[k]))
-  plot.continuous(molten, "Pareto", lapply(1:length(a), s))
+  plot.continuous.pdf(molten, "Pareto", lapply(1:length(a), s))
 }
 
 # --------------------------------------------------------------------------- #
@@ -307,8 +371,8 @@ store = function(f, name)
     dev.off()
 }
 
-store(plot.uniform.discrete, "uniform-discrete")
-store(plot.uniform.continuous, "uniform-continuous")
+store(plot.uniform.pmf, "uniform-discrete")
+store(plot.uniform.pdf, "uniform-continuous")
 store(plot.binomial, "binomial")
 store(plot.geometric, "geometric")
 store(plot.poisson, "poisson")
