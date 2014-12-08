@@ -1,3 +1,8 @@
+2014-12-08  Matthias Vallentin  <vallentin@icir.org>
+
+    * Add CDF plots in addition to PMFs/PDFs.
+
+
 2014-12-05  Matthias Vallentin  <vallentin@icir.org>
 
     * Fix typo in variance of inverse gamma distribution. (Difei Qin)
