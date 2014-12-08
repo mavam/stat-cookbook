@@ -1,3 +1,8 @@
+2014-12-05  Matthias Vallentin  <vallentin@icir.org>
+
+    * Fix typo in variance of inverse gamma distribution. (Difei Qin)
+
+
 2014-11-23  Matthias Vallentin  <vallentin@icir.org>
 
     * Add section about inverse transform sampling.
