@@ -1134,6 +1134,31 @@ $\widehat{\tau} = \transform(\that)$. \T{Then},
     \T{where} $\nu=(I-1)(J-1)$
 \end{itemize}
 
+\section{\T{Exponential Family}}
+
+\T{Scalar parameter}
+\begin{align*}
+f_X(x \giv \theta)
+&= h(x) \Exp{\eta(\theta)T(x) - A(\theta)} \\
+&= h(x) g(\theta) \Exp{\eta(\theta)T(x)}
+\end{align*}
+
+\T{Vector parameter}
+\begin{align*}
+f_X(x \giv \theta)
+&= h(x) \Exp{\sum_{i=1}^s\eta_i(\theta)T_i(x) - A(\theta)} \\
+&= h(x) \Exp{\eta(\theta)\cdot T(x) - A(\theta)} \\
+&= h(x) g(\theta)\Exp{\eta(\theta)\cdot T(x)}
+\end{align*}
+
+\T{Natural form}
+\begin{align*}
+f_X(x \giv \eta)
+&= h(x) \Exp{\eta\cdot \mathbf{T}(x) - A(\eta)} \\
+&= h(x) g(\eta) \Exp{\eta\cdot \mathbf{T}(x)} \\
+&= h(x) g(\eta) \Exp{\eta^T \mathbf{T}(x)}
+\end{align*}
+
 \section{\T{Bayesian Inference}}
 
 \textsc{\T{Bayes' Theorem}}
@@ -1338,31 +1363,6 @@ $p^* = \displaystyle\frac{\frac{p}{1-p}BF_{10}}{1+\frac{p}{1-p}BF_{10}}$
 \T{where} $p=\Pr{H_1}$ \T{and} $p^* = \Pr{H_1 \giv x^n}$
 
 \raggedright
-
-\section{\T{Exponential Family}}
-
-\T{Scalar parameter}
-\begin{align*}
-f_X(x \giv \theta)
-&= h(x) \Exp{\eta(\theta)T(x) - A(\theta)} \\
-&= h(x) g(\theta) \Exp{\eta(\theta)T(x)}
-\end{align*}
-
-\T{Vector parameter}
-\begin{align*}
-f_X(x \giv \theta)
-&= h(x) \Exp{\sum_{i=1}^s\eta_i(\theta)T_i(x) - A(\theta)} \\
-&= h(x) \Exp{\eta(\theta)\cdot T(x) - A(\theta)} \\
-&= h(x) g(\theta)\Exp{\eta(\theta)\cdot T(x)}
-\end{align*}
-
-\T{Natural form}
-\begin{align*}
-f_X(x \giv \eta)
-&= h(x) \Exp{\eta\cdot \mathbf{T}(x) - A(\eta)} \\
-&= h(x) g(\eta) \Exp{\eta\cdot \mathbf{T}(x)} \\
-&= h(x) g(\eta) \Exp{\eta^T \mathbf{T}(x)}
-\end{align*}
 
 \section{\T{Sampling Methods}}
 
@@ -2459,6 +2459,8 @@ P(j/n)
 %  \item $\displaystyle\int_{-\infty}^\infty e^{-\frac{x^2}{2}}dx
 %    = \sqrt{2\pi}$
 %\end{itemize}
+
+\vfill~
 
 \subsection{\T{Combinatorics}}
 
