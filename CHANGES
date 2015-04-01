@@ -1,3 +1,10 @@
+2015-05-31  Matthias Vallentin  <vallentin@icir.org>
+
+    * Fix invalid expected value inequality. (Hajnalka Kristóffy)
+    * Add Hoeffding inequality.
+    * Flip sections Exponential Family and Baysian Inference.
+
+
 2014-12-14  Jarrod Millman  <millman@berkeley.edu>
 
     * Fix typo in plug-in estimate of skewness and correlation.
