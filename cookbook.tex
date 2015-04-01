@@ -564,6 +564,13 @@
 \[\Pr{X \ge (1+\delta)\mu}
 \le \left(\frac{e^\delta}{(1+\delta)^{1+\delta}}\right) \quad \delta>-1\]
 
+\textsc{Hoeffding}
+\[X_1,\ldots,X_n \; \textrm{independent}
+\;\wedge\; \Pr{X_i\in[a_i,b_i]} = 1 \;\wedge\; 1 \le i \le n \]
+\[\Pr{\Xbar-\E{\Xbar} \ge t} \le e^{-2nt^2} \quad t>0 \]
+\[\Pr{|\Xbar-\E{\Xbar}| \ge t} \le 2\Exp{-\frac{2n^2t^2}{\sumin(b_i-a_i)^2}}
+\quad t>0\]
+
 \textsc{Jensen}\label{jensen}
 \[\E{\transform(X)} \ge \transform(\E{X}) \quad
   \transform \text{ \T{convex}}\]
