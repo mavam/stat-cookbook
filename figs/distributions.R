@@ -1,3 +1,10 @@
+# Install needed packages if necessary
+needed_packages = c("ggplot2", "reshape2", "grid", "RColorBrewer")
+if (length(setdiff(needed_packages, rownames(installed.packages()))) > 0) {
+  install.packages(setdiff(needed_packages, rownames(installed.packages())),
+                   dependencies=TRUE, repos="http://cran.r-project.org")
+}
+
 library(ggplot2)
 library(reshape2)
 library(grid)
