@@ -1,4 +1,4 @@
-2015-05-31  Matthias Vallentin  <vallentin@icir.org>
+2015-03-31  Matthias Vallentin  <vallentin@icir.org>
 
     * Fix invalid expected value inequality. (Hajnalka Kristóffy)
     * Add Hoeffding inequality.
