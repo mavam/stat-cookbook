@@ -1,3 +1,11 @@
+2015-07-26  Matthias Vallentin  <vallentin@icir.org>
+
+    * Fix issues reported by Jiali Lin:
+
+      - Fix erroneous PMF in Hypergeometric distribution.
+      - Add independency requirement to sum of Normals.
+
+
 2015-03-31  Matthias Vallentin  <vallentin@icir.org>
 
     * Fix invalid expected value inequality. (Hajnalka Kristóffy)
