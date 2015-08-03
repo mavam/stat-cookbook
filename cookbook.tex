@@ -360,9 +360,9 @@
 \T{Continuity of Probabilities}
 \begin{itemize}
   \item $A_1 \subset A_2 \subset \dots \imp \limn \Pr{A_n} = \Pr{A}
-    \quad\text{\T{where}} A = \bigcup_{i=1}^\infty A_i$
+    \quad\text{\T{where }} A = \bigcup_{i=1}^\infty A_i$
   \item $A_1 \supset A_2 \supset \dots \imp \limn \Pr{A_n} = \Pr{A}
-    \quad\text{\T{where}} A = \bigcap_{i=1}^\infty A_i$
+    \quad\text{\T{where }} A = \bigcap_{i=1}^\infty A_i$
 \end{itemize}
 
 \T{Independence} \ind
@@ -421,7 +421,7 @@
 
 \T{Discrete}
 \[f_Z(z) = \Pr{\transform(X) = z} = \Pr{\{x:\transform(x) = z\}}
-= \Pr{X \in \transform^{-1}(z)} = \sum_{x \in \transform^{-1}(z)} \!\!\!f(x)\]
+= \Pr{X \in \transform^{-1}(z)} = \sum_{x \in \transform^{-1}(z)} \!\!\!f_X(x)\]
 
 \T{Continuous}
 \[F_Z(z) = \Pr{\transform(X) \le z} = \int_{A_z} f(x) \dx \quad
@@ -498,14 +498,14 @@
 \begin{titemize}{\T{Conditional expectation}}
   \item $\E{Y\giv X=x} = \displaystyle\int y f(y\giv x)\dy$
   \item $\E{X} = \E{\E{X\giv Y}}$
-  \item $E[\transform(X,Y)\giv X=x]
+  \item $\E[\transform(X,Y)\giv X=x]
     = \displaystyle\int_{-\infty}^\infty \transform(x,y)f_{Y|X}(y\giv x)\dx$
   \item $\E{\transform(Y,Z)\giv X=x} =
     \displaystyle\int_{-\infty}^\infty\transform(y,z)
     f_{(Y,Z)|X}(y,z\giv x)\,dy\,dz$
   \item $\E{Y+Z\giv X} = \E{Y\giv X} + \E{Z\giv X}$
   \item $\E{\transform(X)Y\giv X} = \transform(X)\E{Y\giv X}$
-  \item $E[Y\giv X] = c \imp \cov{X,Y}=0$
+  \item $\E[Y\giv X] = c \imp \cov{X,Y}=0$
 \end{titemize}
 
 \section{\T{Variance}}
