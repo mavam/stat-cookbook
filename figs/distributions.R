@@ -1,5 +1,5 @@
 # Install needed packages if necessary
-needed_packages = c("ggplot2", "reshape2", "grid", "RColorBrewer")
+needed_packages = c("ggplot2", "reshape2", "grid", "RColorBrewer", "VGAM")
 if (length(setdiff(needed_packages, rownames(installed.packages()))) > 0) {
   install.packages(setdiff(needed_packages, rownames(installed.packages())),
                    dependencies=TRUE, repos="http://cran.r-project.org")
@@ -9,6 +9,7 @@ library(ggplot2)
 library(reshape2)
 library(grid)
 library(RColorBrewer)
+library(VGAM) # [dp]pareto
 
 line_width = 1.3
 point_size = 4
@@ -305,7 +306,6 @@ plot.weibull <- function(mode, xmin=0, xmax=2.5,
 plot.pareto <- function(mode, xmin=0.8, xmax=2.5,
                         theta=data.frame(xm=c(1,1,1), a=c(1,2,4)),
                         title="Pareto") {
-  require(VGAM)
   lab.fn <- function(x, y) substitute(list(x[m]==i, k==j), list(i=x, j=y))
   plot.continuous(xmin, xmax, theta, "pareto", mode, title, lab.fn)
 }
