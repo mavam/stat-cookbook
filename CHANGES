@@ -1,3 +1,9 @@
+2015-08-07  Henning Kopp  <henning.kopp@uni-ulm.de>
+
+    * Fix various typos.
+    * Fix a compile error in the hypothesis testing section.
+
+
 2015-07-26  Matthias Vallentin  <vallentin@icir.org>
 
     * Fix issues reported by Jiali Lin:
