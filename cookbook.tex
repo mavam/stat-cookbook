@@ -25,18 +25,10 @@
 \usepackage{multicol}
 \usepackage{rotating}
 \usepackage{tikz}
-\usepackage{translator}
 \usepackage{url}
 \usepackage{xspace}
 
-% Alias for \translate.
-\newcommand{\T}[1]{\translate{#1}}
-
-% Language configuration.
-\input{./config}
-\usedictionary{probstat}
-
-% Probability and Statistics LaTeX shortcuts. (Not part of the repository.)
+% Probability and Statistics LaTeX shortcuts.
 \input{probstat}
 
 % TikZ tweaks
@@ -59,11 +51,11 @@
 
 % Link style (hyperref package)
 \hypersetup{
-    colorlinks=true,        % false: boxed links; true: colored links
-    linkcolor=red,          % color of internal links
-    citecolor=cyan,         % color of links to bibliography
-    filecolor=magenta,      % color of file links
-    urlcolor=blue           % color of external links
+  colorlinks=true,        % false: boxed links; true: colored links
+  linkcolor=red,          % color of internal links
+  citecolor=cyan,         % color of links to bibliography
+  filecolor=magenta,      % color of file links
+  urlcolor=blue           % color of external links
 }
 
 % Personal
@@ -85,7 +77,7 @@
 \thispagestyle{empty}
 \begin{center}
   \vspace*{\fill}
-  \textsc{\Huge \T{maintitle}\\[2ex] \huge \T{subtitle}}
+  \textsc{\Huge Probability and Statistics\\[2ex] \huge Cookbook}
   \vfill
   \footnotesize{
     \today\\[1ex]
@@ -103,56 +95,61 @@
   \vfill
   \hrule
   \vspace{5pt}
-  {\footnotesize \T{disclaimer}}
+  {\footnotesize This cookbook integrates various topics in probability theory
+  and statistics, based on literature~\cite{Hoel72,Wasserman03,Shumway06}
+  and in-class material from courses of the statistics department at the
+  University of California in Berkeley but also influenced by others
+  \cite{Steger01,Steger02}. If you find errors or have suggestions for
+  improvements, please get in touch at \web.}
 \end{multicols*}
 
 \newpage
 
-\section{\T{Distribution Overview}}
+\section{Distribution Overview}
 
-\subsection{\T{Discrete Distributions}}
+\subsection{Discrete Distributions}
 
 \begin{center}
 \small
 \begin{tabular}{@{}l*6{>{\begin{math}\displaystyle}c<{\end{math}}}@{}}
   \toprule &&&&&& \\[-2ex]
-  & \text{\T{Notation}}\footnotemark
+  & \text{Notation}\footnotemark
   & F_X(x) & f_X(x) & \E{X} & \V{X} & M_X(s) \\[1ex]
 
   \midrule
 
-  \T{Uniform} & \unifd & \punifd & \dunifd &
+  Uniform & \unifd & \punifd & \dunifd &
   \frac{a+b}{2} & \frac{(b-a+1)^2-1}{12} &
   \frac{e^{as}-e^{-(b+1)s}}{s(b-a)} \\[3ex]
 
-  \T{Bernoulli} & \bern & \pbern & \dbern &
+  Bernoulli & \bern & \pbern & \dbern &
   p & p(1-p) &
   1-p+pe^s \\[3ex]
 
-  \T{Binomial} & \bin & I_{1-p}(n-x,x+1) & \dbin &
+  Binomial & \bin & I_{1-p}(n-x,x+1) & \dbin &
   np & np(1-p) &
   (1-p+pe^s)^n \\[3ex]
 
-  \T{Multinomial} & \mult & & \dmult \quad \sum_{i=1}^k x_i = n&
+  Multinomial & \mult & & \dmult \quad \sum_{i=1}^k x_i = n&
   np_i & np_i(1-p_i) &
   \left( \sum_{i=0}^k p_i e^{s_i} \right)^n \\[3ex]
 
-  \T{Hypergeometric} & \hyper &
+  Hypergeometric & \hyper &
   \approx \Phi\left(\displaystyle\frac{x-np}{\sqrt{np(1-p)}}\right) &
   \dhyper &
   \frac{nm}{N} & \frac{nm(N-n)(N-m)}{N^2(N-1)} & \\[3ex]
 
-  \T{Negative Binomial} & \nbin & \pnbin & \dnbin &
+  Negative Binomial & \nbin & \pnbin & \dnbin &
   r\frac{1-p}{p} & r\frac{1-p}{p^2} &
   \left(\frac{p}{1-(1-p)e^s}\right)^r \\[3ex]
 
-  \T{Geometric} & \geo &
+  Geometric & \geo &
   \pgeo \quad x\in\mathbb N^+ &
   \dgeo \quad x\in\mathbb N^+ &
   \frac{1}{p} & \frac{1-p}{p^2} &
   \frac{pe^s}{1-(1-p)e^s} \\[3ex]
 
-  \T{Poisson} & \pois & \ppois & \dpois &
+  Poisson & \pois & \ppois & \dpois &
   \lambda & \lambda &
   e^{\lambda(e^s-1)}\\[3ex]
 
@@ -160,7 +157,9 @@
 \end{tabular}
 \end{center}
 
-\footnotetext{\T{Footnote about notation}}
+\footnotetext{We use the notation $\gamma(s,x)$ and $\Gamma(x)$ to refer to the
+Gamma functions (see \S\ref{sec:math:gamma}), and use $\text{B}(x,y)$ and $I_x$
+to refer to the Beta functions (see \S\ref{sec:math:beta}).}
 
 \pagebreak
 
@@ -176,7 +175,7 @@
   \includegraphics[scale=0.35]{figs/poisson-cdf.pdf}
 \end{figure}
 
-\subsection{\T{Continuous Distributions}}
+\subsection{Continuous Distributions}
 
 \begin{center}
 \small
@@ -184,34 +183,34 @@
 \newcolumntype{M}{>{\begin{math}\displaystyle}c<{\end{math}}}
 \begin{tabular}{@{}l*6{M}@{}}
   \toprule &&&&&& \\[-2ex]
-  & \text{\T{Notation}}
+  & \text{Notation}
   & F_X(x) & f_X(x) & \E{X} & \V{X} & M_X(s) \\[1ex]
 
   \midrule
 
-  \T{Uniform} & \unif & \punif & \dunif &
+  Uniform & \unif & \punif & \dunif &
   \frac{a+b}{2} & \frac{(b-a)^2}{12} &
   \frac{e^{sb}-e^{sa}}{s(b-a)} \\[3ex]
 
-  \T{Normal} & \norm &
+  Normal & \norm &
   \Phi(x)=\displaystyle\int_{-\infty}^x \phi(t)\,dt &
   \phi(x)=\dnorm &
   \mu & \sigma^2 &
   \Exp{\mu s + \frac{\sigma^2s^2}{2}}\\[3ex]
 
-  \T{Log-Normal} & \ln\norm&
+  Log-Normal & \ln\norm&
   \frac{1}{2}+\frac{1}{2} \erf\left[\frac{\ln x-\mu}{\sqrt{2\sigma^2}}\right] &
   \frac{1}{x\sqrt{2\pi\sigma^2}} \Exp{-\frac{(\ln x - \mu)^2}{2\sigma^2}} &
   e^{\mu+\sigma^2/2} &
   (e^{\sigma^2}-1) e^{2\mu+\sigma^2} &
   \\[3ex]
 
-  \T{Multivariate Normal} & \mvn & &
+  Multivariate Normal & \mvn & &
   (2\pi)^{-k/2} |\Sigma|^{-1/2} e^{-\frac{1}{2}(x-\mu)^T \Sigma^{-1}(x-\mu)} &
   \mu & \Sigma &
   \Exp{\mu^T s + \frac{1}{2} s^T \Sigma s}\\[3ex]
 
-  \T{Student's t} & \text{Student}(\nu)
+  Student's $t$ & \text{Student}(\nu)
   & I_x\left( \frac{\nu}{2},\frac{\nu}{2} \right)
   & \frac{\Gamma\left(\frac{\nu+1}{2}\right)}
     {\sqrt{\nu\pi}\Gamma\left(\frac{\nu}{2}\right)}
@@ -223,7 +222,7 @@
     \end{cases}
   & \\[3ex]
 
-  \T{Chi-square} & \chisq &
+  Chi-square & \chisq &
   \frac{1}{\Gamma(k/2)} \gamma\left(\frac{k}{2}, \frac{x}{2}\right) &
   \frac{1}{2^{k/2} \Gamma(k/2)} x^{k/2-1} e^{-x/2}&
   k & 2k &
@@ -237,7 +236,7 @@
   & \frac{2d_2^2(d_1+d_2-2)}{d_1(d_2-2)^2(d_2-4)} %\; d_2 > 4
   & \\[3ex]
 
-  \T{Exponential} & \ex & \pex & \dex &
+  Exponential & \ex & \pex & \dex &
   \beta & \beta^2 &
   \frac{1}{1-\beta s} \left(s < 1/\beta \right) \\[3ex]
 
@@ -246,7 +245,7 @@
   \alpha\beta & \alpha\beta^2 &
   \left( \frac{1}{1-\beta s} \right)^\alpha \left( s < 1/\beta \right)\\[3ex]
 
-  \T{Inverse Gamma} & \invgamma & \pinvgamma & \dinvgamma &
+  Inverse Gamma & \invgamma & \pinvgamma & \dinvgamma &
   \frac{\beta}{\alpha-1} \; \alpha>1 &
   \frac{\beta^2}{(\alpha-1)^2(\alpha-2)} \; \alpha > 2 &
   \frac{2(-\beta s)^{\alpha/2}}{\Gamma(\alpha)}K_\alpha
@@ -311,31 +310,31 @@
 
 \begin{multicols*}{2}
 
-\section{\T{Probability Theory}}
+\section{Probability Theory}
 
-\T{Definitions}
+Definitions
 \begin{itemize}
-  \item \T{Sample space} $\Omega$
-  \item \T{Outcome} $\omega \in \Omega$
-  \item \T{Event} $A \subseteq \Omega$
-  \item \T{Sigma-algebra} $\mathcal{A}$
+  \item Sample space $\Omega$
+  \item Outcome (point or element) $\omega \in \Omega$
+  \item Event $A \subseteq \Omega$
+  \item $\sigma$-algebra $\mathcal{A}$
     \begin{enumerate}
       \item $\varnothing \in \mathcal{A}$
       \item $A_1,A_2,\dots, \in \mathcal{A}
         \imp \bigcup_{i=1}^\infty A_i \in \mathcal{A}$
       \item $A \in \mathcal{A} \imp \comp{A} \in \mathcal{A}$
     \end{enumerate}
-  \item \T{Probability Distribution} $\prob$
+  \item Probability Distribution $\prob$
     \begin{enumerate}
       \item $\Pr{A} \ge 0 \quad \forall A$
       \item $\Pr{\Omega} = 1$
       \item $\Pr{\displaystyle\bigsqcup_{i=1}^\infty A_i}
         = \displaystyle\sum_{i=1}^\infty \Pr{A_i}$
     \end{enumerate}
-  \item \T{Probability space} $(\Omega,\mathcal{A},\prob)$
+  \item Probability space $(\Omega,\mathcal{A},\prob)$
 \end{itemize}
 
-\T{Properties}
+Properties
 \begin{itemize}
   \item $\Pr{\varnothing} = 0$
   \item $B = \Omega \cap B = (A \cup \comp{A}) \cap B
@@ -357,88 +356,87 @@
   \item $\Pr{A \cap \comp{B}} = \Pr{A} - \Pr{A \cap B}$
 \end{itemize}
 
-\T{Continuity of Probabilities}
+Continuity of Probabilities
 \begin{itemize}
   \item $A_1 \subset A_2 \subset \dots \imp \limn \Pr{A_n} = \Pr{A}
-    \quad\text{\T{where }} A = \bigcup_{i=1}^\infty A_i$
+    \quad\text{where } A = \bigcup_{i=1}^\infty A_i$
   \item $A_1 \supset A_2 \supset \dots \imp \limn \Pr{A_n} = \Pr{A}
-    \quad\text{\T{where }} A = \bigcap_{i=1}^\infty A_i$
+    \quad\text{where } A = \bigcap_{i=1}^\infty A_i$
 \end{itemize}
 
-\T{Independence} \ind
+Independence \ind
 \[A \ind B \eqv \Pr{A \cap B} = \Pr{A}\Pr{B}\]
 
-\T{Conditional Probability}
+Conditional Probability
 \[\Pr{A \giv B} = \frac{\Pr{A \cap B}}{\Pr{B}} \qquad \Pr{B} > 0\]
 
-\T{Law of Total Probability}
+Law of Total Probability
 \[ \Pr{B} = \sum_{i=1}^n \Pr{B|A_i}\Pr{A_i}
   \qquad \Omega = \bigsqcup_{i=1}^n A_i\]
 
-\textsc{\T{Bayes' Theorem}}
+\textsc{Bayes' Theorem}
 \[\Pr{A_i \giv B}
 = \frac{\Pr{B \giv A_i}\Pr{A_i}}{\sum_{j=1}^n \Pr{B \giv A_j}\Pr{A_j}}
 \qquad \Omega = \bigsqcup_{i=1}^n A_i\]
 
-\T{Inclusion-Exclusion Principle}
+Inclusion-Exclusion Principle
 \[\biggl|\bigcup_{i=1}^n A_i\biggr| = \sum_{r=1}^n(-1)^{r-1}
   \sum_{i \le i_1 < \dots < i_r \le n}\biggl|\bigcap_{j=1}^r A_{i_j}\biggr|\]
 
-\section{\T{Random Variables}}
+\section{Random Variables}
 
-\T{Random Variable}
+Random Variable (RV)
 \[X: \Omega \to \R\]
 
-\T{Probability Mass Function}
+Probability Mass Function (PMF)
 \[f_X(x) = \Pr{X = x} = \Pr{\{\omega\in\Omega:X(\omega) = x\}}\]
 
-\T{Probability Density Function}
+Probability Density Function (PDF)
 \[\Pr{a \le X \le b} = \int_a^b f(x)\dx\]
 
-\T{Cumulative Distribution Function}
+Cumulative Distribution Function (CDF)
 \[F_X:\R \to [0,1] \qquad F_X(x) = \Pr{X \le x}\]
 
 \begin{enumerate}
-  \item \T{Nondecreasing}: $x_1 < x_2 \imp F(x_1) \le F(x_2)$
-  \item \T{Normalized}: $\lim_{x\to -\infty} = 0$
-    \T{and} $\lim_{x\to \infty} = 1$
-  \item \T{Right-Continuous}: $\lim_{y\downarrow x} F(y) = F(x)$
+  \item Nondecreasing: $x_1 < x_2 \imp F(x_1) \le F(x_2)$
+  \item Normalized: $\lim_{x\to -\infty} = 0$ and $\lim_{x\to \infty} = 1$
+  \item Right-Continuous: $\lim_{y\downarrow x} F(y) = F(x)$
 \end{enumerate}
 
 \[\Pr{a\le Y\le b \giv X=x} = \int_a^b f_{Y|X}(y\giv x) dy \qquad a \le b\]
 \[ f_{Y|X}(y\giv x) = \frac{f(x,y)}{f_X(x)} \]
 
-\T{Independence}
+Independence
 \begin{enumerate}
   \item $\Pr{X \le x, Y \le y} = \Pr{X \le x}\Pr{Y \le y}$
   \item $f_{X,Y}(x,y) = f_X(x)f_Y(y)$
 \end{enumerate}
 
-\subsection{\T{Transformations}}
+\subsection{Transformations}
 
-\T{Transformation function}
+Transformation function
 \[Z = \transform(X)\]
 
-\T{Discrete}
+Discrete
 \[f_Z(z) = \Pr{\transform(X) = z} = \Pr{\{x:\transform(x) = z\}}
 = \Pr{X \in \transform^{-1}(z)} = \sum_{x \in \transform^{-1}(z)} \!\!\!f_X(x)\]
 
-\T{Continuous}
+Continuous
 \[F_Z(z) = \Pr{\transform(X) \le z} = \int_{A_z} f(x) \dx \quad
     \text{with } A_z = \{x:\transform(x) \le z\}\]
 
-\T{Special case if transform strictly monotone}
+Special case if $\transform$ strictly monotone
 \[f_Z(z)
     = f_X(\transform^{-1}(z))
       \left|\frac{d}{dz}\transform^{-1}(z)\right|
     = f_X(x)\left|\frac{dx}{dz}\right|
     = f_X(x)\frac{1}{|J|}\]
 
-\T{The Rule of the Lazy Statistician}
+The Rule of the Lazy Statistician
 \[\E{Z} = \int \transform(x) \dfx\]
 \[\E{I_A(x)} = \int I_A(x) \dfx = \int_A \dfx = \Pr{X \in A}\]
 
-\T{Convolution}
+Convolution
 \begin{itemize}
   \item $ Z:=X+Y \qquad
     f_Z(z)=\displaystyle\int_{-\infty}^{\infty} f_{X,Y}(x,z-x)\,dx
@@ -470,21 +468,21 @@
 %    \item $R(\omega) = X_n(\omega) - X_1(\omega)$
 %  \end{itemize}
 
-\section{\T{Expectation}}
+\section{Expectation}
 
-\T{Definition} \T{and} \T{properties}
+Definition and properties
 \begin{itemize}
   \item $\E{X} = \mu_X = \displaystyle \int x \dfx =
     \begin{cases}
-      \displaystyle\sum_x xf_X(x) & \text{X \T{discrete}} \\\\
-      \displaystyle\int xf_X(x)\dx & \text{X \T{continuous}}
+      \displaystyle\sum_x xf_X(x) & \text{X discrete} \\\\
+      \displaystyle\int xf_X(x)\dx & \text{X continuous}
     \end{cases}$
   \item $\Pr{X=c}=1 \imp \E{X} = c$
   \item $\E{cX} = c\,\E{X}$
   \item $\E{X+Y} = \E{X}+\E{Y}$
   \item $\E{XY} = \displaystyle\int_{X,Y} xy f_{X,Y}(x,y)\dfx\dfy$
   \item $\E{\transform(Y)} \neq \transform(\E{X}) \qquad$
-    (cf.~\hyperref[jensen]{\textsc{Jensen} \T{inequality}})
+    (cf.~\hyperref[jensen]{\textsc{Jensen} inequality})
   \item $\Pr{X \ge Y} = 1 \imp \E{X}\ge\E{Y}$
   \item $\Pr{X=Y} = 1 \eqv \E{X}=\E{Y}$
 %  \item $\Pr{\lvert Y\rvert\le c} = 1 \imp \E{Y}<\infty
@@ -492,10 +490,10 @@
   \item $\E{X} = \displaystyle\sum_{x=1}^\infty \Pr{X\ge x}$
 \end{itemize}
 
-\T{Sample mean}
+Sample mean
 \[\samplemean = \frac{1}{n}\sum_{i=1}^n X_i\]
 
-\begin{titemize}{\T{Conditional expectation}}
+\begin{titemize}{Conditional expectation}
   \item $\E{Y\giv X=x} = \displaystyle\int y f(y\giv x)\dy$
   \item $\E{X} = \E{\E{X\giv Y}}$
   \item $\E[\transform(X,Y)\giv X=x]
@@ -508,9 +506,9 @@
   \item $\E[Y\giv X] = c \imp \cov{X,Y}=0$
 \end{titemize}
 
-\section{\T{Variance}}
+\section{Variance}
 
-\begin{titemize}{\T{Definition} \T{and} \T{properties}}
+\begin{titemize}{Definition and properties}
   \item $\V{X} = \sigma_X^2 = \E{(X-\E{X})^2} = \E{X^2} - \E{X}^2$
   \item $\V{\displaystyle\sum_{i=1}^n X_i} =
     \displaystyle\sum_{i=1}^n \V{X_i} + 2\sum_{i\ne j}\cov{X_i,Y_j}$
@@ -519,10 +517,10 @@
     \displaystyle\sum_{i=1}^n\V{X_i} \quad$ if $X_i \ind X_j$
 \end{titemize}
 
-\T{Standard deviation}
+Standard deviation
 \[\sd[X] = \sqrt{\V{X}} = \sigma_X\]
 
-\T{Covariance}
+Covariance
 \begin{itemize}
   \item $\cov{X,Y} = \E{(X-\E{X})(Y-\E{Y})} = \E{XY}-\E{X}\E{Y}$
   \item $\cov{X,a} = 0$
@@ -534,22 +532,22 @@
     = \displaystyle\sumin\sumjm\cov{X_i, Y_j}$
 \end{itemize}
 
-\T{Correlation}
+Correlation
 \[\corr{X,Y} = \displaystyle\frac{\cov{X,Y}}{\sqrt{\V{X}\V{Y}}}\]
 
-\T{Independence}
+Independence
 \[X\ind Y \imp \corr{X,Y} = 0 \eqv \cov{X,Y} = 0 \eqv \E{XY}=\E{X}\E{Y}\]
 
-\T{Sample variance}
+Sample variance
 \[\samplevar = \frac{1}{n-1}\sum_{i=1}^n(X_i-\samplemean)^2\]
 
-\T{Conditional variance}
+Conditional variance
 \begin{itemize}
   \item $\V{Y\giv X} = \E{(Y-\E{Y\giv X})^2\giv X} =\E{Y^2\giv X}-\E{Y\giv X}^2$
   \item $\V{Y} = \E{\V{Y\giv X}}+\V{\E{Y\giv X}}$
 \end{itemize}
 
-\section{\T{Inequalities}}
+\section{Inequalities}
 
 \textsc{Cauchy-Schwarz}
 \[\E{XY}^2 \le \E{X^2}\E{Y^2}\]
@@ -573,20 +571,20 @@
 
 \textsc{Jensen}\label{jensen}
 \[\E{\transform(X)} \ge \transform(\E{X}) \quad
-  \transform \text{ \T{convex}}\]
+  \transform \text{ convex}\]
 
-\section{\T{Distribution Relationships}}
+\section{Distribution Relationships}
 
-\T{Binomial}
+Binomial
 \begin{itemize}
   \item $X_i \dist \bern \imp \displaystyle\sum_{i=1}^n X_i \dist \bin$
   \item $X\dist\bin, Y\dist\bin[m,p] \imp X+Y\dist\bin[n+m,p]$
-  \item $\limn\bin = \pois[np] \qquad$ ($n$ \T{large}, $p$ \T{small})
+  \item $\limn\bin = \pois[np] \qquad$ ($n$ large, $p$ small)
   \item $\limn\bin = \norm[np,np(1-p)] \qquad$
-    ($n$ \T{large}, $p$ \T{far from 0 and 1})
+    ($n$ large, $p$ far from 0 and 1)
 \end{itemize}
 
-\T{Negative Binomial}
+Negative Binomial
 \begin{itemize}
   \item $ X\dist \nbin[1,p] = \geo $
   \item $ X\dist \nbin[r,p] = \sum_{i=1}^r \geo $
@@ -594,7 +592,7 @@
   \item $X\dist \nbin[r,p].\; Y\dist \bin[s+r,p] \imp \Pr{X\le s} = \Pr{Y\ge r}$
 \end{itemize}
 
-\T{Poisson}
+Poisson
 \begin{itemize}
   \item $X_i\dist\pois[\lambda_i] \wedge X_i \ind X_j
     \imp \displaystyle\sumin X_i \dist \pois[\displaystyle\sumin \lambda_i]$
@@ -608,10 +606,10 @@ Exponential
 %    \item $\forall n \in \mathbb N^+: X_i\dist\ex{\lambda}
   \item $X_i\dist\ex \wedge  X_i \ind X_j
     \imp \displaystyle\sumin X_i\dist \gam[n,\beta]$
-  \item \T{Memoryless property}: $\Pr{X>x+y\giv X>y}=\Pr{X>x}$
+  \item Memoryless property: $\Pr{X>x+y\giv X>y}=\Pr{X>x}$
 \end{itemize}
 
-\T{Normal}
+Normal
 \begin{itemize}
   \item $X\dist \norm[\mu,\sigma^2]
     \imp \left(\frac{X-\mu}{\sigma}\right)\dist\norm[0,1] $
@@ -623,7 +621,7 @@ Exponential
      - \Phi\left(\frac{a-\mu}{\sigma}\right) $
   \item $\Phi(-x) = 1 - \Phi(x) \qquad \phi'(x) = -x\phi(x) \qquad
     \phi''(x) = (x^2-1)\phi(x)$
-  \item \T{Upper quantile of} $\norm[0,1]$: $z_{\alpha} = \Phi^{-1}(1-\alpha)$
+  \item Upper quantile of $\norm[0,1]$: $z_{\alpha} = \Phi^{-1}(1-\alpha)$
 \end{itemize}
 
 Gamma
@@ -648,7 +646,7 @@ Beta
   \item $\bet[1,1] \dist \unif[0,1]$
 \end{itemize}
 
-\section{\T{Probability and Moment Generating Functions}}
+\section{Probability and Moment Generating Functions}
 
 \begin{itemize}
   \item $G_X(t) = \E{t^X} \qquad |t| < 1$
@@ -666,34 +664,34 @@ Beta
   \item $G_X(t) = G_Y(t) \imp X \stackrel{d}{=} Y$
 \end{itemize}
 
-\section{\T{Multivariate Distributions}}
+\section{Multivariate Distributions}
 
-\subsection{\T{Standard Bivariate Normal}}
+\subsection{Standard Bivariate Normal}
 
-\T{Let} $X,Y\dist\norm[0,1] \wedge X\ind Z$ \T{where}
+Let $X,Y\dist\norm[0,1] \wedge X\ind Z$ where
 $Y = \rho X + \sqrt{1-\rho^2}Z$\\
 
-\T{Joint density}
+Joint density
 \[
 f(x,y) = \frac{1}{2 \pi \sqrt{1-\rho^2}}
 \Exp{-\frac{x^2 + y^2 - 2\rho x y}{2 (1-\rho^2)}}
 \]
 
-\T{Conditionals}
+Conditionals
 \[
 (Y\giv X=x) \dist \norm[\rho x,1-\rho^2] \qquad\text{and}\qquad
 (X\giv Y=y) \dist \norm[\rho y,1-\rho^2]
 \]
 
-\T{Independence}
+Independence
 \[X \ind Y \eqv \rho = 0\]
 
-\subsection{\T{Bivariate Normal}}
+\subsection{Bivariate Normal}
 % - http://www.athenasc.com/Bivariate-Normal.pdf
 % - http://mathworld.wolfram.com/BivariateNormalDistribution.html
 
-\T{Let} $X\dist\norm[\mu_x,\sigma_x^2]$
-  \T{and} $Y\dist\norm[\mu_y,\sigma_y^2]$.
+Let $X\dist\norm[\mu_x,\sigma_x^2]$
+  and $Y\dist\norm[\mu_y,\sigma_y^2]$.
 \[f(x,y) = \frac{1}{2 \pi \sigma_x \sigma_y \sqrt{1-\rho^2}}
 \Exp{-\frac{z}{2 (1-\rho^2)}}\]
 \[ z =
@@ -705,13 +703,13 @@ f(x,y) = \frac{1}{2 \pi \sqrt{1-\rho^2}}
   \right]
 \]
 
-\T{Conditional mean and variance}
+Conditional mean and variance
 \[\E{X\giv Y} = \E{X} + \rho\frac{\sigma_X}{\sigma_Y}(Y-\E{Y})\]
 \[\V{X\giv Y} = \sigma_X \sqrt{1-\rho^2}\]
 
-\subsection{\T{Multivariate Normal}}
+\subsection{Multivariate Normal}
 
-\T{Covariance matrix} $\Sigma$ \quad (\T{Precision matrix} $\Sigma^{-1}$)
+Covariance matrix $\Sigma$ \quad (Precision matrix $\Sigma^{-1}$)
 \[\Sigma =
   \begin{pmatrix}
   \V{X_1} & \cdots & \cov{X_1,X_k} \\
@@ -719,11 +717,11 @@ f(x,y) = \frac{1}{2 \pi \sqrt{1-\rho^2}}
   \cov{X_k,X_1} & \cdots & \V{X_k}
   \end{pmatrix}\]
 
-\T{If} $X \dist \norm[\mu,\Sigma]$,
+If $X \dist \norm[\mu,\Sigma]$,
 \[f_X(x) = (2\pi)^{-n/2} \left|\Sigma\right|^{-1/2}
 \Exp{-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)} \]
 
-\T{Properties}
+Properties
 \begin{itemize}
   \item $Z \dist \norm[0,1] \wedge X = \mu+\Sigma^{1/2}Z
     \imp X \dist \norm[\mu,\Sigma]$
@@ -733,25 +731,26 @@ f(x,y) = \frac{1}{2 \pi \sqrt{1-\rho^2}}
     \imp a^TX \dist \norm[a^T\mu, a^T\Sigma a]$
 \end{itemize}
 
-\section{\T{Convergence}}
+\section{Convergence}
 
-\T{Convergence Introduction}\\
+Let $\{X_1,X_2,\ldots\}$ be a sequence of \rv's and let $X$ be another \rv.
+Let $F_n$ denote the \cdf of $X_n$ and let $F$ denote the \cdf of $X$.
 
-\T{Types of Convergence}
+Types of Convergence
 \begin{enumerate}
-  \item \T{In distribution}: $X_n \dconv X$
+  \item In distribution (weakly, in law): $X_n \dconv X$
     \[\limn F_n(t) = F(t) \qquad
-      \forall t \text{ \T{where} } F \text{ \T{continuous}}\]
-  \item \T{In probability}: $X_n \pconv X$
+      \forall t \text{ where } F \text{ continuous}\]
+  \item In probability: $X_n \pconv X$
     \[(\forall \varepsilon > 0) \;
     \lim_{n\to\infty} \Pr{|X_n -X| > \varepsilon} = 0\]
-  \item \T{Almost surely}: $X_n \asconv X$
+  \item Almost surely (strongly): $X_n \asconv X$
     \[\Pr{\limn X_n=X} = \Pr{\omega\in\Omega: \limn X_n(\omega)=X(\omega)}=1\]
-  \item \T{In quadratic mean}: $X_n \qmconv X$
+  \item In quadratic mean ($L_2$): $X_n \qmconv X$
     \[\lim_{n\to\infty} \E{(X_n - X)^2} = 0\]
 \end{enumerate}
 
-\T{Relationships}
+Relationships
 \begin{itemize}
   \item $X_n \qmconv X \imp X_n \pconv X \imp X_n \dconv X$
   \item $X_n \asconv X \imp X_n \pconv X$
@@ -771,37 +770,38 @@ f(x,y) = \frac{1}{2 \pi \sqrt{1-\rho^2}}
     \eqv \samplemean \qmconv \mu$
 \end{itemize}
 
-\T{Slutzky's Theorem}
+\textsc{Slutzky's Theorem}
 \begin{itemize}
-  \item $X_n \dconv X \text{ \T{and} } Y_n \pconv c
+  \item $X_n \dconv X \text{ and } Y_n \pconv c
     \imp X_n + Y_n \dconv X + c$
-  \item $X_n \dconv X \text{ \T{and} } Y_n \pconv c
+  \item $X_n \dconv X \text{ and } Y_n \pconv c
     \imp X_nY_n \dconv cX$
-  \item \T{In general}: $X_n \dconv X \text{ \T{and} } Y_n \dconv Y
+  \item In general: $X_n \dconv X \text{ and } Y_n \dconv Y
     \nimp X_n + Y_n \dconv X + Y$
 \end{itemize}
 
-\subsection{\T{Law of Large Numbers}}
+\subsection{Law of Large Numbers (LLN)}
 
-\T{LLN Introduction}\\
+Let $\{X_1,\ldots,X_n\}$ be a sequence of \iid \rv's, $\E{X_1}=\mu$.
 
-\T{WLLN}
+Weak (WLLN)
 \[\samplemean \pconv \mu \qquad n\to\infty\]
 
-\T{SLLN}
+Strong (SLLN)
 \[\samplemean \asconv \mu \qquad n\to\infty\]
 
-\subsection{\T{Central Limit Theorem}}
+\subsection{Central Limit Theorem (CLT)}
 
-\T{CLT Introduction}\\
+Let $\{X_1,\ldots,X_n\}$ be a sequence of \iid \rv's, $\E{X_1}=\mu$, and
+$\V{X_1} = \sigma^2$.\\
 
 \[ Z_n
   := \displaystyle\frac{\samplemean-\mu}{\sqrt{\V{\samplemean}}}
   = \displaystyle\frac{\sqrt{n}(\samplemean - \mu)}{\sigma}
-  \dconv Z \qquad \text{\T{where} } Z\dist \norm[0,1]\]
+  \dconv Z \qquad \text{where } Z\dist \norm[0,1]\]
 \[\lim_{n\to\infty} \Pr{Z_n \le z} = \Phi(z) \qquad z \in \mathbb R\]
 
-\T{CLT notations}
+CLT notations
 \begin{align*}
 Z_n &\approx \norm[0,1] \\
 \samplemean &\approx \norm[\mu,\frac{\sigma^2}{n}] \\
@@ -810,57 +810,59 @@ Z_n &\approx \norm[0,1] \\
 \frac{\sqrt{n}(\samplemean - \mu)}{\sigma} &\approx \norm[0,1] \\
 \end{align*}
 
-\T{Continuity correction}
+Continuity correction
 \[\Pr{\samplemean \le x} \approx
   \Phi\left(\displaystyle\frac{x+\frac{1}{2}-\mu}{\sigma/\sqrt{n}}\right)\]
 \[\Pr{\samplemean \ge x} \approx
   1-\Phi\left(\displaystyle\frac{x-\frac{1}{2}-\mu}{\sigma/\sqrt{n}}\right)\]
 
-\T{Delta method}
+Delta method
 \[Y_n \approx \norm[\mu,\frac{\sigma^2}{n}] \imp
 \transform(Y_n) \approx
 \norm[\transform(\mu),
   \left(\transform'(\mu)\right)^2\frac{\sigma^2}{n}]\]
 
-\section{\T{Statistical Inference}}
+\section{Statistical Inference}
 
-\T{Statistical Inference Introduction}
+Let $X_1,\cdots,X_n \distiid F$ if not otherwise noted.
 
-\subsection{\T{Point Estimation}}
+\subsection{Point Estimation}
 
 \begin{itemize}
-  \item \T{Point estimator}: $\that_n = g(X_1,\dots,X_n)$
+  \item Point estimator $\that_n$ of $\theta$ is a \rv:
+    $\that_n = g(X_1,\dots,X_n)$
   \item $\bias(\that_n) = \E{\that_n}-\theta$
-  \item \T{Consistency}: $\that_n \pconv \theta$
-  \item \T{Sampling distribution}: $F(\that_n)$
-  \item \T{Standard error}: $\se(\that_n) = \sqrt{\V{\that_n}}$
-  \item \T{Mean squared error}: $\mse = \E{(\that_n-\theta)^2}
+  \item Consistency: $\that_n \pconv \theta$
+  \item Sampling distribution: $F(\that_n)$
+  \item Standard error: $\se(\that_n) = \sqrt{\V{\that_n}}$
+  \item Mean squared error: $\mse = \E{(\that_n-\theta)^2}
     = \bias(\that_n)^2 + \V{\that_n}$
   \item $\limn \bias(\that_n) = 0 \wedge \limn\se(\that_n) = 0
-    \imp \that_n$ \T{is consistent}
-  \item \T{Asymptotic normality}:
+    \imp \that_n$ is consistent
+  \item Asymptotic normality:
     $\displaystyle\frac{\that_n-\theta}{\se} \dconv \norm[0,1]$
-  \item \T{Slutzky Note}
+  \item \textsc{Slutzky's Theorem} often lets us replace $\se(\that_n)$ by some
+    (weakly) consistent estimator $\shat_n$.
 \end{itemize}
 
-\subsection{\T{Normal-Based Confidence Interval}}
+\subsection{Normal-Based Confidence Interval}
 
-\T{Suppose} $\that_n \approx \norm[\theta,\sehat^2]$.
-\T{Let} $\zat = \Phi^{-1}(1-(\alpha/2))$,
-i.e., $\Pr{Z > \zat} = \alpha/2$ \T{and} $\Pr{-\zat < Z < \zat} = 1-\alpha$
-\T{where} $Z\dist\norm[0,1]$.
-\T{Then} \[C_n = \that_n \pm \zat\sehat\]
+Suppose $\that_n \approx \norm[\theta,\sehat^2]$.
+Let $\zat = \Phi^{-1}(1-(\alpha/2))$,
+i.e., $\Pr{Z > \zat} = \alpha/2$ and $\Pr{-\zat < Z < \zat} = 1-\alpha$
+where $Z\dist\norm[0,1]$.
+Then \[C_n = \that_n \pm \zat\sehat\]
 
-\subsection{\T{Empirical distribution}}
+\subsection{Empirical distribution}
 
-\T{Empirical Distribution Function}
+Empirical Distribution Function (ECDF)
 \[\Fnhat(x) = \displaystyle\frac{\sumin I(X_i \le x)}{n}\]
 \[I(X_i \le x) = \begin{cases}
   1 & X_i \le x \\
   0 & X_i > x
 \end{cases}\]
 
-\T{Properties} (\T{for any fixed x})
+Properties (for any fixed $x$)
 \begin{itemize}
   \item $\E{\Fnhat} = F(x)$
   \item $\V{\Fnhat} = \displaystyle\frac{F(x)(1-F(x))}{n}$
@@ -868,11 +870,11 @@ i.e., $\Pr{Z > \zat} = \alpha/2$ \T{and} $\Pr{-\zat < Z < \zat} = 1-\alpha$
   \item $\Fnhat \pconv F(x)$
 \end{itemize}
 
-\T{Dvoretzky-Kiefer-Wolfowitz inequality} ($X_1,\dots,X_n\dist F$)
+\textsc{Dvoretzky-Kiefer-Wolfowitz} (DKW) inequality ($X_1,\dots,X_n\dist F$)
 \[\Pr{\sup_x\left|F(x)-\Fnhat(x)\right| > \varepsilon} =
   2e^{-2n\varepsilon^2}\]
 
-\T{Nonparametric confidence band}
+Nonparametric $1-\alpha$ confidence band for $F$
 \begin{align*}
   L(x) &= \max\{\Fnhat-\epsilon_n, 0\} \\
   U(x) &= \min\{\Fnhat+\epsilon_n, 1\} \\
@@ -881,19 +883,19 @@ i.e., $\Pr{Z > \zat} = \alpha/2$ \T{and} $\Pr{-\zat < Z < \zat} = 1-\alpha$
 \end{align*}
 \[\Pr{L(x) \le F(x) \le U(x) \;\forall x} \ge 1-\alpha\]
 
-\subsection{\T{Statistical Functionals}}
+\subsection{Statistical Functionals}
 
 \begin{itemize}
-  \item \T{Statistical functional}: $T(F)$
-  \item \T{Plug-in estimator of theta}: $\that_n = T(\Fnhat)$
-  \item \T{Linear functional}: $T(F) = \int \transform(x)\dfx$
-  \item \T{Plug-in estimator for linear functional}: \\
+  \item Statistical functional: $T(F)$
+  \item Plug-in estimator of $\theta = (F)$: $\that_n = T(\Fnhat)$
+  \item Linear functional: $T(F) = \int \transform(x)\dfx$
+  \item Plug-in estimator for linear functional: \\
     \[T(\Fnhat)
       = \displaystyle\int \transform(x)\dfhatx
       = \frac{1}{n}\sumin \transform(X_i)\]
-  \item \T{Often}: $T(\Fnhat) \approx \norm[T(F),\sehat^2]$ \imp
+  \item Often: $T(\Fnhat) \approx \norm[T(F),\sehat^2]$ \imp
     $T(\Fnhat) \pm \zat\sehat$
-  \item $p^\mathrm{th}$ \T{quantile}: $F^{-1}(p) = \inf\{x:F(x) \ge p\}$
+  \item $p^\mathrm{th}$ quantile: $F^{-1}(p) = \inf\{x:F(x) \ge p\}$
   \item $\mhat = \samplemean$
   \item $\shat^2 = \displaystyle\frac{1}{n-1}\sumin
     (X_i-\samplemean)^2$
@@ -903,19 +905,21 @@ i.e., $\Pr{Z > \zat} = \alpha/2$ \T{and} $\Pr{-\zat < Z < \zat} = 1-\alpha$
     {\sqrt{\sumin(X_i-\samplemean)^2}\sqrt{\sumin(Y_i-\bar{Y}_n)^2}}$
 \end{itemize}
 
-\section{\T{Parametric Inference}}
+\section{Parametric Inference}
 
-\T{Parametric Inference Introduction}
+Let $\mathfrak{F} = \bigl\{ f(x;\theta) : \theta\in\Theta \bigr\}$ be a
+parametric model with parameter space $\Theta \subset \R^k$ and parameter
+$\theta = (\theta_1,\dots,\theta_k)$.
 
-\subsection{\T{Method of Moments}}
+\subsection{Method of Moments}
 
-\T{jth moment}
+$j^{\mathrm{th}}$ moment
 \[\alpha_j(\theta) = \E{X^j} = \displaystyle\int x^j \dfx\]
 
-\T{jth sample moment}
+$j^{\mathrm{th}}$ sample moment
 \[\ahat_j = \displaystyle\frac{1}{n}\sumin X_i^j\]
 
-\T{Method of Moments estimator}
+Method of Moments estimator (MoM)
 \begin{align*}
   \alpha_1(\theta) &= \ahat_1 \\
   \alpha_2(\theta) &= \ahat_2 \\
@@ -923,148 +927,152 @@ i.e., $\Pr{Z > \zat} = \alpha/2$ \T{and} $\Pr{-\zat < Z < \zat} = 1-\alpha$
   \alpha_k(\theta) &= \ahat_k
 \end{align*}
 
-\begin{titemize}{\T{Properties of the MoM estimator}}
-  \item $\that_n$ \T{exists with probability tending to 1}
-  \item \T{Consistency}: $\that_n \pconv \theta$
-  \item \T{Asymptotic normality}:
+\begin{titemize}{Properties of the MoM estimator}
+  \item $\that_n$ exists with probability tending to 1
+  \item Consistency: $\that_n \pconv \theta$
+  \item Asymptotic normality:
     \[\sqrt{n}(\that-\theta) \dconv \norm[0,\Sigma]\]
-    \T{where} $\Sigma = g\E{YY^T}g^T$, $Y = (X,X^2,\dots,X^k)^T$,\\
-    $g = (g_1,\dots,g_k)$ \T{and}
+    where $\Sigma = g\E{YY^T}g^T$, $Y = (X,X^2,\dots,X^k)^T$,\\
+    $g = (g_1,\dots,g_k)$ and
     $g_j = \frac{\partial}{\partial\theta}\alpha_j^{-1}(\theta)$
 \end{titemize}
 
-\subsection{\T{Maximum Likelihood}}
+\subsection{Maximum Likelihood}
 
-\T{Likelihood}: $\Lln : \Theta \to [0,\infty)$
+Likelihood: $\Lln : \Theta \to [0,\infty)$
   \[\Lln(\theta) = \displaystyle\prodin f(X_i;\theta)\] \\
-\T{Log-likelihood}
+Log-likelihood
   \[\lln(\theta) = \log \Lln(\theta) = \sumin \log f(X_i;\theta)\]
-\T{Maximum likelihood estimator}
+Maximum likelihood estimator (\mle)
 \[\Lln(\that_n) = \sup_\theta \Lln(\theta)\]
 
-\T{Score function}
+Score function
 \[s(X;\theta) = \frac{\partial}{\partial\theta}\log f(X;\theta)\]
 
-\T{Fisher information}
+Fisher information
 \[I(\theta) = \V[\theta]{s(X;\theta)}\]
 \[I_n(\theta) = nI(\theta)\]
-\T{Fisher information} (\T{exponential family})
+Fisher information (exponential family)
 \[I(\theta) = \E[\theta]{-\frac{\partial}{\partial\theta} s(X;\theta)}\]
-\T{Observed Fisher information}
+Observed Fisher information
 \[I_n^{obs}(\theta)
   = -\frac{\partial^2}{\partial\theta^2} \sumin\log f(X_i;\theta)\]
 
-\T{Properties of the MLE}
+Properties of the \mle
 \begin{itemize}
-  \item \T{Consistency}: $\that_n \pconv \theta$
-  \item \T{Equivariance}:
-    $\that_n$ \T{is the} \mle
-    \imp $\transform(\that_n)$ \T{ist the} \mle \T{of} $\transform(\theta)$
-  \item \T{Asymptotic normality}:
+  \item Consistency: $\that_n \pconv \theta$
+  \item Equivariance:
+    $\that_n$ is the \mle
+    \imp $\transform(\that_n)$ is the \mle of $\transform(\theta)$
+  \item Asymptotic optimality (or efficiency), i.e., smallest variance for
+    large samples. If $\ttil_n$ is any other estimator, the asymptotic relative
+    efficiency is:
     \begin{enumerate}
       \item $\se \approx \sqrt{1/I_n(\theta)}$
         \[\frac{(\that_n - \theta)}{\se} \dconv \norm[0,1]\]
       \item $\sehat \approx \sqrt{1/I_n(\that_n)}$
         \[\frac{(\that_n - \theta)}{\sehat} \dconv \norm[0,1]\]
     \end{enumerate}
-  \item \T{Asymptotic optimality}
+  \item Asymptotic optimality
     \[\are(\ttil_n, \that_n)
       = \frac{\V{\that_n}}{\V{\ttil_n}}
       \le 1\]
-  \item \T{Approximately the Bayes estimator}
+  \item Approximately the Bayes estimator
 \end{itemize}
 
-\subsubsection{\T{Delta Method}}
-\T{If} $\tau=\transform(\that)$
-\T{where} \transform \T{is differentiable}
-\T{and} $\transform'(\theta) \neq 0$:
+\subsubsection{Delta Method}
+If $\tau=\transform(\that)$
+where \transform is differentiable and $\transform'(\theta) \neq 0$:
 \[\frac{(\widehat{\tau}_n-\tau)}{\sehat(\widehat{\tau})} \dconv \norm[0,1]\]
-\T{where} $\widehat{\tau} = \transform(\that)$
-\T{is the} \mle \T{of} $\tau$ \T{and}
+where $\widehat{\tau} = \transform(\that)$
+is the \mle of $\tau$ and
 \[\sehat = \left|\transform'(\that)\right|\sehat(\that_n)\]
 
-\subsection{\T{Multiparameter Models}}
+\subsection{Multiparameter Models}
 
-\T{Let} $\theta=(\theta_1,\dots,\theta_k)$
-\T{and} $\that= (\that_1,\dots,\that_k)$ \T{be the} \mle.
+Let $\theta=(\theta_1,\dots,\theta_k)$
+and $\that= (\that_1,\dots,\that_k)$ be the \mle.
 
 \[H_{jj} = \frac{\partial^2 \lln}{\partial\theta^2} \qquad
 H_{jk} = \frac{\partial^2 \lln}{\partial\theta_j\partial\theta_k} \qquad\]
 
-\T{Fisher information matrix}
+Fisher information matrix
 \[I_n(\theta) = -\begin{bmatrix}
   \E[\theta]{H_{11}} & \cdots & \E[\theta]{H_{1k}} \\
   \vdots & \ddots & \vdots \\
   \E[\theta]{H_{k1}} & \cdots & \E[\theta]{H_{kk}}
 \end{bmatrix}\]
 
-\T{Under appropriate regularity conditions}
+Under appropriate regularity conditions
 \[(\that-\theta) \approx \norm[0,J_n]\]
-\T{with} $J_n(\theta) = I_n^{-1}$.
-\T{Note on component convergence}
+with $J_n(\theta) = I_n^{-1}$.
+Further, if $\that_j$ is the $j^{\mathrm{th}}$ component of $\theta$, then
+\[\frac{(\that_j-\theta_j)}{\sehat_j} \dconv \norm[0,1]\] where $\sehat_j^2 =
+J_n(j,j)$ and $\cov{\that_j,\that_k} = J_n(j,k)$
 
-\subsubsection{\T{Multiparameter delta method}}
+\subsubsection{Multiparameter delta method}
 
-\T{Let} $\tau = \transform(\theta_1,\dots,\theta_k)$
-\T{and} \T{let the gradient of transform be}
+Let $\tau = \transform(\theta_1,\dots,\theta_k)$
+and let the gradient of \transform be
 \[\nabla\transform = \begin{pmatrix}
   \displaystyle\frac{\partial\transform}{\partial\theta_1} \\
   \vdots \\
   \displaystyle\frac{\partial\transform}{\partial\theta_k} \\
 \end{pmatrix}\]
-\T{Suppose} $\bigl.\nabla\transform\bigr|_{\theta=\that} \neq 0$ \T{and}
-$\widehat{\tau} = \transform(\that)$. \T{Then},
+Suppose $\bigl.\nabla\transform\bigr|_{\theta=\that} \neq 0$ and
+$\widehat{\tau} = \transform(\that)$. Then,
 \[\frac{(\widehat{\tau}-\tau)}{\sehat(\widehat{\tau})} \dconv \norm[0,1]\]
-\T{where}
+where
 \[\sehat(\widehat{\tau}) = \sqrt{\left( \widehat{\nabla}\transform \right)^T
 \widehat{J}_n\left( \widehat{\nabla}\transform \right)}\]
-\T{and} $\widehat{J}_n = J_n(\that)$ \T{and} $\widehat{\nabla}\transform =
+and $\widehat{J}_n = J_n(\that)$ and $\widehat{\nabla}\transform =
 \bigl.\nabla\transform\bigr|_{\theta=\that}$.
 
-\subsection{\T{Parametric Bootstrap}}
+\subsection{Parametric Bootstrap}
 
-\T{Parametric Bootstrap Note}
+Sample from $f(x;\that_n)$ instead of from $\Fnhat$, where $\that_n$ could be
+the \mle or method of moments estimator.
 
-\section{\T{Hypothesis Testing}}
+\section{Hypothesis Testing}
 
-\[H_0:\theta\in\Theta_0 \qquad\text{\T{versus}}\qquad H_1:\theta\in\Theta_1\]
+\[H_0:\theta\in\Theta_0 \qquad\text{versus}\qquad H_1:\theta\in\Theta_1\]
 
-\T{Definitions}
+Definitions
 \begin{itemize}
-  \item \T{Null hypothesis} $H_0$
-  \item \T{Alternative hypothesis} $H_1$
-  \item \T{Simple hypothesis} $\theta = \theta_0$
-  \item \T{Composite hypothesis} $\theta > \theta_0$ or $\theta < \theta_0$
-  \item \T{Two-sided test}:
-    $H_0:\theta=\theta_0 \quad\text{\T{versus}}\quad H_1:\theta\neq\theta_0$
-  \item \T{One-sided test}:
-    $H_0:\theta\le\theta_0 \quad\text{\T{versus}}\quad H_1:\theta>\theta_0$
-%  \[H_0:\theta\ge\theta_0 \qquad\text{\T{versus}}\qquad H_1:\theta<\theta_0\]
-  \item \T{Critical value} $c$
-  \item \T{Test statistic} $T$
-  \item \T{Rejection region} $R = \left\{ x: T(x) > c \right\}$
-  \item \T{Power function} $\beta(\theta) = \Pr{X \in R}$
-  \item \T{Power of a test}: $1 - \Pr{\text{Type II error}} = 1-\beta
+  \item Null hypothesis $H_0$
+  \item Alternative hypothesis $H_1$
+  \item Simple hypothesis $\theta = \theta_0$
+  \item Composite hypothesis $\theta > \theta_0$ or $\theta < \theta_0$
+  \item Two-sided test:
+    $H_0:\theta=\theta_0 \quad\text{versus}\quad H_1:\theta\neq\theta_0$
+  \item One-sided test:
+    $H_0:\theta\le\theta_0 \quad\text{versus}\quad H_1:\theta>\theta_0$
+%  \[H_0:\theta\ge\theta_0 \qquad\text{versus}\qquad H_1:\theta<\theta_0\]
+  \item Critical value $c$
+  \item Test statistic $T$
+  \item Rejection region $R = \left\{ x: T(x) > c \right\}$
+  \item Power function $\beta(\theta) = \Pr{X \in R}$
+  \item Power of a test: $1 - \Pr{\text{Type II error}} = 1-\beta
     = \displaystyle\inf_{\theta \in \Theta_1} \beta(\theta)$
-  \item \T{Test size}: $\alpha = \Pr{\text{Type I error}}
+  \item Test size: $\alpha = \Pr{\text{Type I error}}
     = \displaystyle\sup_{\theta\in\Theta_0}\beta(\theta)$
 \end{itemize}
 
 \centering
 \begin{tabular}{l|cc}
-  & \textsf{\T{Retain}} $H_0$ & \textsf{\T{Reject}} $H_0$ \\
+  & \textsf{Retain} $H_0$ & \textsf{Reject} $H_0$ \\
   \hline
-  $H_0$ \textsf{\T{true}} & $\surd$ & \T{Type I Error} ($\alpha$)\\
-  $H_1$ \textsf{\T{true}} & \T{Type II Error} ($\beta$) &
-  $\surd$ (\T{power}) \\
+  $H_0$ \textsf{true} & $\surd$ & Type I Error ($\alpha$)\\
+  $H_1$ \textsf{true} & Type II Error ($\beta$) &
+  $\surd$ (power) \\
 \end{tabular}
 
 \raggedright
-\T{p-value}
+p-value
 \begin{itemize}
-  \item \T{p-value} $= \sup_{\theta\in\Theta_0} \Pr[\theta]{T(X) \ge T(x)}
+  \item p-value $= \sup_{\theta\in\Theta_0} \Pr[\theta]{T(X) \ge T(x)}
                       = \inf\bigl\{ \alpha: T(x) \in R_\alpha \bigr\}$
-  \item \T{p-value} $= \sup_{\theta\in\Theta_0}
+  \item p-value $= \sup_{\theta\in\Theta_0}
     \underbrace{\Pr[\theta]{T(X^\star) \ge T(X)}}_{1-F_\theta(T(X))
           \quad \text{since } T(X^\star) \dist F_\theta}
                       = \inf\bigl\{ \alpha: T(X) \in R_\alpha \bigr\}$
@@ -1072,83 +1080,84 @@ $\widehat{\tau} = \transform(\that)$. \T{Then},
 
 \centering
 \begin{tabular}{ll}
-  \textsf{\T{p-value}} & \textsf{\T{evidence}} \\
+  \textsf{p-value} & \textsf{evidence} \\
   \hline
-  $< 0.01$      & \T{very strong evidence against} $H_0$ \\
-  $0.01 - 0.05$ & \T{strong evidence against} $H_0$ \\
-  $0.05 - 0.1$  & \T{weak evidence against} $H_0$ \\
-  $> 0.1$       & \T{little or no evidence against} $H_0$ \\
+  $< 0.01$      & very strong evidence against $H_0$ \\
+  $0.01 - 0.05$ & strong evidence against $H_0$ \\
+  $0.05 - 0.1$  & weak evidence against $H_0$ \\
+  $> 0.1$       & little or no evidence against $H_0$ \\
 \end{tabular}
 
 \raggedright
-\T{Wald test}
+Wald test
 \begin{itemize}
-  \item \T{Two-sided test}
-  \item \T{Reject} $H_0$ \T{when} $|W| > \zat$ \T{where}
+  \item Two-sided test
+  \item Reject $H_0$ when $|W| > \zat$ where
     $W = \displaystyle\frac{\that - \theta_0}{\sehat}$
   \item $\Pr{|W| > \zat} \conv \alpha$
-  \item \T{p-value} $= \Pr[\theta_0]{|W| > |w|}
+  \item p-value $= \Pr[\theta_0]{|W| > |w|}
                  \approx \Pr{|Z| > |w|}
                  = 2\Phi(-|w|)$
 \end{itemize}
 
-\T{Likelihood ratio test}
+Likelihood ratio test
 \begin{itemize}
  \item $T(X) = \displaystyle\frac{\sup_{\theta\in\Theta}\Lln(\theta)}%
                                  {\sup_{\theta\in\Theta_0}\Lln(\theta)}
              = \frac{\Lln(\that_n)}{\Lln(\that_{n,0})}$
  \item $\lambda(X) = 2\log T(X) \dconv \chi_{r-q}^2$
-   \T{where} $\displaystyle\sum_{i=1}^k Z_i^2 \dist \chi_k^2$ \T{and}
+   where $\displaystyle\sum_{i=1}^k Z_i^2 \dist \chi_k^2$ and
     $Z_1,\dots,Z_k \distiid \norm[0,1]$
-  \item \T{p-value} $= \Pr[\theta_0]{\lambda(X) > \lambda(x)}
+  \item p-value $= \Pr[\theta_0]{\lambda(X) > \lambda(x)}
                  \approx \Pr{\chi_{r-q}^2 > \lambda(x)}$
 \end{itemize}
 
-\begin{titemize}{\T{Multinomial LRT}}
+\begin{titemize}{Multinomial LRT}
   \item \mle:
     $\phat_n = \displaystyle \left(\frac{X_1}{n},\dots,\frac{X_k}{n}\right)$
  \item $T(X) = \displaystyle \frac{\Lln(\phat_n)}{\Lln(p_0)}
    = \prod_{j=1}^k \left( \frac{\phat_j}{p_{0j}} \right)^{X_j}$
  \item $\lambda(X) = \displaystyle 2\sum_{j=1}^k X_j \log
     \left( \frac{\phat_j}{p_{0j}} \right) \dconv \chi_{k-1}^2$
- \item \T{The approximate size alpha LRT rejects H0}
+ \item The approximate size $\alpha$ LRT rejects $H_0$ when
+  $\lambda(X) \ge \chi_{k-1,\alpha}^2$
 \end{titemize}
 
-\T{Pearson Chi-square Test}
+Pearson Chi-square Test
 \begin{itemize}
   \item $T = \displaystyle \sum_{j=1}^k \frac{(X_j-\E{X_j})^2}{\E{X_j}}$
-    \T{where} $\E{X_j} = np_{0j}$ \T{under} $H_0$
+    where $\E{X_j} = np_{0j}$ under $H_0$
   \item $T \dconv \chi_{k-1}^2$
-  \item \T{p-value} $= \Pr{\chi_{k-1}^2 > T(x)}$
-  \item \T{Faster convergence than LRT, hence preferable for small n}
+  \item p-value $= \Pr{\chi_{k-1}^2 > T(x)}$
+  \item Faster $\dconv X_{k-1}^2$ than LRT, hence preferable for small $n$
 \end{itemize}
 
-\T{Independence testing}
+Independence testing
 \begin{itemize}
-  \item $I$ \T{rows}, $J$ \T{columns},
-    $\mathbf{X}$ \T{multinomial sample of size} $n=I*J$
-  \item {\mle}s \T{unconstrained}: $\phat_{ij} = \frac{X_{ij}}{n}$
-  \item {\mle}s \T{under} $H_0$:
+  \item $I$ rows, $J$ columns,
+    $\mathbf{X}$ multinomial sample of size $n=I*J$
+  \item {\mle}s unconstrained: $\phat_{ij} = \frac{X_{ij}}{n}$
+  \item {\mle}s under $H_0$:
     $\phat_{0ij} = \phat_{i\cdot}\phat_{\cdot j}
     = \frac{X_{i\cdot}}{n} \frac{X_{\cdot j}}{n}$
-  \item \T{LRT}: $\lambda = 2\sum_{i=1}^I\sum_{j=1}^J X_{ij}
+  \item LRT: $\lambda = 2\sum_{i=1}^I\sum_{j=1}^J X_{ij}
     \log\left( \frac{nX_{ij}}{X_{i\cdot}X_{\cdot j}}\right)$
-  \item \T{PearsonChiSq}: $T = \sum_{i=1}^I\sum_{j=1}^J
+  \item PearsonChiSq: $T = \sum_{i=1}^I\sum_{j=1}^J
     \frac{(X_{ij}-\E{X_{ij}})^2}{\E{X_{ij}}}$
-  \item \T{LRT} \T{and} \T{Pearson} $\dconv \chisq{\nu}$,
-    \T{where} $\nu=(I-1)(J-1)$
+  \item LRT and Pearson $\dconv \chisq{\nu}$,
+    where $\nu=(I-1)(J-1)$
 \end{itemize}
 
-\section{\T{Exponential Family}}
+\section{Exponential Family}
 
-\T{Scalar parameter}
+Scalar parameter
 \begin{align*}
 f_X(x \giv \theta)
 &= h(x) \Exp{\eta(\theta)T(x) - A(\theta)} \\
 &= h(x) g(\theta) \Exp{\eta(\theta)T(x)}
 \end{align*}
 
-\T{Vector parameter}
+Vector parameter
 \begin{align*}
 f_X(x \giv \theta)
 &= h(x) \Exp{\sum_{i=1}^s\eta_i(\theta)T_i(x) - A(\theta)} \\
@@ -1156,7 +1165,7 @@ f_X(x \giv \theta)
 &= h(x) g(\theta)\Exp{\eta(\theta)\cdot T(x)}
 \end{align*}
 
-\T{Natural form}
+Natural form
 \begin{align*}
 f_X(x \giv \eta)
 &= h(x) \Exp{\eta\cdot \mathbf{T}(x) - A(\eta)} \\
@@ -1164,93 +1173,96 @@ f_X(x \giv \eta)
 &= h(x) g(\eta) \Exp{\eta^T \mathbf{T}(x)}
 \end{align*}
 
-\section{\T{Bayesian Inference}}
+\section{Bayesian Inference}
 
-\textsc{\T{Bayes' Theorem}}
+\textsc{Bayes' Theorem}
 \[f(\theta\giv x)
 = \frac{f(x\giv\theta)f(\theta)}{f(x^n)}
 = \frac{f(x\giv\theta)f(\theta)}
        {\int f(x\giv\theta)f(\theta)\,d\theta} \propto \Lln(\theta)f(\theta)\]
 
-\T{Definitions}
+Definitions
 \begin{itemize}
   \item $X^n = (X_1,\ldots,X_n)$
   \item $x^n = (x_1,\ldots,x_n)$
-  \item \T{Prior density} $f(\theta)$
-  \item \T{Likelihood} $f(x^n \giv \theta)$: \T{joint density of the data}\\
-    \T{In particular}, $X^n$ \iid \imp $f(x^n\giv\theta) =
+  \item Prior density $f(\theta)$
+  \item Likelihood $f(x^n \giv \theta)$: joint density of the data\\
+    In particular, $X^n$ \iid \imp $f(x^n\giv\theta) =
     \displaystyle\prodin f(x_i\giv\theta) = \Lln(\theta)$
-  \item \T{Posterior density} $f(\theta\giv x^n)$
-  \item \T{Normalizing constant} $c_n = f(x^n)
+  \item Posterior density $f(\theta\giv x^n)$
+  \item Normalizing constant $c_n = f(x^n)
     = \int f(x\giv\theta)f(\theta)\,d\theta$
-  \item \T{Kernel: part of a density that depends on theta}
-  \item \T{Posterior mean} $\bar\theta_n
+  \item Kernel: part of a density that depends on $\theta$
+  \item Posterior mean $\bar\theta_n
     = \int\theta f(\theta\giv x^n)\,d\theta
     = \frac{\int\theta\Lln(\theta)f(\theta)}
            {\int\Lln(\theta)f(\theta)\,d\theta}$
 \end{itemize}
 
-\subsection{\T{Credible Intervals}}
+\subsection{Credible Intervals}
 
-\T{Posterior interval}
+Posterior interval
 \[\Pr{\theta\in (a,b)\giv x^n}
 = \int_{a}^{b} f(\theta\giv x^n)\,d\theta
 = 1-\alpha\]
 
-\T{Equal-tail credible interval}
+Equal-tail credible interval
 \[\int_{-\infty}^{a} f(\theta\giv x^n)\,d\theta
 = \int_{b}^{\infty} f(\theta\giv x^n)\,d\theta = \alpha/2\]
 
-\T{Highest posterior density (HPD) region} $R_n$
+Highest posterior density (HPD) region $R_n$
 \begin{enumerate}
   \item $\Pr{\theta\in R_n} = 1-\alpha$
-  \item $R_n = \left\{ \theta: f(\theta\giv x^n) > k \right\}$ \T{for some} $k$
+  \item $R_n = \left\{ \theta: f(\theta\giv x^n) > k \right\}$ for some $k$
 \end{enumerate}
-$R_n$ \T{is unimodal} \imp $R_n$ \T{is an interval}
+$R_n$ is unimodal \imp $R_n$ is an interval
 
-\subsection{\T{Function of parameters}}
-\T{Let} $\tau = \transform(\theta)$ \T{and} $A =
+\subsection{Function of parameters}
+Let $\tau = \transform(\theta)$ and $A =
 \left\{ \theta:\transform(\theta) \le \tau \right\}$.
 
-\T{Posterior CDF for tau}
+Posterior CDF for $\tau$
 \[H(r\giv x^n)
 = \Pr{\transform(\theta) \le \tau\giv x^n}
 = \int_A f(\theta \giv x^n)\,d\theta\]
-\T{Posterior density}
+Posterior density
 \[h(\tau\giv x^n) = H'(\tau\giv x^n)\]
-\T{Bayesian delta method}
+Bayesian delta method
 \[\tau\giv X^n \approx \norm[\transform(\that),
 \sehat\left|\transform'(\that)\right|]\]
 
-\subsection{\T{Priors}}
+\subsection{Priors}
 
-\T{Choice}
+Choice
 \begin{itemize}
-  \item \T{Subjective bayesianism}.
-  \item \T{Objective bayesianism}.
-  \item \T{Robust bayesianism}.
+  \item Subjective Bayesianism: prior should incorporate as much detail as
+    possible the research's a priori knowledge---via \emph{prior elicitation}
+  \item Objective Bayesianism: prior should incorporate as little detail as
+    possible (\emph{non-informative} prior)
+  \item Robust Bayesianism: consider various priors and determine
+    \emph{sensitivity} of our inferences to changes in the prior
 \end{itemize}
 
-\T{Types}
+Types
 \begin{itemize}
-  \item \T{Flat}: $f(\theta) \propto constant$
-  \item \T{Proper}: $\int_{-\infty}^{\infty} f(\theta)\,d\theta = 1$
-  \item \T{Improper}: $\int_{-\infty}^{\infty} f(\theta)\,d\theta = \infty$
-  \item \T{Jeffrey's Prior} (\T{transformation-invariant}):
+  \item Flat: $f(\theta) \propto constant$
+  \item Proper: $\int_{-\infty}^{\infty} f(\theta)\,d\theta = 1$
+  \item Improper: $\int_{-\infty}^{\infty} f(\theta)\,d\theta = \infty$
+  \item \textsc{Jeffrey}'s Prior (transformation-invariant):
     \[f(\theta) \propto \sqrt{I(\theta)} \qquad
     f(\theta) \propto \sqrt{\det(I(\theta))}\]
-  \item \T{Conjugate}: $f(\theta)$ \T{and} $f(\theta\giv x^n)$
-    \T{belong to the same parametric family}
+  \item Conjugate: $f(\theta)$ and $f(\theta\giv x^n)$
+    belong to the same parametric family
 \end{itemize}
 
-\subsubsection{\T{Conjugate Priors}}
+\subsubsection{Conjugate Priors}
 
 \begin{tabular}{|l|p{.23\columnwidth}|p{.45\columnwidth}|}
   \hline
-  \multicolumn{3}{|c|}{\T{Continuous likelihood}}\\
+  \multicolumn{3}{|c|}{Continuous likelihood (subscript $c$ denotes constant)}\\
   \hline && \\[-2ex]
-  \T{Likelihood} & \T{Conjugate prior} &
-    \text{\T{Posterior hyperparameters}} \\[1ex]
+  Likelihood & Conjugate prior &
+    \text{Posterior hyperparameters} \\[1ex]
 
   \hline && \\[-2ex]
 
@@ -1267,12 +1279,12 @@ $R_n$ \T{is unimodal} \imp $R_n$ \T{is an interval}
   $\displaystyle\left(\frac{1}{\sigma_0^2} + \frac{n}{\sigma_c^2}\right)^{-1}$
   \\[2ex]
 
-  $\norm[\mu_c,\sigma^2]$ & \T{Scaled Inverse Chi-square}($\nu,\sigma_0^2$) &
+  $\norm[\mu_c,\sigma^2]$ & Scaled Inverse Chi-square($\nu,\sigma_0^2$) &
   $\nu + n$, $\displaystyle \frac{\nu\sigma_0^2 + \sumin(x_i-\mu)^2}{\nu + n}$
   \\[4ex]
 
   $\norm[\mu,\sigma^2]$ &
-  \T{Normal-scaled Inverse Gamma}($\lambda,\nu,\alpha,\beta$) &
+  Normal-scaled Inverse Gamma($\lambda,\nu,\alpha,\beta$) &
   $\displaystyle\frac{\nu\lambda+n\xbar}{\nu+n}$, \qquad $\nu+n$, \qquad
   $\displaystyle \alpha + \frac{n}{2}$, \qquad
   $\displaystyle \beta + \frac{1}{2}\sumin(x_i-\xbar)^2 +
@@ -1284,14 +1296,14 @@ $R_n$ \T{is unimodal} \imp $R_n$ \T{is an interval}
   \left( \Sigma_0^{-1}\mu_0 + n\Sigma^{-1} \xbar \right)$,
   $\displaystyle\left( \Sigma_0^{-1} + n \Sigma_c^{-1} \right)^{-1}$ \\[1ex]
 
-  MVN($\mu_c,\Sigma$) & \T{Inverse-Wishart}($\kappa,\Psi$) &
+  MVN($\mu_c,\Sigma$) & Inverse-Wishart($\kappa,\Psi$) &
   $\displaystyle n + \kappa, \Psi + \sumin(x_i-\mu_c)(x_i-\mu_c)^T$\\
 
   Pareto($x_{m_c}, k$) & $\gam[\alpha,\beta]$ &
   $\displaystyle\alpha+n, \beta + \sumin \log\frac{x_i}{x_{m_c}}$ \\
 
   Pareto($x_m, k_c$) & Pareto($x_0, k_0$) &
-  $\displaystyle x_0, k_0 - kn$ \T{where} $k_0 > kn$ \\
+  $\displaystyle x_0, k_0 - kn$ where $k_0 > kn$ \\
 
   $\gam[\alpha_c,\beta]$ & $\gam[\alpha_0,\beta_0]$ &
   $\displaystyle \alpha_0 + n\alpha_c, \beta_0 + \sumin x_i$ \\[3ex]
@@ -1304,10 +1316,10 @@ $R_n$ \T{is unimodal} \imp $R_n$ \T{is an interval}
 
 \begin{tabular}{*3{|>{\begin{math}\displaystyle}l<{\end{math}}}|}
   \hline
-  \multicolumn{3}{|c|}{\T{Discrete likelihood}}\\
+  \multicolumn{3}{|c|}{Discrete likelihood}\\
   \hline && \\[-2ex]
-  \text{\T{Likelihood}} & \text{\T{Conjugate prior}} &
-    \text{\T{Posterior hyperparameters}} \\[1ex]
+  \text{Likelihood} & \text{Conjugate prior} &
+    \text{Posterior hyperparameters} \\[1ex]
 
   \hline && \\[-2ex]
 
@@ -1328,103 +1340,104 @@ $R_n$ \T{is unimodal} \imp $R_n$ \T{is an interval}
   \hline
 \end{tabular}
 
-\subsection{\T{Bayesian Testing}}
-\T{If} $H_0:\theta \in \Theta_0$:
+\subsection{Bayesian Testing}
+If $H_0:\theta \in \Theta_0$:
 \begin{align*}
-  \text{\T{Prior probability} } \Pr{H_0}
+  \text{Prior probability } \Pr{H_0}
     &= \int_{\Theta_0} f(\theta)\,d\theta\\
-  \text{\T{Posterior probability} } \Pr{H_0\giv x^n}
+  \text{Posterior probability } \Pr{H_0\giv x^n}
     &= \int_{\Theta_0} f(\theta\giv x^n)\,d\theta\\
 \end{align*}
 
-\T{Let $H_0...H_{k-1}$ be $k$ hypotheses}.
-\T{Suppose} $\theta \dist f(\theta\giv H_k)$,
+Let $H_0{\ldots}H_{k-1}$ be $k$ hypotheses.
+Suppose $\theta \dist f(\theta\giv H_k)$,
 \[\Pr{H_k\giv x^n}
 = \frac{f(x^n\giv H_k)\Pr{H_k}}{\sum_{k=1}^K f(x^n\giv H_k)\Pr{H_k}},\]
 
-\T{Marginal likelihood}
+Marginal likelihood
 \[f(x^n\giv H_i)
 = \int_\Theta f(x^n\giv \theta,H_i)f(\theta\giv H_i) \,d\theta\]
 
-\T{Posterior odds}
+Posterior odds (of $H_i$ relative to $H_j$)
 \[\frac{\Pr{H_i\giv x^n}}{\Pr{H_j\giv x^n}} \quad
 = \underbrace{\frac{f(x^n\giv H_i)}{f(x^n\giv H_j)}}%
   _{\text{Bayes Factor }BF_{ij}}
 \times \;\underbrace{\frac{\Pr{H_i}}{\Pr{H_j}}}_{\text{prior odds}}\]
 
-\T{Bayes factor}
+Bayes factor
 
 \centering
 \begin{tabular}{lll}
-  $\log_{10} BF_{10}$ & $BF_{10}$ & \textsf{\T{evidence}} \\
+  $\log_{10} BF_{10}$ & $BF_{10}$ & \textsf{evidence} \\
   \toprule
-  $0 - 0.5$ & $1 - 1.5$   & \T{Weak} \\
-  $0.5 - 1$ & $1.5 - 10$  & \T{Moderate} \\
-  $1 - 2$   & $10 - 100$  & \T{Strong} \\
-  $> 2$     & $> 100$     & \T{Decisive} \\
+  $0 - 0.5$ & $1 - 1.5$   & Weak \\
+  $0.5 - 1$ & $1.5 - 10$  & Moderate \\
+  $1 - 2$   & $10 - 100$  & Strong \\
+  $> 2$     & $> 100$     & Decisive \\
 \end{tabular}
 
 $p^* = \displaystyle\frac{\frac{p}{1-p}BF_{10}}{1+\frac{p}{1-p}BF_{10}}$
-\T{where} $p=\Pr{H_1}$ \T{and} $p^* = \Pr{H_1 \giv x^n}$
+where $p=\Pr{H_1}$ and $p^* = \Pr{H_1 \giv x^n}$
 
 \raggedright
 
-\section{\T{Sampling Methods}}
+\section{Sampling Methods}
 
-\subsection{\T{Inverse Transform Sampling}}
+\subsection{Inverse Transform Sampling}
 
-\T{Setup}
+Setup
 \begin{itemize}
   \item $U \dist \unif[0,1]$
   \item $X \dist F$
   \item $F^{-1}(u)= \inf\{ x \mid F(x) \ge u\}$
 \end{itemize}
 
-\T{Algorithm}
+Algorithm
 \begin{enumerate}
-  \item \T{Generate} $u \dist \unif[0,1]$
-  \item \T{Compute} $x = F^{-1}(u)$
+  \item Generate $u \dist \unif[0,1]$
+  \item Compute $x = F^{-1}(u)$
 \end{enumerate}
 
-\subsection{\T{The Bootstrap}}
+\subsection{The Bootstrap}
 
-\T{Let} $T_n = g(X_1,\dots,X_n)$ \T{be a statistic}.
+Let $T_n = g(X_1,\dots,X_n)$ be a statistic.
 \begin{enumerate}
-  \item \T{Estimate} $\V[F]{T_n}$ \T{with} $\V[\Fnhat]{T_n}$.
-  \item \T{Approximate} $\V[\Fnhat]{T_n}$ \T{using simulation}:
+  \item Estimate $\V[F]{T_n}$ with $\V[\Fnhat]{T_n}$.
+  \item Approximate $\V[\Fnhat]{T_n}$ using simulation:
     \begin{enumerate}
-      \item \T{Repeat the following B times}
+      \item Repeat the following $B$ times to get $T_{n,1}^*,\dots,T_{n,B}^*$,
+        an \iid sample from the sampling distribution implied by $\Fnhat$
         \begin{enumerate}
-          \item \T{Sample uniformly} $X_1^*,\dots,X_n^* \dist \Fnhat$.
+          \item Sample uniformly $X_1^*,\dots,X_n^* \dist \Fnhat$.
           \item Compute $T_n^* = g(X_1^*,\dots,X_n^*)$.
         \end{enumerate}
-      \item \T{Then}
+      \item Then
         \[v_{boot} = \widehat{\mathbb{V}}_{\Fnhat} =
           \displaystyle\frac{1}{B} \sum_{b=1}^B
             \left(T_{n,b}^* - \frac{1}{B} \sum_{r=1}^B T_{n,r}^* \right)^2\]
     \end{enumerate}
 \end{enumerate}
 
-\subsubsection{\T{Bootstrap Confidence Intervals}}
+\subsubsection{Bootstrap Confidence Intervals}
 
-\T{Normal-based interval}
+Normal-based interval
 \[T_n \pm \zat\sehat_{boot}\]
 
-\T{Pivotal interval}
+Pivotal interval
 \begin{enumerate}
-  \item \T{Location parameter} $\theta = T(F)$
-  \item \T{Pivot} $R_n = \that_n - \theta$
-  \item \T{Let} $H(r) = \Pr{R_n \le r}$ \T{be the} \cdf \T{of} $R_n$
-  \item \T{Let} $R_{n,b}^* = \that_{n,b}^* - \that_n$.
-    \T{Approximate} $H$ \T{using bootstrap}:
+  \item Location parameter $\theta = T(F)$
+  \item Pivot $R_n = \that_n - \theta$
+  \item Let $H(r) = \Pr{R_n \le r}$ be the \cdf of $R_n$
+  \item Let $R_{n,b}^* = \that_{n,b}^* - \that_n$.
+    Approximate $H$ using bootstrap:
     \[\widehat{H}(r) = \frac{1}{B}\sum_{b=1}^B I(R_{n,b}^* \le r)\]
-  \item $\theta_\beta^*$ = \T{beta sample quantile of}
+  \item $\theta_\beta^*$ = $\beta$ sample quantile of
     $(\that_{n,1}^*,\dots,\that_{n,B}^*)$
-  \item $r_\beta^*$ = \T{beta sample quantile of}
+  \item $r_\beta^*$ = beta sample quantile of
     $(R_{n,1}^*,\dots,R_{n,B}^*)$, i.e.,
     $r_\beta^* = \theta_\beta^* - \that_n$
-  \item \T{Approximate 1-alpha CI}
-    $C_n = \left( \hat{a}, \hat{b} \right)$ \T{where}
+  \item Approximate $1-\alpha$ confidence interval
+    $C_n = \left( \hat{a}, \hat{b} \right)$ where
     \begin{align*}
     \hat{a}
       &=& \that_n - \widehat{H}^{-1}\left( 1-\frac{\alpha}{2} \right)
@@ -1439,95 +1452,98 @@ $p^* = \displaystyle\frac{\frac{p}{1-p}BF_{10}}{1+\frac{p}{1-p}BF_{10}}$
 %  \[C_n = \left( 2\that_n - \that_{1-\alpha/2}^*,
 %    2\that_n + \that_{\alpha/2}^* \right)\]
 
-\T{Percentile interval}
+Percentile interval
 \[C_n = \left( \theta_{\alpha/2}^*, \theta_{1-\alpha/2}^* \right)\]
 
-\subsection{\T{Rejection Sampling}}
-\T{Setup}
+\subsection{Rejection Sampling}
+Setup
 \begin{itemize}
-  \item \T{We can easily sample from g}
-  \item \T{We want to sample from h, but it is difficult}
-  \item \T{We know h up to a proportional constant}:
+  \item We can easily sample from $g(\theta)$
+  \item We want to sample from $h(\theta)$, but it is difficult
+  \item We know $h(\theta)$ up to a proportional constant:
     $h(\theta) = \displaystyle\frac{k(\theta)}{\int k(\theta)\,d\theta}$
-  \item \T{Envelope condition: we can find M > 0 such that}
+  \item Envelope condition: we can find $M > 0$ such that
     $k(\theta) \le Mg(\theta) \quad \forall \theta$
 \end{itemize}
 
-\T{Algorithm}
+Algorithm
 \begin{enumerate}
-  \item \T{Draw} $\theta^{cand} \dist g(\theta)$
-  \item \T{Generate} $u \dist \unif[0,1]$
-  \item \T{Accept} $\theta^{cand}$ \T{if}
+  \item Draw $\theta^{cand} \dist g(\theta)$
+  \item Generate $u \dist \unif[0,1]$
+  \item Accept $\theta^{cand}$ if
     $u \le \displaystyle\frac{k(\theta^{cand})}{Mg(\theta^{cand})}$
-  \item \T{Repeat until B values of theta-cand have been accepted}
+  \item Repeat until $B$ values of $\theta^{cand}$ have been accepted
 \end{enumerate}
 
-\T{Example}
+Example
 \begin{itemize}
-  \item \T{We can easily sample from the prior} $g(\theta) = f(\theta)$
-  \item \T{Target is the posterior}
+  \item We can easily sample from the prior $g(\theta) = f(\theta)$
+  \item Target is the posterior
     $h(\theta) \propto k(\theta) = f(x^n\giv \theta) f(\theta)$
-  \item \T{Envelope condition}:
+  \item Envelope condition:
     $f(x^n\giv\theta) \le f(x^n\giv\that_n) = \Lln(\that_n)\equiv M$
-  \item \T{Algorithm}
+  \item Algorithm
     \begin{enumerate}
-      \item \T{Draw} $\theta^{cand} \dist f(\theta)$
-      \item \T{Generate} $u \dist \unif[0,1]$
-      \item \T{Accept} $\theta^{cand}$ \T{if}
+      \item Draw $\theta^{cand} \dist f(\theta)$
+      \item Generate $u \dist \unif[0,1]$
+      \item Accept $\theta^{cand}$ if
         $u \le \displaystyle\frac{\Lln(\theta^{cand})}{\Lln(\that_n)}$
     \end{enumerate}
 \end{itemize}
 
-\subsection{\T{Importance Sampling}}
+\subsection{Importance Sampling}
 
-\T{Importance Sampling Introduction}
+Sample from an importance function $g$ rather than target density $h$.\\
+Algorithm to obtain an approximation to $\E{q(\theta) \giv x^n}$:
 \begin{enumerate}
-  \item \T{Sample from the prior} $\theta_1,\ldots,\theta_n \distiid f(\theta)$
+  \item Sample from the prior $\theta_1,\ldots,\theta_n \distiid f(\theta)$
   \item $w_i = \displaystyle\frac{\Lln(\theta_i)}{\sum_{i=1}^B \Lln(\theta_i)}
     \quad\forall i = 1,\ldots,B$
   \item $\E{q(\theta)\giv x^n} \approx \sum_{i=1}^B q(\theta_i)w_i$
 \end{enumerate}
 
-\section{\T{Decision Theory}}
+\section{Decision Theory}
 
-\T{Definitions}
+Definitions
 \begin{itemize}
-  \item \T{Unknown quantity affecting our decision}: $\theta \in \Theta$
-  \item \T{Decision rule: synonymous for an estimator theta hat}
-  \item \T{Action a in A}
-  \item \T{Loss function L},
+  \item Unknown quantity affecting our decision: $\theta \in \Theta$
+  \item Decision rule: synonymous for an estimator $\that$
+  \item Action $a \in \mathcal{A}$: possible value of the decision rule. In the
+    estimation context, the action is just an estimate of $\theta$, $\that(x)$.
+  \item Loss function $L$: consequences of taking action $a$ when true state is
+    $\theta$ or discrepancy between $\theta$ and $\that$,
     $L: \Theta \times \mathcal{A} \to [-k,\infty).$
 \end{itemize}
 
-\T{Loss functions}
+Loss functions
 \begin{itemize}
-  \item \T{Squared error loss}: $L(\theta,a) = (\theta-a)^2$
-  \item \T{Linear loss}: $L(\theta,a) = \begin{cases}
+  \item Squared error loss: $L(\theta,a) = (\theta-a)^2$
+  \item Linear loss: $L(\theta,a) = \begin{cases}
       K_1(\theta-a) & a-\theta < 0 \\
       K_2(a-\theta) & a-\theta \ge 0
     \end{cases}$
-  \item \T{Absolute error loss}: $L(\theta,a) = |\theta-a| \quad$
-    (\T{linear loss with} $K_1=K_2$)
-  \item $L_p$ \T{loss}: $L(\theta,a) = |\theta-a|^p$
-  \item \T{Zero-one loss}: $L(\theta,a) = \begin{cases}
+  \item Absolute error loss: $L(\theta,a) = |\theta-a| \quad$
+    (linear loss with $K_1=K_2$)
+  \item $L_p$ loss: $L(\theta,a) = |\theta-a|^p$
+  \item Zero-one loss: $L(\theta,a) = \begin{cases}
       0 & a=\theta \\
       1 & a\neq\theta \\
     \end{cases}$
 \end{itemize}
 
-\subsection{\T{Risk}}
+\subsection{Risk}
 
-\T{Posterior risk}
+Posterior risk
 \[r(\that \giv x)
 = \int L(\theta,\that(x))f(\theta\giv x)\,d\theta
 = \E[\theta|X]{L(\theta,\that(x))}\]
 
-\T{(Frequentist) risk}
+(Frequentist) risk
 \[R(\theta,\that)
 = \int L(\theta,\that(x)) f(x\giv\theta) \dx
 = \E[X|\theta]{L(\theta,\that(X))}\]
 
-\T{Bayes risk}
+Bayes risk
 \[r(f,\that)
 = \iint L(\theta,\that(x))f(x,\theta)\dx\dtheta
 = \E[\theta,X]{L(\theta,\that(X))}\]
@@ -1538,76 +1554,77 @@ $p^* = \displaystyle\frac{\frac{p}{1-p}BF_{10}}{1+\frac{p}{1-p}BF_{10}}$
 = \E[X]{\E[\theta|X]{L(\theta,\that(X)}}
 = \E[X]{r(\that\giv X)}\]
 
-\subsection{\T{Admissibility}}
+\subsection{Admissibility}
 
 \begin{itemize}
-  \item $\that'$ \T{dominates} $\that$ \T{if}
+  \item $\that'$ dominates $\that$ if
     \[\forall \theta: R(\theta,\that') \le R(\theta,\that)\]
     \[\exists \theta: R(\theta,\that') < R(\theta,\that)\]
-  \item $\that$ \T{is inadmissible if there is at least one other estimator}
+  \item $\that$ is inadmissible if there is at least one other estimator
+    $\that'$ that dominates it. Otherwise it is called admissible.
 \end{itemize}
 
-\subsection{\T{Bayes Rule}}
+\subsection{Bayes Rule}
 
-\T{Bayes rule} (\T{or Bayes estimator})
+Bayes rule (or Bayes estimator)
 \begin{itemize}
   \item $r(f,\that) = \inf_{\ttil} r(f,\ttil)$
   \item $\that(x) = \inf r(\that\giv x) \; \forall x
 \imp r(f,\that) = \int r(\that\giv x)f(x)\,dx$
 \end{itemize}
 
-\T{Theorems}
+Theorems
 \begin{itemize}
-  \item \T{Squared error loss}: \T{posterior mean}
-  \item \T{Absolute error loss}: \T{posterior median}
-  \item \T{Zero-one loss}: \T{posterior mode}
+  \item Squared error loss: posterior mean
+  \item Absolute error loss: posterior median
+  \item Zero-one loss: posterior mode
 \end{itemize}
 
-\subsection{\T{Minimax Rules}}
+\subsection{Minimax Rules}
 
-\T{Maximum risk}
+Maximum risk
 \[\bar{R}(\that) = \sup_\theta R(\theta,\that) \qquad
 \bar{R}(a) = \sup_\theta R(\theta,a)\]
 
-\T{Minimax rule}
+Minimax rule
 \[\sup_\theta R(\theta,\that)
 = \inf_{\ttil} \bar{R}(\ttil)
 = \inf_{\ttil} \sup_\theta R(\theta,\ttil)\]
 
-\[\that = \text{\T{Bayes rule}} \; \wedge \;
+\[\that = \text{Bayes rule} \; \wedge \;
 \exists c: R(\theta,\that) = c\]
 
-\T{Least favorable prior}
-\[\that^f = \text{\T{Bayes rule}} \; \wedge \;
+Least favorable prior
+\[\that^f = \text{Bayes rule} \; \wedge \;
 R(\theta,\that^f) \le r(f,\that^f) \;\forall\theta\]
 
-\section{\T{Linear Regression}}
+\section{Linear Regression}
 
-\T{Definitions}
+Definitions
 \begin{itemize}
-  \item \T{Response variable} $Y$
-  \item \T{Covariate} $X$ (\T{aka predictor variable or feature})
+  \item Response variable $Y$
+  \item Covariate $X$ (aka predictor variable or feature)
 \end{itemize}
 
-\subsection{\T{Simple Linear Regression}}
-\T{Model}
+\subsection{Simple Linear Regression}
+Model
 \[Y_i = \beta_0 + \beta_1 X_i + \epsilon_i
 \qquad \E{\epsilon_i\giv X_i} = 0 ,\; \V{\epsilon_i\giv X_i} = \sigma^2\]
 
-\T{Fitted line}
+Fitted line
 \[\rhat(x) = \bhat_0 + \bhat_1 x\]
 
-\T{Predicted (fitted) values}
+Predicted (fitted) values
 \[\Yhat_i = \rhat(X_i)\]
 
-\T{Residuals}
+Residuals
 \[\ehat_i = Y_i - \Yhat_i
 = Y_i - \left( \bhat_0 + \bhat_1 X_i \right)\]
 
-\T{Residual sums of squares} (\rss)
+Residual sums of squares (\rss)
 \[\rss(\bhat_0,\bhat_1) = \sumin \ehat_i^2\]
 
-\T{Least square estimates}
+Least square estimates
 \[\bhat^T=(\bhat_0, \bhat_1)^T: \min_{\bhat_0,\bhat_1}\rss\]
 \begin{align*}
   \bhat_0 &= \bar Y_n - \bhat_1 \bar X_n \\
@@ -1620,22 +1637,22 @@ R(\theta,\that^f) \le r(f,\that^f) \;\forall\theta\]
   \sehat(\bhat_0) &= \frac{\shat}{s_X\sqrt{n}} \sqrt{\frac{\sumin X_i^2}{n}} \\
   \sehat(\bhat_1) &= \frac{\shat}{s_X\sqrt{n}}
 \end{align*}
-\T{where} $s_X^2 = n^{-1} \sumin(X_i-\Xnbar)^2$ \T{and} $\shat^2 =
-\frac{1}{n-2} \sumin \ehat_i^2$ (\T{unbiased estimate}).
+where $s_X^2 = n^{-1} \sumin(X_i-\Xnbar)^2$ and $\shat^2 =
+\frac{1}{n-2} \sumin \ehat_i^2$ (unbiased estimate).
 
-\T{Further properties}:
+Further properties:
 \begin{itemize}
-  \item \T{Consistency}:
-    $\bhat_0 \pconv \beta_0$ \T{and} $\bhat_1 \pconv \beta_1$
-  \item \T{Asymptotic normality}:
+  \item Consistency:
+    $\bhat_0 \pconv \beta_0$ and $\bhat_1 \pconv \beta_1$
+  \item Asymptotic normality:
     \[\frac{\bhat_0 - \beta_0}{\sehat(\bhat_0)} \dconv \norm[0,1]
     \quad\text{and}\quad
     \frac{\bhat_1 - \beta_1}{\sehat(\bhat_1)} \dconv \norm[0,1]\]
-  \item \T{Approximate 1-alpha CI for beta0 and beta1}:
-    \[\bhat_0 \pm \zat \sehat(\bhat_0) \quad\text{\T{and}}\quad
+  \item Approximate $1-\alpha$ confidence intervals for $\beta_0$ and $\beta_1$:
+    \[\bhat_0 \pm \zat \sehat(\bhat_0) \quad\text{and}\quad
     \bhat_1 \pm \zat \sehat(\bhat_1)\]
-  \item \T{Wald test} \T{for} \hyp{\beta_1=0}{\beta_1\neq 0}: \T{reject}
-    $H_0$ \T{if} $|W| > \zat$ \T{where} $W = \bhat_1/\sehat(\bhat_1)$.
+  \item Wald test for \hyp{\beta_1=0}{\beta_1\neq 0}: reject
+    $H_0$ if $|W| > \zat$ where $W = \bhat_1/\sehat(\bhat_1)$.
 \end{itemize}
 
 R$^2$
@@ -1644,7 +1661,7 @@ R$^2$
 = 1 - \frac{\sumin \ehat_i^2}{\sumin(Y_i-\Ybar)^2}
 = 1 - \frac{\rss}{\tss}\]
 
-\T{Likelihood}
+Likelihood
 \begin{align*}
 \Ll &= \prodin f(X_i,Y_i)
 = \prodin f_X(X_i) \times \prodin f_{Y|X}(Y_i \giv X_i) = \Ll_1 \times \Ll_2 \\
@@ -1654,84 +1671,84 @@ R$^2$
 \Exp{-\frac{1}{2\sigma^2}\sum_i\Bigl(Y_i-(\beta_0-\beta_1X_i)\Bigr)^2}
 \end{align*}
 
-\T{Under the assumption of Normality,
-  the least squares parameter estimators are also the MLEs,
-  but the least squares variance estimator is not the MLE}
+Under the assumption of Normality, the least squares estimator is
+also the \mle but the least squares variance estimator is not the \mle.
 \[\shat^2 = \frac{1}{n}\sumin \ehat_i^2\]
 
-\subsection{\T{Prediction}}
+\subsection{Prediction}
 
-
-\T{Observe X = x* of the covariate and want to predict their outcome Y*}.
+Observe $X = x_*$ of the covariate and want to predict their outcome $Y_*$.
 \begin{align*}
 \Yhat_* &= \bhat_0 + \bhat_1 x_* \\
 \V{\Yhat_*} &= \V{\bhat_0} + x_*^2 \V{\bhat_1} + 2x_* \cov{\bhat_0,\bhat_1}
 \end{align*}
 
-\T{Prediction interval}
+Prediction interval
 \[\xihat_n^2
 = \shat^2\left( \frac{\sumin(X_i-X_*)^2}{n\sum_i(X_i-\Xbar)^2j}+1 \right)\]
 \[\Yhat_* \pm \zat \xihat_n\]
 
-\subsection{\T{Multiple Regression}}
+\subsection{Multiple Regression}
 
 \[Y = X\beta + \epsilon\]
-\T{where}
+where
 \[X =
 \begin{pmatrix} X_{11} & \cdots & X_{1k} \\ \vdots & \ddots & \vdots \\
   X_{n1} & \cdots & X_{nk}\end{pmatrix} \quad
 \beta = \begin{pmatrix}\beta_1 \\ \vdots \\ \beta_k\end{pmatrix} \quad
 \epsilon = \begin{pmatrix}\epsilon_1 \\ \vdots \\ \epsilon_n\end{pmatrix}\]
 
-\T{Likelihood}
+Likelihood
 \[\Ll(\mu,\Sigma) = (2\pi\sigma^2)^{-n/2} \Exp{-\frac{1}{2\sigma^2}\rss}\]
 \[\rss = (y-X\beta)^T(y-X\beta) = \|Y-X\beta\|^2 = \sumiN(Y_i-x_i^T\beta)^2\]
 
-\T{If the k by k matrix X'X is invertible},
+If the $(k \times k)$ matrix $X^TX$ is invertible,
 \begin{align*}
   \bhat &= (X^TX)^{-1}X^TY \\
   \V{\bhat \giv X^n} &= \sigma^2(X^TX)^{-1} \\
   \bhat &\approx \norm[\beta, \sigma^2(X^TX)^{-1}]
 \end{align*}
 
-\T{Estimate regression function}
+Estimate regression function
 \[\rhat(x) = \sumjk\bhat_j x_j\]
 
-\T{Unbiased estimate for sigma-squared}
+Unbiased estimate for $\sigma^2$
 \[\shat^2 = \frac{1}{n-k} \sumin \ehat_i^2 \qquad \ehat = X\bhat-Y\]
 
 \mle
 \[\mhat = \Xbar \qquad \shat^2 = \frac{n-k}{n}\sigma^2\]
 
-$1-\alpha$ \T{Confidence interval}
+$1-\alpha$ Confidence interval
 \[\bhat_j \pm \zat\sehat(\bhat_j)\]
 
-\subsection{\T{Model Selection}}
+\subsection{Model Selection}
 
-\T{Model Selection Introduction}.\\
+Consider predicting a new observation $Y^*$ for covariates $X^*$ and let $S
+\subset J$ denote a subset of the covariates in the model, where $|S| = k$ and
+$|J| = n$.
 
-\T{Issues}
+Issues
 \begin{itemize}
-  \item \T{Underfitting: too few covariates yields high bias}
-  \item \T{Overfitting: too many covariates yields high variance}
+  \item Underfitting: too few covariates yields high bias
+  \item Overfitting: too many covariates yields high variance
 \end{itemize}
 
-\T{Procedure}
+Procedure
 \begin{enumerate}
-  \item \T{Assign a score to each model}
-  \item \T{Search through all models to find the one with the highest score}
+  \item Assign a score to each model
+  \item Search through all models to find the one with the highest score
 \end{enumerate}
 
-\T{Hypothesis testing}
+Hypothesis testing
 \[\hyp{\beta_j=0}{\beta_j\neq0} \quad\forall j \in J\]
 
-\T{Mean squared prediction error (MSPE)}
+Mean squared prediction error (\mspe)
 \[\mspe = \E{(\Yhat(S)-Y^*)^2}\]
 
-\T{Prediction risk}
+Prediction risk
 \[R(S) = \sumin \mspe_i = \sumin \E{(\Yhat_i(S)-Y_i^*)^2}\]
 
-\T{Training error}
+Training error
 \[\Rhat_{tr}(S) = \sumin(\Yhat_i(S)-Y_i)^2\]
 
 $R^2$
@@ -1740,61 +1757,61 @@ $R^2$
 = 1 - \frac{\Rhat_{tr}(S)}{\tss}
 = 1 - \frac{\sumin(\Yhat_i(S)-\Ybar)^2}{\sumin(Y_i-\Ybar)^2}\]
 
-\T{The training error is a downward-biased estimate of the prediction risk}.
+The training error is a downward-biased estimate of the prediction risk.
 \[\E{\Rhat_{tr}(S)} < R(S)\]
 \[\bias(\Rhat_{tr}(S)) = \E{\Rhat_{tr}(S)} - R(S) = -2\sumin\cov{\Yhat_i,Y_i}\]
 
-\T{Adjusted R2}
+Adjusted $R^2$
 \[R^2(S) = 1 - \frac{n-1}{n-k} \frac{\rss}{\tss}\]
 
-\T{Mallow's Cp statistic}
+\textsc{Mallow's} $C_p$ statistic
 \[\Rhat(S) = \Rhat_{tr}(S) + 2k\shat^2
-= \text{\T{lack of fit}} + \text{\T{complexity penalty}}\]
+= \text{lack of fit} + \text{complexity penalty}\]
 
-\T{Akaike Information Criterion (AIC)}
+\textsc{Akaike} Information Criterion (AIC)
 \[AIC(S) = \lln(\bhat_S, \shat^2_S) - k\]
 
-\T{Bayesian Information Criterion (BIC)}
+Bayesian Information Criterion (BIC)
 \[BIC(S) = \lln(\bhat_S, \shat^2_S) - \frac{k}{2}\log n\]
 
-\T{Validation and training}
+Validation and training
 \[\Rhat_V(S) = \sumim(\Yhat_i^*(S) - Y_i^*)^2 \qquad
-m = |\{\text{\T{validation data}}\}|,
-\text{ \T{often} }\frac{n}{4}\text { \T{or} }\frac{n}{2}\]
+m = |\{\text{validation data}\}|,
+\text{ often }\frac{n}{4}\text { or }\frac{n}{2}\]
 
-\T{Leave-one-out cross-validation}
+Leave-one-out cross-validation
 \[\Rhat_{CV}(S)
 = \sumin(Y_i - \Yhat_{(i)})^2
 = \sumin \left( \frac{Y_i-\Yhat_i(S)}{1-U_{ii}(S)} \right)^2\]
-\[U(S) = X_S(X_S^T X_S)^{-1} X_S \text{ (``\T{hat matrix}'')}\]
+\[U(S) = X_S(X_S^T X_S)^{-1} X_S \text{ (``hat matrix'')}\]
 
-\section{\T{Non-parametric Function Estimation}}
+\section{Non-parametric Function Estimation}
 
-\subsection{\T{Density Estimation}}
+\subsection{Density Estimation}
 
-\T{Estimate} $f(x)$, \T{where} $f(x) = \Pr{X \in A} = \int_A f(x)\dx$.\\
+Estimate $f(x)$, where $f(x) = \Pr{X \in A} = \int_A f(x)\dx$.\\
 
-\T{Integrated square error (ISE)}
+Integrated square error (\ise)
 \[L(f, \fnhat) = \int\left(f(x) - \fnhat(x)\right)^2 \dx = J(h)+\int f^2(x)\dx\]
 
-\T{Frequentist risk}
+Frequentist risk
 \[R(f, \fnhat) = \E{L(f,\fnhat)} = \int b^2(x) \dx + \int v(x) \dx\]
 \begin{align*}
   b(x) &= \E{\fnhat(x)} - f(x) \\
   v(x) &= \V{\fnhat(x)}
 \end{align*}
 
-\subsubsection{\T{Histograms}}
+\subsubsection{Histograms}
 
-\T{Definitions}
+Definitions
 \begin{itemize}
-  \item \T{Number of bins} $m$
-  \item \T{Binwidth} $h = \frac{1}{m}$
-  \item \T{Bin} $B_j$ \T{has} $\nu_j$ \T{observations}
-  \item \T{Define} $\phat_j = \nu_j/n$ \T{and} $p_j = \int_{B_j} f(u)\du$
+  \item Number of bins $m$
+  \item Binwidth $h = \frac{1}{m}$
+  \item Bin $B_j$ has $\nu_j$ observations
+  \item Define $\phat_j = \nu_j/n$ and $p_j = \int_{B_j} f(u)\du$
 \end{itemize}
 
-\T{Histogram estimator}
+Histogram estimator
 \begin{align*}
 \fnhat(x) &= \sumjm \frac{\phat_j}{h} I(x\in B_j) \\
 \E{\fnhat(x)} &= \frac{p_j}{h} \\
@@ -1808,14 +1825,14 @@ C = \left(\frac{3}{4}\right)^{2/3} \left( \int\left( f'(u) \right)^2 \du
 \right)^{1/3}
 \end{align*}
 
-\T{Cross-validation estimate of} $\E{J(h)}$
+Cross-validation estimate of $\E{J(h)}$
 \[\Jhat_{CV}(h)
 = \int \fnhat^2(x) \dx - \frac{2}{n}\sumin \fhat_{(-i)}(X_i)
 = \frac{2}{(n-1)h} - \frac{n+1}{(n-1)h} \sumjm \phat_j^2\]
 
-\subsubsection{\T{Kernel Density Estimator (KDE)}}
+\subsubsection{Kernel Density Estimator (KDE)}
 
-\T{Kernel} $K$
+Kernel $K$
 \begin{itemize}
   \item $K(x) \ge 0$
   \item $\int K(x)\dx = 1$
@@ -1823,7 +1840,7 @@ C = \left(\frac{3}{4}\right)^{2/3} \left( \int\left( f'(u) \right)^2 \du
   \item $\int x^2 K(x)\dx \equiv \sigma^2_K > 0$
 \end{itemize}
 
-\T{KDE}
+KDE
 \begin{align*}
   \fnhat(x) &= \frac{1}{n} \sumin \frac{1}{h} K\left( \frac{x-X_i}{h} \right) \\
   R(f,\fnhat) &\approx \frac{1}{4}(h\sigma_K)^4 \int (f''(x))^2\dx
@@ -1836,33 +1853,33 @@ C = \left(\frac{3}{4}\right)^{2/3} \left( \int\left( f'(u) \right)^2 \du
   \left( \int(f'')^2\dx \right)^{1/5}
 \end{align*}
 
-\T{Epanechnikov Kernel}
+\textsc{Epanechnikov} Kernel
 \[K(x) = \begin{cases}
-  \frac{3}{4\sqrt{5}(1-x^2/5)} & |x| < \sqrt{5} \\ 0 & \text{\T{otherwise}}
+  \frac{3}{4\sqrt{5}(1-x^2/5)} & |x| < \sqrt{5} \\ 0 & \text{otherwise}
 \end{cases}\]
 
-\T{Cross-validation estimate of} $\E{J(h)}$
+Cross-validation estimate of $\E{J(h)}$
 \[\Jhat_{CV}(h)
 = \int \fnhat^2(x) \dx - \frac{2}{n}\sumin \fhat_{(-i)}(X_i)
 \approx \frac{1}{hn^2} \sumin \sumjn K^*\left( \frac{X_i-X_j}{h} \right) +
 \frac{2}{nh} K(0)\]
 \[K^*(x) = K^{(2)}(x)-2K(x) \qquad K^{(2)}(x) = \int K(x-y) K(y) \dy\]
 
-\subsection{\T{Non-parametric Regression}}
+\subsection{Non-parametric Regression}
 
-\T{Estimate} $f(x)$ \T{where} $f(x) = \E{Y \giv X=x}$.
-\T{Consider pairs of points (x1,Y1),...,(xn,Yn) related by}
+Estimate $f(x)$ where $f(x) = \E{Y \giv X=x}$.
+Consider pairs of points $(x_1,Y_1),\dots,(x_n,Y_n)$ related by
 \begin{align*}
 Y_i &= r(x_i) + \epsilon_i \\
 \E{\epsilon_i} &= 0 \\
 \V{\epsilon_i} &= \sigma^2
 \end{align*}
 
-\T{k-nearest Neighbor Estimator}
-\[\rhat(x) = \frac{1}{k} \sum_{i:x_i \in N_k(x)} Y_i \qquad \text{\T{where} }
-N_k(x) = \{k \text{ \T{values of} } x_1,\dots,x_n \text{ \T{closest to} } x\}\]
+$k$-nearest Neighbor Estimator
+\[\rhat(x) = \frac{1}{k} \sum_{i:x_i \in N_k(x)} Y_i \qquad \text{where }
+N_k(x) = \{k \text{ values of } x_1,\dots,x_n \text{ closest to } x\}\]
 
-\T{Nadaraya-Watson Kernel Estimator}
+\textsc{Nadaraya-Watson} Kernel Estimator
 \begin{align*}
 \rhat(x) &= \sumin w_i(x)Y_i \\
 w_i(x)
@@ -1875,65 +1892,65 @@ h^* &\approx \frac{c_1}{n^{1/5}} \\
 R^*(\rhat_n,r) &\approx \frac{c_2}{n^{4/5}} \\
 \end{align*}
 
-\T{Cross-validation estimate of} $\E{J(h)}$
+Cross-validation estimate of $\E{J(h)}$
 \[\Jhat_{CV}(h)
 = \sumin (Y_i - \rhat_{(-i)}(x_i))^2
 = \sumin \frac{(Y_i - \rhat(x_i))^2}{\left(
 1- \frac{K(0)}{\sumjn K\left(\frac{x-x_j}{h}\right)}\right)^2}\]
 
-\subsection{\T{Smoothing Using Orthogonal Functions}}
+\subsection{Smoothing Using Orthogonal Functions}
 
-\T{Approximation}
+Approximation
 \[r(x) = \sum_{j=1}^\infty\beta_j\phi_j(x)
 \approx \sum_{i=1}^J \beta_j\phi_j(x)\]
 
-\T{Multivariate regression}
+Multivariate regression
 \[Y = \Phi\beta + \eta\]
-\[\text{\T{where}}\quad \eta_i = \epsilon_i \quad\text{\T{and}}\quad \Phi
+\[\text{where}\quad \eta_i = \epsilon_i \quad\text{and}\quad \Phi
 = \begin{pmatrix}
   \phi_0(x_1) & \cdots & \phi_J(x_1) \\
   \vdots & \ddots & \vdots \\
   \phi_0(x_n) & \cdots & \phi_J(x_n)
   \end{pmatrix}\]
 
-\T{Least squares estimator}
+Least squares estimator
 \begin{align*}
 \bhat &= (\Phi^T\Phi)^{-1}\Phi^T Y \\
 &\approx \frac{1}{n}\Phi^T Y
-  \quad\text{(\T{for equally spaced observations only})}
+  \quad\text{(for equally spaced observations only)}
 \end{align*}
 
-\T{Cross-validation estimate of} $\E{J(h)}$
+Cross-validation estimate of $\E{J(h)}$
 \[\Rhat_{CV}(J)
 = \sumin \left( Y_i - \sum_{j=1}^J \phi_j(x_i)\bhat_{j,(-i)} \right)^2\]
 
-\section{\T{Stochastic Processes}}
+\section{Stochastic Processes}
 
-\T{Stochastic Process}
+Stochastic Process
 \[\left\{ X_t : t \in T\right\} \qquad T=\begin{cases}\{0,\pm1,\dots\}=\Z &
-  \text{\T{discrete}} \\ [0,\infty) & \text{\T{continuous}}\end{cases}\]
+  \text{discrete} \\ [0,\infty) & \text{continuous}\end{cases}\]
 
 \begin{itemize}
-  \item \T{Notations} $X_t$, $X(t)$
-  \item \T{State space} $\mathcal{X}$
-  \item \T{Index set} $T$
+  \item Notations $X_t$, $X(t)$
+  \item State space $\mathcal{X}$
+  \item Index set $T$
 \end{itemize}
 
-\subsection{\T{Markov Chains}}
+\subsection{Markov Chains}
 
-\T{Markov chain}
+Markov chain
 \[\Pr{X_n = x \giv X_0,\dots,X_{n-1}} = \Pr{X_n = x \giv X_{n-1}}
 \quad \forall n\in T, x \in \mathcal{X}\]
 
-\T{Transition probabilities}
+Transition probabilities
 \begin{align*}
 p_{ij} &\equiv \Pr{X_{n+1} = j \giv X_n = i} \\
-p_{ij}(n) &\equiv \Pr{X_{m+n} = j \giv X_m = i} \quad\text{\T{n-step}}
+p_{ij}(n) &\equiv \Pr{X_{m+n} = j \giv X_m = i} \quad\text{n-step}
 \end{align*}
 
-\T{Transition matrix} $\mathbf{P}$ (\T{n-step}: $\mathbf{P}_n$)
+Transition matrix $\mathbf{P}$ (n-step: $\mathbf{P}_n$)
 \begin{itemize}
-  \item $(i,j)$ \T{element is} $p_{ij}$
+  \item $(i,j)$ element is $p_{ij}$
   \item $p_{ij} > 0$
   \item $\sum_i p_{ij} = 1$
 \end{itemize}
@@ -1943,41 +1960,41 @@ p_{ij}(n) &\equiv \Pr{X_{m+n} = j \giv X_m = i} \quad\text{\T{n-step}}
 \[\mathbf{P}_{m+n} = \mathbf{P}_m\mathbf{P}_n\]
 \[\mathbf{P}_n = \mathbf{P} \times \cdots \times \mathbf{P} = \mathbf{P}^n\]
 
-\T{Marginal probability}
+Marginal probability
 \begin{align*}
   \mu_n &= (\mu_n(1),\dots,\mu_n(N))
-  \quad\text{\T{where}}\quad \mu_i(i)=\Pr{X_n=i} \\
-\mu_0 &\eqdef \text{\T{initial distribution}} \\
+  \quad\text{where}\quad \mu_i(i)=\Pr{X_n=i} \\
+\mu_0 &\eqdef \text{initial distribution} \\
 \mu_n &= \mu_0\mathbf{P}^n
 \end{align*}
 
-\subsection{\T{Poisson Processes}}
+\subsection{Poisson Processes}
 
-\T{Poisson process}
+Poisson process
 \begin{itemize}
   \item $\left\{ X_t : t \in [0,\infty) \right\}$
-    = \T{number of events up to and including time} $t$
+    = number of events up to and including time $t$
   \item $X_0 = 0$
-  \item \T{Independent increments}:
+  \item Independent increments:
     \[\forall t_0 < \cdots < t_n:
     X_{t_1} - X_{t_0} \ind \cdots \ind X_{t_n} - X_{t_{n-1}}\]
-  \item \T{Intensity function} $\lambda(t)$
+  \item Intensity function $\lambda(t)$
     \begin{itemize}
       \item $\Pr{X_{t+h}-X_t = 1} = \lambda(t) h + o(h)$
       \item $\Pr{X_{t+h}-X_t = 2} = o(h)$
     \end{itemize}
-  \item $X_{s+t} - X_s \dist \pois[m(s+t)-m(s)]\;$ \T{where}
+  \item $X_{s+t} - X_s \dist \pois[m(s+t)-m(s)]\;$ where
     $\;m(t)=\int_0^t\lambda(s)\ds$
 \end{itemize}
 
-\T{Homogeneous Poisson process}
+Homogeneous Poisson process
 \[\lambda(t) \equiv \lambda \imp X_t \dist \pois[\lambda t] \qquad \lambda > 0\]
 
-\T{Waiting times}
-\[W_t \define \text{\T{time at which Xt occurs}}\]
+Waiting times
+\[W_t \define \text{time at which $X_t$ occurs}\]
 \[W_t \dist \gam[t, \frac{1}{\lambda}]\]
 
-\T{Interarrival times}
+Interarrival times
 \[S_t = W_{t+1} - W_t\]
 \[S_t \dist \ex[\frac{1}{\lambda}]\]
 
@@ -1993,35 +2010,35 @@ p_{ij}(n) &\equiv \Pr{X_{m+n} = j \giv X_m = i} \quad\text{\T{n-step}}
   \end{tikzpicture}
 \end{center}
 
-\section{\T{Time Series}}
+\section{Time Series}
 
-\T{Mean function}
+Mean function
 \[\mu_{x_t} = \E{x_t} = \int_{-\infty}^\infty x f_t(x) \dx\]
 
-\T{Autocovariance function}
+Autocovariance function
 \[\gamma_x(s,t) = \E{(x_s-\mu_s)(x_t-\mu_t)} = \E{x_sx_t} - \mu_s\mu_t\]
 \[\gamma_x(t,t) = \E{(x_t-\mu_t)^2} = \V{x_t}\]
 
-\T{Autocorrelation function (ACF)}
+Autocorrelation function (ACF)
 \[\rho(s,t) = \frac{\cov{x_s,x_t}}{\sqrt{\V{x_s}\V{x_t}}}
             = \frac{\gamma(s,t)}{\sqrt{\gamma(s,s)\gamma(t,t)}}\]
 
-\T{Cross-covariance function (CCV)}
+Cross-covariance function (CCV)
 \[\gamma_{xy}(s,t) = \E{(x_s-\mu_{x_s})(y_t-\mu_{y_t})}\]
 
-\T{Cross-correlation function (CCF)}
+Cross-correlation function (CCF)
 \[\rho_{xy}(s,t) = \frac{\gamma_{xy}(s,t)}{\sqrt{\gamma_x(s,s)\gamma_y(t,t)}}\]
 
-\T{Backshift operator}
+Backshift operator
 \[B^k(x_t) = x_{t-k}\]
 
-\T{Difference operator}
+Difference operator
 \[\nabla^d = (1-B)^d\]
 
-\T{White noise}
+White noise
 \begin{itemize}
   \item $w_t \dist wn(0, \sigma_w^2)$
-  \item \T{Gaussian}: $w_t \distiid \norm[0, \sigma_w^2]$
+  \item Gaussian: $w_t \distiid \norm[0, \sigma_w^2]$
   \item $\E{w_t} = 0 \quad t\in T$
   \item $\V{w_t} = \sigma^2 \quad t\in T$
   \item $\gamma_w(s,t) = 0 \quad s \neq t \;\wedge\; s,t\in T$
@@ -2030,32 +2047,32 @@ p_{ij}(n) &\equiv \Pr{X_{m+n} = j \giv X_m = i} \quad\text{\T{n-step}}
 %Auto regression
 %\[x_t = \sum_{i=1}^p \phi_i x_{t-i} + w_t\]
 
-\T{Random walk}
+Random walk
 \begin{itemize}
-  \item \T{Drift} $\delta$
+  \item Drift $\delta$
   \item $x_t = \delta t + \sum_{j=1}^t w_j$
   \item $\E{x_t} = \delta t$
 \end{itemize}
 
-\T{Symmetric moving average}
+Symmetric moving average
 \[m_t = \sum_{j=-k}^k a_j x_{t-j}
-\qquad \text{\T{where} } a_j=a_{-j}\ge0 \text{ \T{and} } \sum_{j=-k}^k a_j = 1\]
+\qquad \text{where } a_j=a_{-j}\ge0 \text{ and } \sum_{j=-k}^k a_j = 1\]
 
-\subsection{\T{Stationary Time Series}}
+\subsection{Stationary Time Series}
 
-\T{Strictly stationary}
+Strictly stationary
 \[\Pr{x_{t_1} \le c_1, \dots, x_{t_k} \le c_k} =
   \Pr{x_{t_1+h} \le c_1, \dots, x_{t_k+h} \le c_k}\]
 \[\forall k\in\N,t_k, c_k, h\in\Z\]
 
-\T{Weakly stationary}
+Weakly stationary
 \begin{itemize}
   \item $\E{x_t^2} < \infty \qquad\forall t\in\Z$
   \item $\E{x_t^2} = m \qquad\forall t\in\Z$
   \item $\gamma_x(s,t) = \gamma_x(s+r, t+r) \qquad\forall r,s,t\in\Z$
 \end{itemize}
 
-\T{Autocovariance function}
+Autocovariance function
 \begin{itemize}
   \item $\gamma(h) = \E{(x_{t+h}-\mu)(x_t-\mu)} \qquad \forall h\in\Z$
   \item $\gamma(0) = \E{(x_t-\mu)^2}$
@@ -2064,113 +2081,115 @@ p_{ij}(n) &\equiv \Pr{X_{m+n} = j \giv X_m = i} \quad\text{\T{n-step}}
   \item $\gamma(h) = \gamma(-h)$
 \end{itemize}
 
-\T{Autocorrelation function (ACF)}
+Autocorrelation function (ACF)
 \[\rho_x(h) = \frac{\cov{x_{t+h},x_t}}{\sqrt{\V{x_{t+h}}\V{x_t}}}
           = \frac{\gamma(t+h,t)}{\sqrt{\gamma(t+h,t+h)\gamma(t,t)}}
           = \frac{\gamma(h)}{\gamma(0)}\]
 
-\T{Jointly stationary time series}
+Jointly stationary time series
 \[\gamma_{xy}(h) = \E{(x_{t+h}-\mu_x)(y_t-\mu_y)}\]
 \[\rho_{xy}(h) = \frac{\gamma_{xy}(h)}{\sqrt{\gamma_x(0)\gamma_y(h)}}\]
 
-\T{Linear process}
+Linear process
 \[x_t = \mu + \sum_{j=-\infty}^\infty \psi_j w_{t-j} \quad\text{where}\quad
 \sum_{j=-\infty}^\infty |\psi_j| < \infty\]
 \[\gamma(h) = \sigma_w^2 \sum_{j=-\infty}^\infty \psi_{j+h}\psi_j\]
 
-\subsection{\T{Estimation of Correlation}}
+\subsection{Estimation of Correlation}
 
-\T{Sample mean}
+Sample mean
 \[\xbar = \frac{1}{n}\sum_{t=1}^n x_t\]
 
-\T{Sample variance}
+Sample variance
 \[\V{\xbar} = \frac{1}{n}\sum_{h=-n}^n \left(1-\frac{|h|}{n}\right)\gamma_x(h)\]
 
-\T{Sample autocovariance function}
+Sample autocovariance function
 \[\ghat(h) = \frac{1}{n}\sum_{t=1}^{n-h}(x_{t+h}-\xbar)(x_t-\xbar)\]
 
-\T{Sample autocorrelation function}
+Sample autocorrelation function
 \[\rhohat(h) = \frac{\ghat(h)}{\ghat(0)}\]
 
-\T{Sample cross-variance function}
+Sample cross-variance function
 \[\ghat_{xy}(h) = \frac{1}{n} \sum_{t=1}^{n-h}(x_{t+h}-\xbar)(y_t - \ybar)\]
 
-\T{Sample cross-correlation function}
+Sample cross-correlation function
 \[\rhohat_{xy}(h) = \frac{\ghat_{xy}(h)}{\sqrt{\ghat_x(0) \ghat_y(0)}}\]
 
-\T{Properties}
+Properties
 \begin{itemize}
   \item $\sigma_{\rhohat_x(h)} = \displaystyle\frac{1}{\sqrt{n}}$
-    \T{if} $x_t$ \T{is white noise}
+    if $x_t$ is white noise
   \item $\sigma_{\rhohat_{xy}(h)} = \displaystyle\frac{1}{\sqrt{n}}$
-    \T{if} $x_t$ \T{or} $y_t$ \T{is white noise}
+    if $x_t$ or $y_t$ is white noise
 \end{itemize}
 
-\subsection{\T{Non-Stationary Time Series}}
+\subsection{Non-Stationary Time Series}
 
-\T{Classical decomposition model}
+Classical decomposition model
 \[x_t = \mu_t + s_t + w_t\]
 \begin{itemize}
-  \item $\mu_t =$ \T{trend}
-  \item $s_t =$ \T{seasonal component}
-  \item $w_t =$ \T{random noise term}
+  \item $\mu_t =$ trend
+  \item $s_t =$ seasonal component
+  \item $w_t =$ random noise term
 \end{itemize}
 
-\subsubsection{\T{Detrending}}
+\subsubsection{Detrending}
 
-\T{Least squares}
+Least squares
 \begin{enumerate}
-  \item \T{Choose trend model, e.g.,}
+  \item Choose trend model, e.g.,
     $\mu_t = \beta_0 + \beta_1 t + \beta_2 t^2$
-  \item \T{Minimize RSS to obtain trend estimate}
+  \item Minimize \rss to obtain trend estimate
     $\mhat_t = \bhat_0 + \bhat_1 t + \bhat_2 t^2$
-  \item \T{Residuals} $\triangleq$ \T{noise} $w_t$
+  \item Residuals $\triangleq$ noise $w_t$
 \end{enumerate}
 
-\T{Moving average}
+Moving average
 \begin{itemize}
-  \item \T{The low-pass filter vt is a symmetric moving average}:
+  \item The \emph{low-pass} filter $v_t$ is a symmetric moving average $m_t$
+    with $a_j = \frac{1}{2k+1}$:
     \[v_t = \frac{1}{2k+1} \sum_{i=-k}^k x_{t-1}\]
-  \item \T{If} $\frac{1}{2k+1} \sum_{i=-k}^k w_{t-j} \approx 0$,
-    \T{a linear trend function mut passes without distortion}
+  \item If $\frac{1}{2k+1} \sum_{i=-k}^k w_{t-j} \approx 0$,
+    a linear trend function $\mu_t = \beta_0 + \beta_1t$ passes without
+    distortion
 \end{itemize}
 
-\T{Differencing}
+Differencing
 \begin{itemize}
   \item $\mu_t = \beta_0 + \beta_1t \imp \nabla x_t = \beta_1$
 \end{itemize}
 
-\subsection{\T{ARIMA models}}
+\subsection{ARIMA models}
 
-\T{Autoregressive polynomial}
+Autoregressive polynomial
 \[\phi(z) = 1 - \phi_1 z - \cdots - \phi_p z_p
 \qquad z \in \C \wedge \phi_p \neq 0\]
 
-\T{Autoregressive operator}
+Autoregressive operator
 \[\phi(B) = 1 - \phi_1B - \cdots - \phi_pB^p\]
 
-\T{Autoregressive model order $p$}, $\AR$
+Autoregressive model order $p$, $\AR$
 \[x_t = \phi_1 x_{t-1} + \cdots + \phi_p x_{t-p} + w_t \eqv \phi(B)x_t = w_t\]
 
 $\AR[1]$
 \begin{itemize}
   \item $x_t = \phi^k(x_{t-k}) + \displaystyle\sum_{j=0}^{k-1} \phi^j(w_{t-j})
     \stackrel{k\to\infty, |\phi| < 1}{=}
-    \underbrace{\sum_{j=0}^\infty \phi^j(w_{t-j})}_{\text{\T{linear process}}}$
+    \underbrace{\sum_{j=0}^\infty \phi^j(w_{t-j})}_{\text{linear process}}$
 \item $\E{x_t} = \sum_{j=0}^\infty\phi^j(\E{w_{t-j}}) = 0$
 \item $\gamma(h) = \cov{x_{t+h},x_t} = \frac{\sigma_w^2\phi^h}{1-\phi^2}$
 \item $\rho(h) = \frac{\gamma(h)}{\gamma(0)} = \phi^h$
 \item $\rho(h) = \phi \rho(h-1) \quad h=1,2,\ldots$
 \end{itemize}
 
-\T{Moving average polynomial}
+Moving average polynomial
 \[\theta(z) = 1 + \theta_1 z + \cdots + \theta_q z_q
 \qquad z \in \C \wedge \theta_q \neq 0\]
 
-\T{Moving average operator}
+Moving average operator
 \[\theta(B) = 1 + \theta_1B + \cdots + \theta_pB^p\]
 
-$\MA$ (\T{moving average model order} $q$)
+$\MA$ (moving average model order $q$)
 \[x_t = w_t + \theta_1 w_{t-1} + \cdots + \theta_q w_{t-q}
 \eqv x_t = \theta(B)w_t\]
 \[\E{x_t} = \sum_{j=0}^q \theta_j\E{w_{t-j}} = 0\]
@@ -2196,68 +2215,67 @@ $\ARMA$
 \cdots + \theta_q w_{t-q}\]
 \[\phi(B) x_t = \theta(B) w_t\]
 
-\T{Partial autocorrelation function (PACF)}
+Partial autocorrelation function (PACF)
 \begin{itemize}
-  \item $x_i^{h-1} \eqdef$ \T{regression of xi on}
+  \item $x_i^{h-1} \eqdef$ regression of $x_i$ on
     $\{x_{h-1}, x_{h-2}, \dots, x_1\}$
   \item $\phi_{hh} = corr(x_h - x_h^{h-1}, x_0 - x_0^{h-1}) \quad h \ge 2$
   \item E.g., $\phi_{11} = corr(x_1,x_0) = \rho(1)$
 \end{itemize}
 
 $\ARIMA$
-\[\nabla^d x_t = (1-B)^d x_t \text{ \T{is} } \ARMA\]
+\[\nabla^d x_t = (1-B)^d x_t \text{ is } \ARMA\]
 \[\phi(B)(1-B)^d x_t = \theta(B) w_t\]
 
-\T{Exponentially Weighted Moving Average (EWMA)}
+Exponentially Weighted Moving Average (EWMA)
 \[x_t = x_{t-1} + w_t - \lambda w_{t-1}\]
 \[x_t = \sum_{j=1}^\infty(1-\lambda)\lambda^{j-1} x_{t-j} + w_t
-\quad\text{\T{when} } |\lambda| < 1\]
+\quad\text{when } |\lambda| < 1\]
 \[\tilde{x}_{n+1} = (1-\lambda)x_n + \lambda \tilde{x}_n\]
 
-\T{Seasonal ARIMA}
-\begin{itemize}
-  \item \T{Denoted by} $\SARIMA$
+\begin{titemize}{Seasonal ARIMA}
+  \item Denoted by $\SARIMA$
   \item $\Phi_P(B^s) \phi(B) \nabla_s^D \nabla^d x_t
     = \delta + \Theta_Q(B^s)\theta(B)w_t$
-\end{itemize}
+\end{titemize}
 
-\subsubsection{\T{Causality and Invertibility}}
-$\ARMA$ \T{is causal (future-independent)}
-$\eqv \exists \{\psi_j\} : \sum_{j=0}^\infty \psi_j < \infty$ \T{such that}
+\subsubsection{Causality and Invertibility}
+$\ARMA$ is causal (future-independent)
+$\eqv \exists \{\psi_j\} : \sum_{j=0}^\infty \psi_j < \infty$ such that
 \[x_t = \sum_{j=0}^\infty w_{t-j} = \psi(B)w_t\]
 
-$\ARMA$ \T{is invertible}
-$\eqv \exists \{\pi_j\} : \sum_{j=0}^\infty \pi_j < \infty$ \T{such that}
+$\ARMA$ is invertible
+$\eqv \exists \{\pi_j\} : \sum_{j=0}^\infty \pi_j < \infty$ such that
 \[\pi(B)x_t = \sum_{j=0}^\infty X_{t-j} = w_t\]
 
-\T{Properties}
+Properties
 \begin{itemize}
-  \item $\ARMA$ \T{causal} $\eqv$
-    \T{roots of phi(z) lie outside the unit circle}
+  \item $\ARMA$ causal $\eqv$
+    roots of $\phi(z)$ lie outside the unit circle
     \[\psi(z) = \sum_{j=0}^\infty\psi_j z^j = \frac{\theta(z)}{\phi(z)}
     \quad |z| \le 1\]
-  \item $\ARMA$ \T{invertible} $\eqv$
-    \T{roots of theta(z) lie outside the unit circle}
+  \item $\ARMA$ invertible $\eqv$
+    roots of $\theta(z)$ lie outside the unit circle
     \[\pi(z) = \sum_{j=0}^\infty\pi_j z^j = \frac{\phi(z)}{\theta(z)}
     \quad |z| \le 1\]
 \end{itemize}
 
-\T{Behavior of the ACF and PACF for causal and invertible ARMA models}
+Behavior of the ACF and PACF for causal and invertible ARMA models
 
 \begin{center}
   \begin{tabular}{|c|ccc|}
     \hline
     & $\AR$ & $\MA$ & $\ARMA$\\
     \hline
-    ACF & \T{tails off} & \T{cuts off after lag $q$} & \T{tails off} \\
-    PACF & \T{cuts off after lag $p$} & \T{tails off $q$} & \T{tails off} \\
+    ACF & tails off & cuts off after lag $q$ & tails off \\
+    PACF & cuts off after lag $p$ & tails off $q$ & tails off \\
     \hline
   \end{tabular}
 \end{center}
 
-\subsection{\T{Spectral Analysis}}
+\subsection{Spectral Analysis}
 
-\T{Periodic process}
+Periodic process
 \begin{align*}
   x_t
   &= A \cos(2\pi\omega t + \phi) \\
@@ -2265,26 +2283,25 @@ $\eqv \exists \{\pi_j\} : \sum_{j=0}^\infty \pi_j < \infty$ \T{such that}
 \end{align*}
 
 \begin{itemize}
-  \item \T{Frequency index omega (cycles per unit time)},
-    \T{period} $1/\omega$
-  \item \T{Amplitude} $A$
-  \item \T{Phase} $\phi$
-  \item $U_1 = A\cos\phi$ \T{and} $U_2 = A\sin\phi$
-    \T{often normally distributed RV's}
+  \item Frequency index $\omega$ (cycles per unit time),
+    period $1/\omega$
+  \item Amplitude $A$
+  \item Phase $\phi$
+  \item $U_1 = A\cos\phi$ and $U_2 = A\sin\phi$ often normally distributed \rv's
 \end{itemize}
 
-\T{Periodic mixture}
+Periodic mixture
 \[x_t = \sum_{k=1}^q\left( U_{k1}\cos(2\pi\omega_k t)
 + U_{k2}\sin(2\pi\omega_k t)
 \right)\]
 \begin{itemize}
-  \item $U_{k1}, U_{k2}$, \T{for} $k=1,\ldots,q$,
-    \T{are independent zero-mean RV's with variances} $\sigma_k^2$
+  \item $U_{k1}, U_{k2}$, for $k=1,\ldots,q$,
+    are independent zero-mean \rv's with variances $\sigma_k^2$
   \item $\gamma(h) = \sum_{k=1}^q \sigma_k^2 \cos(2\pi\omega_k h)$
   \item $\gamma(0) = \E{x_t^2} = \sum_{k=1}^q \sigma_k^2$
 \end{itemize}
 
-\T{Spectral representation of a periodic process}
+Spectral representation of a periodic process
 \begin{align*}
 \gamma(h)
 &= \sigma^2 \cos(2\pi\omega_0 h) \\
@@ -2293,7 +2310,7 @@ $\eqv \exists \{\pi_j\} : \sum_{j=0}^\infty \pi_j < \infty$ \T{such that}
 &= \int_{-1/2}^{1/2} e^{2\pi i \omega h} \d{F(\omega)}
 \end{align*}
 
-\T{Spectral distribution function}
+Spectral distribution function
 \[F(\omega)= \begin{cases}
   0 & \omega < -\omega_0 \\
   \sigma^2/2 & -\omega \le \omega < \omega_0 \\
@@ -2304,38 +2321,38 @@ $\eqv \exists \{\pi_j\} : \sum_{j=0}^\infty \pi_j < \infty$ \T{such that}
   \item $F(\infty) = F(1/2) = \gamma(0)$
 \end{itemize}
 
-\T{Spectral density}
+Spectral density
 \[f(\omega) = \sum_{h=-\infty}^\infty \gamma(h) e^{-2\pi i \omega h}
 \quad -\frac{1}{2} \le \omega \le \frac{1}{2}\]
 \begin{itemize}
-  \item \T{Needs} $\sum_{h=-\infty}^\infty |\gamma(h)| < \infty
+  \item Needs $\sum_{h=-\infty}^\infty |\gamma(h)| < \infty
     \imp \gamma(h) = \int_{-1/2}^{1/2} e^{2\pi i \omega h}f(\omega) \d\omega
     \quad h=0,\pm1,\ldots$
   \item $f(\omega) \ge 0$
   \item $f(\omega) = f(-\omega)$
   \item $f(\omega) = f(1-\omega)$
   \item $\gamma(0) = \V{x_t} = \int_{-1/2}^{1/2}f(\omega)\d\omega$
-  \item \T{White noise}: $f_w(\omega) = \sigma_w^2$
+  \item White noise: $f_w(\omega) = \sigma_w^2$
   \item $\ARMA, \phi(B)x_t = \theta(B)w_t$:
     \[f_x(\omega) = \sigma_w^2 \frac{|\theta(e^{-2\pi i
     \omega})|^2}{|\phi(e^{-2\pi i \omega})|^2}\]
-    \T{where} $\phi(z) = 1 - \sum_{k=1}^p \phi_k z^k$ \T{and}
+    where $\phi(z) = 1 - \sum_{k=1}^p \phi_k z^k$ and
     $\theta(z) = 1 + \sum_{k=1}^q \theta_k z^k$
 \end{itemize}
 
-\T{Discrete Fourier Transform (DFT)}
+Discrete Fourier Transform (DFT)
 \[d(\omega_j) = n^{-1/2} \sum_{i=1}^n x_t e^{-2\pi i\omega_j t}\]
 
-\T{Fourier/Fundamental frequencies}
+Fourier/Fundamental frequencies
 \[\omega_j = j/n\]
 
-\T{Inverse DFT}
+Inverse DFT
 \[x_t = n^{-1/2} \sum_{j=0}^{n-1} d(\omega_j) e^{2\pi i\omega_j t}\]
 
-\T{Periodogram}
+Periodogram
 \[I(j/n) = |d(j/n)|^2\]
 
-\T{Scaled Periodogram}
+Scaled Periodogram
 \begin{align*}
 P(j/n)
 &= \frac{4}{n}I(j/n) \\
@@ -2388,33 +2405,33 @@ P(j/n)
 %  L_2(-1,1)
 %\end{align*}
 
-\subsection{\T{Gamma Function}}
+\subsection{Gamma Function}
 \label{sec:math:gamma}
 
 \begin{itemize}
-  \item \T{Ordinary}:
+  \item Ordinary:
     $\displaystyle\Gamma(s) = \int_0^\infty t^{s-1} e^{-t}dt$
-  \item \T{Upper incomplete}:
+  \item Upper incomplete:
     $\displaystyle\Gamma(s,x) = \int_x^\infty t^{s-1} e^{-t}dt$
-  \item \T{Lower incomplete}:
+  \item Lower incomplete:
     $\displaystyle\gamma(s,x) = \int_0^x t^{s-1} e^{-t}dt$
   \item $\Gamma(\alpha + 1) = \alpha \Gamma(\alpha) \qquad \alpha>1$
   \item $\Gamma(n) = (n-1)! \qquad n \in \mathbb N$
   \item $\Gamma(1/2) = \sqrt{\pi}$
 \end{itemize}
 
-\subsection{\T{Beta Function}}
+\subsection{Beta Function}
 \label{sec:math:beta}
 
 \begin{itemize}
-  \item \T{Ordinary}: $\text{B}(x,y) = \text{B}(y,x)
+  \item Ordinary: $\text{B}(x,y) = \text{B}(y,x)
     = \displaystyle\int_0^1 t^{x-1}(1-t)^{y-1} \,dt
     = \displaystyle\frac{\Gamma(x)\Gamma(y)}{\Gamma(x+y)}$
 %    \item $\alpha,\beta \in \mathbb N \imp \displaystyle
 %      \text{B}(\alpha,\beta) = \frac{(\alpha-1)!(\beta-1)!}{(\alpha+\beta-1)!}$
-\item \T{Incomplete}: $\text{B}(x;\,a,b)
+\item Incomplete: $\text{B}(x;\,a,b)
     = \displaystyle\int_0^x t^{a-1}(1-t)^{b-1} \,dt$
-  \item \T{Regularized incomplete}: \\
+  \item Regularized incomplete: \\
     $I_x(a,b) = \displaystyle\frac{\text{B}(x;\,a,b)}{\text{B}(a,b)}
       \stackrel{a,b\in\mathbb N}{=}
       \sum_{j=a}^{a+b-1} \frac{(a+b-1)!}{j!(a+b-1-j)!}x^j(1-x)^{a+b-1-j}$
@@ -2422,10 +2439,10 @@ P(j/n)
   \item $I_x(a,b) = 1 - I_{1-x}(b,a)$
 \end{itemize}
 
-\subsection{\T{Series}}
+\subsection{Series}
 
 \begin{multicols}{2}
-  \begin{titemize}{\T{Finite}}
+  \begin{titemize}{Finite}
   \item $\displaystyle\sum_{k=1}^n k = \frac{n(n+1)}{2}$
   \item $\displaystyle\sum_{k=1}^n (2k-1) = n^2$
   \item $\displaystyle\sum_{k=1}^n k^2 = \frac{n(n+1)(2n+1)}{6}$
@@ -2433,18 +2450,18 @@ P(j/n)
   \item $\displaystyle\sum_{k=0}^n c^k = \frac{c^{n+1}-1}{c-1} \quad c\neq1$
 \end{titemize}
 
-\begin{titemize}{\T{Binomial}}
+\begin{titemize}{Binomial}
   \item $\displaystyle\sum_{k=0}^n \binom{n}{k} = 2^n$
   \item $\displaystyle\sum_{k=0}^n \binom{r+k}{k}=\binom{r+n+1}{n}$
   \item $\displaystyle\sum_{k=0}^n \binom{k}{m}=\binom{n+1}{m+1}$
-  \item \T{Vandermonde's Identity}:\\
+  \item \textsc{Vandermonde}'s Identity:\\
     $\displaystyle\sum_{k=0}^r \binom{m}{k}\binom{n}{r-k}=\binom{m+n}{r}$
-  \item \T{Binomial Theorem}:\\
+  \item Binomial Theorem:\\
     $\displaystyle\sum_{k=0}^n \binom{n}{k}a^{n-k}b^k = (a+b)^n$
 \end{titemize}
 \end{multicols}
 
-\T{Infinite}
+Infinite
 \begin{itemize}
   \item $\displaystyle\sum_{k=0}^\infty p^k = \frac{1}{1-p},
     \quad \sum_{k=1}^\infty p^k = \frac{p}{1-p} \quad |p|<1$
@@ -2467,20 +2484,20 @@ P(j/n)
 
 \vfill~
 
-\subsection{\T{Combinatorics}}
+\subsection{Combinatorics}
 
-\T{Sampling}
+Sampling
 \begin{center}
   \begin{tabular}[h]{|l*2{|>{\begin{math}\displaystyle}c<{\end{math}}}|}
   \hline &&\\[-1.5ex]
-  \T{k out of n} & \text{\T{w/o replacement}} & \text{\T{w/ replacement}}
+  $k$ out of $n$ & \text{w/o replacement} & \text{w/ replacement}
   \\[1ex]
   \hline
-  \T{ordered} & n^{\underline k}
+  ordered & n^{\underline k}
     = \displaystyle\prod_{i=0}^{k-1}(n-i)
     = \frac{n!}{(n-k)!}
     & n^k \\[3ex]
-    \T{unordered} & \binom{n}{k} = \frac{n^{\underline k}}{k!}
+    unordered & \binom{n}{k} = \frac{n^{\underline k}}{k!}
     = \frac{n!}{k!(n-k)!} &
     \binom{n-1+r}{r}=\binom{n-1+r}{n-1} \\[3ex]
   \hline
@@ -2489,46 +2506,46 @@ P(j/n)
 
 \newcommand{\stirling}[2]{\genfrac{\{}{\}}{0pt}{}{#1}{#2}}
 
-\T{Stirling numbers, 2nd kind}
+Stirling numbers, $2^{nd}$ kind
 \[\stirling{n}{k} = k\stirling{n-1}{k}+\stirling{n-1}{k-1}
   \qquad 1\le k \le n \qquad
-  \stirling{n}{0} = \begin{cases} 1 & n = 0\\ 0 & \text{\T{else}} \end{cases}\]
+  \stirling{n}{0} = \begin{cases} 1 & n = 0\\ 0 & \text{else} \end{cases}\]
 
-\T{Partitions}
+Partitions
 \[P_{n+k,k} = \sum_{i=1}^n P_{n,i} \qquad \qquad
   k>n:\;P_{n,k} = 0 \qquad n\ge1:\;P_{n,0} = 0, \; P_{0,0} = 1\]
 
 % Distinguishability.
 \def\distinguishable{\ensuremath{D}\xspace}
 \def\indistinguishable{\ensuremath{\neg \distinguishable}\xspace}
-\T{Balls and Urns} \qquad $f: B \to U$ \qquad
-\distinguishable = \T{distinguishable},
-\indistinguishable = \T{indistinguishable}.
+Balls and Urns \qquad $f: B \to U$ \qquad
+\distinguishable = distinguishable,
+\indistinguishable = indistinguishable.
 \begin{center}
   \begin{tabular}[h]{|l*4{|>{\begin{math}\displaystyle}c<{\end{math}}}|}
     \hline &&&&\\[-1.5ex]
-    $|B|=n$, $|U|=m$ & f \text{ \T{arbitrary}} & f \text{ \T{injective}} &
-    f \text{ \T{surjective}} & f \text{ \T{bijective}} \\[1ex]
+    $|B|=n$, $|U|=m$ & f \text{ arbitrary} & f \text{ injective} &
+    f \text{ surjective} & f \text{ bijective} \\[1ex]
     \hline
     \hline &&&&\\[-2ex]
     $B:\distinguishable,\; U:\distinguishable$ &
       m^n & \begin{cases} m^{\underline n} & m \ge n\\
-      0 & \text{\T{else}} \end{cases} & m!\,\stirling{n}{m} &
-      \begin{cases} n! & m = n\\ 0 & \text{\T{else}} \end{cases}\\[3ex]
+      0 & \text{else} \end{cases} & m!\,\stirling{n}{m} &
+      \begin{cases} n! & m = n\\ 0 & \text{else} \end{cases}\\[3ex]
     \hline &&&&\\[-2ex]
     $B:\indistinguishable,\; U:\distinguishable$ &
       \binom{m+n-1}{n} & \binom{m}{n} &
       \binom{n-1}{m-1} &
-      \begin{cases} 1 & m = n\\ 0 & \text{\T{else}} \end{cases}\\[3ex]
+      \begin{cases} 1 & m = n\\ 0 & \text{else} \end{cases}\\[3ex]
     \hline &&&&\\[-2ex]
     $B:\distinguishable,\; U:\indistinguishable$ &
       \sum_{k=1}^m \stirling{n}{k} & \begin{cases} 1 &
-      m\ge n\\ 0 & \text{\T{else}} \end{cases} & \stirling{n}{m} &
-      \begin{cases} 1 & m = n\\ 0 & \text{\T{else}} \end{cases}\\[3ex]
+      m\ge n\\ 0 & \text{else} \end{cases} & \stirling{n}{m} &
+      \begin{cases} 1 & m = n\\ 0 & \text{else} \end{cases}\\[3ex]
     \hline &&&&\\[-2ex]
     $B:\indistinguishable,\; U:\indistinguishable$ & \sum_{k=1}^m P_{n,k} &
-      \begin{cases} 1 & m \ge n\\ 0 & \text{\T{else}} \end{cases} & P_{n,m} &
-      \begin{cases} 1 & m = n\\ 0 & \text{\T{else}} \end{cases}\\[3ex]
+      \begin{cases} 1 & m \ge n\\ 0 & \text{else} \end{cases} & P_{n,m} &
+      \begin{cases} 1 & m = n\\ 0 & \text{else} \end{cases}\\[3ex]
     \hline
   \end{tabular}
 \end{center}
@@ -2560,6 +2577,7 @@ P(j/n)
 \footnotesize
 \bibliographystyle{abbrv}
 \bibliography{cookbook}
+\vfill~
 }
 
 \end{multicols*}
@@ -2569,8 +2587,8 @@ P(j/n)
 \begin{sidewaysfigure}
   \captionsetup{labelformat=empty,labelsep=none}
   \includegraphics[width=\textwidth]{figs/relationships}
-  \caption{\T{Univariate distribution relationships,
-  courtesy Leemis and McQueston}~\cite{Leemis08}.}
+  \caption{Univariate distribution relationships, courtesy Leemis and
+  McQueston~\cite{Leemis08}.}
 \end{sidewaysfigure}
 
 \end{document}
