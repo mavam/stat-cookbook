@@ -1,0 +1,71 @@
+!!!
+%html(lang="en-us")
+  %head
+    %meta(charset="UTF-8")
+    %meta(name="description" content="A succinct reference in probability theory and statistics")
+    %meta(name="keywords" content="Probability,Statistics,Reference,Cheatsheet,Cookbook")
+    %meta(name="author" content="Matthias Vallentin")
+    %meta(name="viewport" content="width=device-width, initial-scale=1")
+    %title
+      The Probability and Statistics Cookbook
+    %link(rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen")
+    %link(href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css')
+    %link(rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen")
+    %link(rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen")
+  %body
+    %section.page-header
+      %h1.project-name The Probability and Statistics Cookbook
+      %h2.project-tagline
+      %a.btn(href="https://github.com/mavam/stat-cookbook/releases/download/0.1/stat-cookbook.pdf")
+        Download PDF
+      %a.btn(href="https://github.com/mavam/stat-cookbook")
+        View on GitHub
+    %section.main-content
+      %p
+        :markdown 
+          The probability and statistics cookbook is a succinct representation
+          of various topics in probability theory and statistics. It provides a
+          comprehensive mathematical reference reduced to its essence, rather
+          than aiming for elaborate explanations.
+
+          The source code for this document is freely available on
+          [github](https://github.com/mavam/stat-cookbook) and comes with a
+          [Attribution-NonCommercial-ShareAlike 4.0 International
+          License](http://creativecommons.org/licenses/by-nc-sa/4.0/). 
+      %h2
+        %a#download.anchor{"aria-hidden" => "true", :href => "#download"}
+          %span.octicon.octicon-link
+        Download
+      %p
+        :markdown
+          Latest release:
+
+          - Version: [0.1](https://github.com/mavam/stat-cookbook/releases/tag/0.1)
+          - Date: October 21, 2015
+
+          Copyright &copy; [Matthias Vallentin](http://matthias.vallentin.net).
+          To reproduce, please [contact me](http://matthias.vallentin.net).
+      %h2
+        %a#build.anchor{"aria-hidden" => "true", :href => "#build"}
+          %span.octicon.octicon-link
+        Build
+      %p
+        :markdown
+          After cloning, you can build the cookbook locally via `make`. This
+          first generates the distribution plots via R and then compiles the
+          LaTeX source. You may have to install a few missing packages via
+          CRAN.
+      %footer.site-footer
+        %span.site-footer-credits
+          :markdown
+            This page uses the [Cayman
+            theme](https://github.com/jasonlong/cayman-theme) by [Jason
+            Long](https://twitter.com/jasonlong)
+    :javascript
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+              :javascript
+      try {
+        var pageTracker = _gat._getTracker("UA-1823891-3");
+        pageTracker._trackPageview();
+      } catch(err) {}
