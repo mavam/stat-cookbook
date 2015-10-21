@@ -47,6 +47,6 @@ Screenshots
 ![Bayesian](http://matthias.vallentin.net/blog/2010/10/bayesian.png)
 ![Time Series](http://matthias.vallentin.net/blog/2010/10/time-series.png)
 
-[stat-cookbook]: http://matthias.vallentin.net/probability-and-statistics-cookbook/
+[stat-cookbook]: http://statistics.zone
 [by-nc-sa]: http://creativecommons.org/licenses/by-nc-sa/3.0/
 [by-nc-sa-img]: http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png

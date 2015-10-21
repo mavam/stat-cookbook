@@ -5,7 +5,7 @@
 %
 % ----------------------------------------------------------------------------
 %
-% Copyright © Matthias Vallentin <vallentin@icir.org>, 2014
+% Copyright © Matthias Vallentin <vallentin@icir.org>, 2015
 %
 
 \documentclass[landscape]{article}
@@ -49,7 +49,6 @@
 \pagestyle{fancy}
 \fancyhf{} % clear all header and footer fields
 \fancyhead{}
-%\fancyfoot[C]{\footnotesize Copyright (c) Matthias Vallentin, 2010}
 \fancyfoot[R]{\footnotesize \thepage}
 \renewcommand{\headrulewidth}{0pt}
 
@@ -68,9 +67,8 @@
 }
 
 % Personal
-\def\email{vallentin@icir.org}
-\def\web{%
-  \url{http://matthias.vallentin.net/probability-and-statistics-cookbook/}}
+\def\email{info@statistics.zone}
+\def\web{\url{http://statistics.zone/}}
 
 % An itemize list with a title that avoids a break between title and list.
 \newenvironment{titemize}[1]{
@@ -90,10 +88,10 @@
   \textsc{\Huge \T{maintitle}\\[2ex] \huge \T{subtitle}}
   \vfill
   \footnotesize{
-  Copyright \copyright{}
-  \href{http://matthias.vallentin.net}{Matthias Vallentin}, \number\year\\
-    \texttt{\href{mailto:\email}{\email}}\\[2ex]
-    \today
+    \today\\[1ex]
+    \web\\[1ex]
+    Copyright \copyright{}
+    \href{http://matthias.vallentin.net}{Matthias Vallentin}, \number\year\\
   }
 \end{center}
 
@@ -101,9 +99,11 @@
 
 \thispagestyle{empty}
 \begin{multicols*}{3}
-  {\footnotesize \T{disclaimer}}
   \tableofcontents
-  \vfill~
+  \vfill
+  \hrule
+  \vspace{5pt}
+  {\footnotesize \T{disclaimer}}
 \end{multicols*}
 
 \newpage
