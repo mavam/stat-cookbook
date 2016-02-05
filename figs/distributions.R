@@ -236,12 +236,12 @@ plot.f <- function(mode, xmin=0, xmax=5,
 plot.exp <- function(mode, xmin=0, xmax=5,
                      theta=data.frame(c(2,1,0.4)),
                      title="Exponential") {
-  lab.fn <- function(x) substitute(beta==i, list(i=x))
+  lab.fn <- function(x) substitute(beta==i, list(i=1/x))
   plot.continuous(xmin, xmax, theta, "exp", mode, title, lab.fn)
 }
 
 plot.gamma <- function(mode, xmin=0, xmax=20,
-                       theta=data.frame(a=c(1,2,3,5,9), b=c(2,2,2,1,0.5)),
+                       theta=data.frame(a=c(1,2,3,5,9), b=c(0.5,0.5,0.5,1,2)),
                        title="Gamma") {
   lab.fn <- function(x, y) substitute(list(alpha==i, beta==j), list(i=x, j=y))
   plot.continuous(xmin, xmax, theta, "gamma", mode, title, lab.fn)
