@@ -52,13 +52,17 @@
 \setitemize{itemsep=0.2mm,parsep=1pt}
 \setenumerate{itemsep=0.2mm,parsep=1pt}
 
+% A type of blue that doesn't look as aggressive as the default 'blue' but also
+% distinguishes well from black while not appearing to light.
+\definecolor{trueblue}{rgb}{0.0, 0.45, 0.81}
+
 % Link style (hyperref package)
 \hypersetup{
   colorlinks=true,        % false: boxed links; true: colored links
-  linkcolor=red,          % color of internal links
-  citecolor=cyan,         % color of links to bibliography
-  filecolor=magenta,      % color of file links
-  urlcolor=blue           % color of external links
+  linkcolor=black,        % color of internal links
+  citecolor=trueblue,     % color of links to bibliography
+  filecolor=trueblue,     % color of file links
+  urlcolor=trueblue       % color of external links
 }
 
 % Personal
