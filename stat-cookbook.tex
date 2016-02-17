@@ -25,6 +25,7 @@
 \usepackage{multicol}
 \usepackage{rotating}
 \usepackage{tikz}
+\usepackage{threeparttable}
 \usepackage{url}
 \usepackage{xspace}
 
@@ -185,7 +186,7 @@ to refer to the Beta functions (see \S\ref{sec:math:beta}).}
 
 \subsection{Continuous Distributions}
 
-\begin{center}
+\begin{threeparttable}
 \small
 %\newcolumntype{L}{>{\varwidth[c]{\linewidth}}l<{\endvarwidth}}
 \newcolumntype{M}{>{\begin{math}\displaystyle}c<{\end{math}}}
@@ -244,14 +245,14 @@ to refer to the Beta functions (see \S\ref{sec:math:beta}).}
   & \frac{2d_2^2(d_1+d_2-2)}{d_1(d_2-2)^2(d_2-4)} %\; d_2 > 4
   & \\[3ex]
 
-  Exponential & \ex & \pex & \dex &
+  Exponential\tnote{$\ast$} & \ex & \pex & \dex &
   \beta & \beta^2 &
-  \frac{1}{1-\beta s} \left(s < 1/\beta \right) \\[3ex]
+  \frac{1}{1-\frac{s}{\beta}} \left(s<\beta\right) \\[3ex]
 
-  Gamma & \gam &
-  \frac{\gamma(\alpha,x/\beta)}{\Gamma(\alpha)} & \dgamma &
-  \alpha\beta & \alpha\beta^2 &
-  \left( \frac{1}{1-\beta s} \right)^\alpha \left( s < 1/\beta \right)\\[3ex]
+  Gamma\tnote{$\ast$} & \gam &
+  \frac{\gamma(\alpha,\beta x)}{\Gamma(\alpha)} & \dgamma &
+  \frac{\alpha}{\beta} & \frac{\alpha}{\beta^2} &
+  \left(\frac{1}{1-\frac{s}{\beta}} \right)^\alpha \left(s<\beta\right)\\[3ex]
 
   Inverse Gamma & \invgamma & \pinvgamma & \dinvgamma &
   \frac{\beta}{\alpha-1} \; \alpha>1 &
@@ -284,7 +285,12 @@ to refer to the Beta functions (see \S\ref{sec:math:beta}).}
 
   \bottomrule
 \end{tabular}
-\end{center}
+\begin{tablenotes}
+\item[$\ast$] We use the \emph{rate} parameterization where
+  $\beta=\frac{1}{\lambda}$. Some textbooks use $\beta$ as \emph{scale}
+  parameter instead~\cite{Wasserman03}.
+\end{tablenotes}
+\end{threeparttable}
 
 \begin{figure}[H]
   \includegraphics[scale=0.35]{figs/uniform-pdf.pdf}
