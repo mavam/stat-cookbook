@@ -140,7 +140,14 @@
   (1-p+pe^s)^n \\[3ex]
 
   Multinomial & \mult & & \dmult \quad \sum_{i=1}^k x_i = n&
-  np_i & np_i(1-p_i) &
+  \left( {\begin{array}{*{20}{c}}
+    {n{p_1}}\\
+    \vdots \\
+    {n{p_k}}
+  \end{array}} \right) & \left( {\begin{array}{*{20}{c}}
+    {n{p_1}(1 - {p_1})}&{ - n{p_1}{p_2}}\\
+    { - n{p_2}{p_1}}& \ddots 
+    \end{array}} \right) &
   \left( \sum_{i=0}^k p_i e^{s_i} \right)^n \\[3ex]
 
   Hypergeometric & \hyper &
@@ -224,7 +231,9 @@ to refer to the Beta functions (see \S\ref{sec:math:beta}).}
   & \frac{\Gamma\left(\frac{\nu+1}{2}\right)}
     {\sqrt{\nu\pi}\Gamma\left(\frac{\nu}{2}\right)}
     \left(1+\frac{x^2}{\nu}\right)^{-(\nu+1)/2}
-  & 0 %\; \nu > 1
+  & \begin{array}{*{20}{c}}
+  0&{\nu  > 1}
+  \end{array}
   & \begin{cases}
       \displaystyle\frac{\nu}{\nu-2} & \nu > 2 \\
       \infty & 1 < \nu \le 2
@@ -1209,7 +1218,7 @@ Definitions
   \item Kernel: part of a density that depends on $\theta$
   \item Posterior mean $\bar\theta_n
     = \int\theta f(\theta\giv x^n)\,d\theta
-    = \frac{\int\theta\Lln(\theta)f(\theta)}
+    = \frac{\int\theta\Lln(\theta)f(\theta)d\theta}
            {\int\Lln(\theta)f(\theta)\,d\theta}$
 \end{itemize}
 
