@@ -140,7 +140,14 @@
   (1-p+pe^s)^n \\[3ex]
 
   Multinomial & \mult & & \dmult \quad \sum_{i=1}^k x_i = n&
-  np_i & np_i(1-p_i) &
+  \left( {\begin{array}{*{20}{c}}
+    {n{p_1}}\\
+    \vdots \\
+    {n{p_k}}
+  \end{array}} \right) & \left( {\begin{array}{*{20}{c}}
+    {n{p_1}(1 - {p_1})}&{ - n{p_1}{p_2}}\\
+    { - n{p_2}{p_1}}& \ddots 
+    \end{array}} \right) &
   \left( \sum_{i=0}^k p_i e^{s_i} \right)^n \\[3ex]
 
   Hypergeometric & \hyper &
