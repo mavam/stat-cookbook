@@ -9,6 +9,7 @@
 *.out
 *.sw?
 *.toc
+*.gz
 figs/*
 !figs/relationships.pdf
 stat-cookbook.pdf
