@@ -241,9 +241,9 @@ plot.exp <- function(mode, xmin=0, xmax=5,
 }
 
 plot.gamma <- function(mode, xmin=0, xmax=20,
-                       theta=data.frame(a=c(1,2,3,5,9), b=c(0.5,0.5,0.5,1,2)),
+                       theta=data.frame(a=c(1,2,7,5,9), b=c(0.5,0.5,0.5,1,2)),
                        title="Gamma") {
-  lab.fn <- function(x, y) substitute(list(alpha==i, beta==j), list(i=x, j=y))
+  lab.fn <- function(x, y) substitute(list(alpha==i, beta==j), list(i=x, j=1/y))
   plot.continuous(xmin, xmax, theta, "gamma", mode, title, lab.fn)
 }
 
