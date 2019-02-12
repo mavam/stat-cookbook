@@ -4,14 +4,12 @@
 *.bbl
 *.blg
 *.brf
+*.fls
 *.log
 *.out
 *.sw?
 *.toc
+*.gz
 figs/*
 !figs/relationships.pdf
-cookbook.pdf
-cookbook-??.*
-config.tex
-literature
-stat-cookbook.tar.gz
+stat-cookbook.pdf
