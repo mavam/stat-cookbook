@@ -14,7 +14,8 @@ library(VGAM) # [dp]pareto
 line_width = 1.3
 point_size = 4
 theme_set(theme_bw(base_size=20))
-theme_update(legend.key=element_rect(colour="white"),
+theme_update(legend.background=element_rect(fill=alpha("white", 0)),
+             legend.key=element_rect(colour="white"),
              legend.key.width=unit(3, "lines"),
              plot.margin=unit(rep(0, 4), "lines"))
 
